@@ -1,14 +1,12 @@
 import React from 'react';
 import {
     AppBar,
-    createMuiTheme,
     Toolbar,
 } from '@material-ui/core';
 import { makeStyles } from "@material-ui/styles"
 import Grid from '@material-ui/core/Grid';
 import Button from '@material-ui/core/Button';
-import MuiThemeProvider from "@material-ui/core/styles/MuiThemeProvider";
-
+import {Link} from 'react-router-dom';
 
 const useStyle = makeStyles((theme) => ({
     root: {
@@ -23,25 +21,26 @@ const useStyle = makeStyles((theme) => ({
         width: '40%'
     },
     title: {
-        fontSize : '18px'
+        fontSize : '18px',
+        fontWeight : 600
+    },
+    contentArea : {
+        paddingTop : '5%',
+        width : '100%',
+        height : '100%',
+        minHeight : '80%',
+        minWidth : '100%',
+        position : 'sticky',
     }
 }))
 
-const whiteTheme = createMuiTheme({
-  palette: {
-    primary: {
-      main: "#ffffff",
-      contrastText: "#fff" //button text white instead of black
-    },
-    background: {
-      default: "#394764"
-    }
-  }
-});
 
 function HomeLayout(props) {
 
+    const {children} = props;
     const classes = useStyle();
+
+  
     return (
         <div className={classes.root}>
             <AppBar className={classes.appBar}>
@@ -52,16 +51,24 @@ function HomeLayout(props) {
                         justify="space-between"
                         alignItems="flex-start"
                     >   
-                    <MuiThemeProvider theme={whiteTheme}>
-                        <Button className={classes.title} color="primary" size="large" >北파고</Button>
-                        <Button className={classes.title} color="primary" size="large" >파일번역</Button>
-                        <Button className={classes.title} color="primary" size="large" >북한말 사전</Button>
-                        <Button className={classes.title} color="primary" size="large">자유게시판</Button>
-                    </MuiThemeProvider>
+                        <Link
+                            to= {{
+                                pathname: "/buk-pago"
+                            }}
+                            style={{textDecoration: 'none' }}
+                        >
+                            <Button className={classes.title} color="secondary" size="large" >北파고</Button>
+                        </Link>
+                        
+                        <Button className={classes.title} color="secondary" size="large" >북한말 사전</Button>
+                        <Button className={classes.title} color="secondary" size="large">자유게시판</Button>
                     </Grid>
                     
                 </Toolbar>
             </AppBar>
+            <div className={classes.contentArea}>
+                {children}    
+            </div>
         </div>
     )
 }
