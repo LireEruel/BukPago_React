@@ -15,7 +15,7 @@ const useStyle = makeStyles(theme=> ({
           padding : 0,
           margin : 0,
           minHeight: '100%',
-
+          backgroundColor : '#f7fafa'
         },    
       },    
 }))

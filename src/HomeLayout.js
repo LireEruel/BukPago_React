@@ -59,7 +59,7 @@ function HomeLayout(props) {
                         >
                             <Button className={classes.title} color="secondary" size="large" >北파고</Button>
                         </Link>
-                        
+                        <Button className={classes.title} color="secondary" size="large" >파일번역</Button>
                         <Button className={classes.title} color="secondary" size="large" >북한말 사전</Button>
                         <Button className={classes.title} color="secondary" size="large">자유게시판</Button>
                     </Grid>
