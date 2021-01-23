@@ -15,8 +15,6 @@ import Alert from '@material-ui/lab/Alert';
 
 
 
-
-
 const useStyles = makeStyles({
     root : {
         width : '99%',
@@ -77,7 +75,7 @@ export default function TranslationView(props) {
     const classes = useStyles();
     const [inputText, setInputText] = useState('');
     const [inputTextLength, setInputTextLength] = useState(0);
-    const [outputText, setOutputText] = useState('');
+    const [outputText, setOutputText] = useState('임시 텍스트');
     const [open, setOpen] = useState(false);
     const maxTextLength = 3000;
 
