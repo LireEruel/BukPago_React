@@ -47,13 +47,13 @@ const useStyles = makeStyles({
     },
     textLength : {
         position: 'absolute',
-        left : 690,
-        top : 600
+        left : '45%',
+        top : '90%'
     },
     clearButton : {
         position: 'absolute',
-        left : 730,
-        top : 270,
+        left : '47%',
+        top : '40%',
         marginRight : '2%',
     },
     grid : {
