@@ -48,6 +48,7 @@ const App= observer( (props) => {
           <HomeLayout>
             <Switch>
               <Route exact path="/buk-pago" component={TranslationView}/>
+              <Route exact path="/buk-pago/dictionary" component={TranslationView}/>
             </Switch>
           </HomeLayout>
         </Router>
