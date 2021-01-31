@@ -150,7 +150,7 @@ export default function TranslationView(props) {
                                 번역하기
                             </Button>
                             {
-                               inputTextLength == 0 ? null :(
+                               inputTextLength === 0 ? null :(
                                    <IconButton className = {classes.clearButton} variant="contained" disableRipple onClick={textClear}>
                                         <ClearIcon ></ClearIcon>
                                     </IconButton>
