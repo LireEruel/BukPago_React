@@ -8,6 +8,7 @@ import TableBody from '@material-ui/core/TableBody';
 import TableRow from '@material-ui/core/TableRow';
 import TableCell from '@material-ui/core/TableCell';
 import { withStyles } from '@material-ui/core/styles';
+import Button from '@material-ui/core/Button';
 
 const styles = theme => ({
     root: {
@@ -65,7 +66,7 @@ class FreeBoard extends Post {
             <Paper className={classes.root}>
                 <div className={classes.title}>
                     <Typography className={classes.title} variant="h3">
-                        자유게시판
+                        자유게시판<br/>
                     </Typography>
                 </div>
                 <Table className={classes.table}>
@@ -96,7 +97,10 @@ class FreeBoard extends Post {
                         })}
                     </TableBody>
                 </Table>
-             </Paper>
+                <Button className={classes.button} variant="contained" color="primary">
+                    글쓰기
+                </Button>
+            </Paper>
         );
     }
 }
