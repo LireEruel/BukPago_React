@@ -75,7 +75,7 @@ export default function TranslationView(props) {
     const classes = useStyles();
     const [inputText, setInputText] = useState('');
     const [inputTextLength, setInputTextLength] = useState(0);
-    const [outputText, setOutputText] = useState('임시 텍스트');
+    const [outputText, setOutputText] = useState('');
     const [open, setOpen] = useState(false);
     const [content, setContent] = useState('');
     const [severity, setSeverity] = useState('success');

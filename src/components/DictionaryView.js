@@ -5,7 +5,6 @@ import Grid from '@material-ui/core/Grid';
 import { DataGrid } from '@material-ui/data-grid';
 import TextField from '@material-ui/core/TextField';
 import SearchIcon from '@material-ui/icons/Search';
-import IconButton from '@material-ui/core/IconButton';
 
 var elem = (document.compatMode === "CSS1Compat") ? 
     document.documentElement :
@@ -42,7 +41,7 @@ const useStyles = makeStyles({
 })
 
 const columns = [
-    {field: 'id', headerName : '북한어', width: getWidth(0.75, 2/9) },
+    {field: 'id', headerName : '북한어', width: getWidth(0.75, 2/9)},
     {field: 'south', headerName : '남한어', width: getWidth(0.75, 2/9) },
     {field: 'mean', headerName : '뜻', width: getWidth(0.75, 5/10)}
 ]
@@ -85,7 +84,6 @@ export default function DictionaryView(props) {
                     <TextField className = {classes.search} id="standard-search" type="search" onKeyPress={handleKeyDown}/>
                     <SearchIcon onClick={search}/>
                 </div>
-                
             </div>
             <br/>
             <div className = {classes.content}>
@@ -97,7 +95,7 @@ export default function DictionaryView(props) {
                     alignItems="center"
                 >
                     <div className = {classes.table}>
-                        <DataGrid rows = {rows} columns = {columns} pageSize={8} />
+                        <DataGrid columns = {columns}   rows = {rows} pageSize={8} />
                     </div>
                 </Grid>
             </div>
