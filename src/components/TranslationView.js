@@ -56,9 +56,6 @@ const useStyles = makeStyles({
         top : '40%',
         marginRight : '2%',
     },
-    grid : {
-        width :'50%',
-    },
     bukPaper : {
         textAlign : "center",
         width : '10%',
@@ -130,7 +127,7 @@ export default function TranslationView(props) {
             <br/>
             <div className = {classes.content} >
                 <Grid
-                    classNmae = {classes.grid}
+                    className = {classes.grid}
                     container
                     direction="row"
                     justify="space-evenly"
