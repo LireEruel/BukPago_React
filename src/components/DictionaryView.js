@@ -88,7 +88,7 @@ export default function DictionaryView(props) {
             <br/>
             <div className = {classes.content}>
                 <Grid
-                    classNmae = {classes.grid}
+                    className = {classes.grid}
                     container
                     direction="row"
                     justify="space-evenly"
