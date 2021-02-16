@@ -31,6 +31,9 @@ const useStyle = makeStyles((theme) => ({
         minHeight : '80%',
         minWidth : '100%',
         position : 'sticky',
+    },
+    link : {
+        textDecoration: 'none'
     }
 }))
 
@@ -51,16 +54,21 @@ function HomeLayout(props) {
                         justify="space-between"
                         alignItems="flex-start"
                     >   
-                        <Link
+                        <Link className={classes.link}
                             to= {{
                                 pathname: "/buk-pago"
                             }}
-                            style={{textDecoration: 'none' }}
                         >
                             <Button className={classes.title} color="secondary" size="large" >北파고</Button>
                         </Link>
                         <Button className={classes.title} color="secondary" size="large" >파일번역</Button>
-                        <Button className={classes.title} color="secondary" size="large" >북한말 사전</Button>
+                        <Link className={classes.link}
+                            to= {{
+                                pathname: "/buk-pago/dictionary"
+                            }}
+                        >
+                            <Button className={classes.title} color="secondary" size="large" >북한말 사전</Button>
+                        </Link>
                         <Button className={classes.title} color="secondary" size="large">자유게시판</Button>
                     </Grid>
                     

@@ -7,6 +7,7 @@ import {observer} from "mobx-react"
 import HomeLayout from "./HomeLayout"
 import { makeStyles } from "@material-ui/styles"
 import TranslationView from "./components/TranslationView"
+import DictionaryView from "./components/DictionaryView"
 import {  createMuiTheme,} from '@material-ui/core';
 import MuiThemeProvider from "@material-ui/core/styles/MuiThemeProvider";
 const useStyle = makeStyles(theme=> ({
@@ -48,11 +49,11 @@ const App= observer( (props) => {
           <HomeLayout>
             <Switch>
               <Route exact path="/buk-pago" component={TranslationView}/>
+              <Route exact path="/buk-pago/dictionary" component={DictionaryView}/>
             </Switch>
           </HomeLayout>
         </Router>
-      </MuiThemeProvider>
-      
+      </MuiThemeProvider>  
     </div>
   );
 }) 

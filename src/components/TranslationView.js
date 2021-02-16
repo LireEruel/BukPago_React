@@ -1,4 +1,4 @@
-import React,  { useState } from 'react'
+import React,  { useContext, useState } from 'react'
 import { Typography, } from '@material-ui/core';
 import { makeStyles } from "@material-ui/styles"
 import TextField from '@material-ui/core/TextField';
@@ -11,7 +11,7 @@ import ClearIcon from '@material-ui/icons/Clear';
 import FileCopyIcon from '@material-ui/icons/FileCopy';
 import Snackbar from '@material-ui/core/Snackbar';
 import Alert from '@material-ui/lab/Alert';
-
+import TranslationStore from '../stores/TranslationStore'
 
 
 
@@ -47,17 +47,14 @@ const useStyles = makeStyles({
     },
     textLength : {
         position: 'absolute',
-        left : 690,
-        top : 600
+        left : '45%',
+        top : '90%'
     },
     clearButton : {
         position: 'absolute',
-        left : 730,
-        top : 270,
+        left : '47%',
+        top : '40%',
         marginRight : '2%',
-    },
-    grid : {
-        width :'50%',
     },
     bukPaper : {
         textAlign : "center",
@@ -75,14 +72,24 @@ export default function TranslationView(props) {
     const classes = useStyles();
     const [inputText, setInputText] = useState('');
     const [inputTextLength, setInputTextLength] = useState(0);
-    const [outputText, setOutputText] = useState('임시 텍스트');
+    const [outputText, setOutputText] = useState('');
     const [open, setOpen] = useState(false);
+    const [content, setContent] = useState('');
+    const [severity, setSeverity] = useState('success');
     const maxTextLength = 3000;
-
+    const translationStore = React.useContext(TranslationStore.context)
     const onChange = (e) => {
         const str = e.target.value;
-        setInputText(str);
-        setInputTextLength(str.length);
+        if(str.length <= maxTextLength)
+        {
+            setInputText(str);
+            setInputTextLength(str.length);
+        }
+        else {
+            setContent('3000자 이하만 입력 가능합니다.')
+            setSeverity("warning")
+            setOpen(true);
+        }
     };
 
     const textClear = () => {
@@ -93,6 +100,8 @@ export default function TranslationView(props) {
 
     const copyText = () => {
         navigator.clipboard.writeText(outputText);
+        setContent('복사가 완료되었습니다.')
+        setSeverity("success")
         setOpen(true);
     }
 
@@ -100,6 +109,14 @@ export default function TranslationView(props) {
         setOpen(false)
     };
 
+    const translate = () => {
+        translationStore.translate(inputText).then((result) => 
+            {
+                console.log(result)
+                //여기에 이제 result에서 한국어 뽑아내서 setOutputText(어쩌구) 해야한다.
+            }
+        )
+    }
     return(
         <div className={classes.root} >
             <div  className = {classes.title}>
@@ -110,7 +127,7 @@ export default function TranslationView(props) {
             <br/>
             <div className = {classes.content} >
                 <Grid
-                    classNmae = {classes.grid}
+                    className = {classes.grid}
                     container
                     direction="row"
                     justify="space-evenly"
@@ -146,7 +163,7 @@ export default function TranslationView(props) {
                         />
                         <Typography className = {classes.textLength}>{inputTextLength} / {maxTextLength}</Typography>
                         <Box className = {classes.box} >
-                            <Button className = {classes.button} variant="contained" disableRipple  color="primary">
+                            <Button className = {classes.button} variant="contained" disableRipple onClick={translate} color="primary">
                                 번역하기
                             </Button>
                             {
@@ -156,7 +173,6 @@ export default function TranslationView(props) {
                                     </IconButton>
                                )
                             }
-                            
                         </Box>
                     </Paper>
 
@@ -178,9 +194,9 @@ export default function TranslationView(props) {
                         </Box>
                     </Paper>
                 </Grid>
-                <Snackbar open={open} autoHideDuration={1100} onClose={handleClose}>
-                    <Alert onClose={handleClose} severity="success">
-                        복사에 성공했습니다.
+                <Snackbar open={open} autoHideDuration={1100} onClose={handleClose} content={content} severity = {severity}>
+                    <Alert onClose={handleClose} severity={severity}>
+                        {content}
                     </Alert>
                 </Snackbar>
             </div>
