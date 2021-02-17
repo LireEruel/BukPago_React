@@ -38,7 +38,6 @@ const theme = createMuiTheme({
 
 const App = observer((props) => {
     const classes = useStyle();
-
     return (
         <div className={classes.root}>
             <MuiThemeProvider theme={theme}>

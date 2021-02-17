@@ -21,15 +21,19 @@ const useStyle = makeStyles((theme) => ({
         fontSize: '18px',
         fontWeight: 600,
     },
-    contentArea: {
-        paddingTop: '5%',
-        width: '100%',
-        height: '100%',
-        minHeight: '80%',
-        minWidth: '100%',
-        position: 'sticky',
+    contentArea : {
+        paddingTop : '5%',
+        width : '100%',
+        height : '100%',
+        minHeight : '80%',
+        minWidth : '100%',
+        position : 'sticky',
     },
-}));
+    link : {
+        textDecoration: 'none'
+    }
+}))
+
 
 function HomeLayout(props) {
     const { children } = props;
@@ -45,7 +49,7 @@ function HomeLayout(props) {
                         direction="row"
                         justify="space-between"
                         alignItems="flex-start"
-                    >
+
                         <Link
                             to={{
                                 pathname: '/buk-pago',

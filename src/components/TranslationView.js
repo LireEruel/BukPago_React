@@ -55,13 +55,10 @@ const useStyles = makeStyles({
         top: '40%',
         marginRight: '2%',
     },
-    grid: {
-        width: '50%',
-    },
-    bukPaper: {
-        textAlign: 'center',
-        width: '10%',
-        backgroundColor: '#ffd6d6',
+    bukPaper : {
+        textAlign : "center",
+        width : '10%',
+        backgroundColor : '#ffd6d6'
     },
     namPaper: {
         textAlign: 'center',
@@ -74,7 +71,7 @@ export default function TranslationView(props) {
     const classes = useStyles();
     const [inputText, setInputText] = useState('');
     const [inputTextLength, setInputTextLength] = useState(0);
-    const [outputText, setOutputText] = useState('임시 텍스트');
+    const [outputText, setOutputText] = useState('');
     const [open, setOpen] = useState(false);
     const [content, setContent] = useState('');
     const [severity, setSeverity] = useState('success');
@@ -127,7 +124,7 @@ export default function TranslationView(props) {
             <br />
             <div className={classes.content}>
                 <Grid
-                    classNmae={classes.grid}
+                    className = {classes.grid}
                     container
                     direction="row"
                     justify="space-evenly"
