@@ -17,7 +17,7 @@ export async function readPost(post_id) {
 //등록
 export async function requestAddPost(post_title, post_content) {
     return await axios.post(
-        '/api/freeBoard', {
+        '/api/post/', {
             title: post_title,
             content: post_content,
         })

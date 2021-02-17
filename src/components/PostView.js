@@ -15,8 +15,7 @@ export default function PostView() {
                     </div>
                 </div>
                 <div>
-                    <TextField className={classes.content} id='content' multiline rows={30} value={} variant='outlined'
-                    />
+                    <TextField></TextField>
                 </div>
             </div>
         </div>

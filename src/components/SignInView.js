@@ -1,11 +1,11 @@
-import React, { Component, useContext, useState } from 'react';
+import React, { Component, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { makeStyles } from '@material-ui/styles';
 import TextField from '@material-ui/core/TextField';
+import Modal from '@material-ui/core/Modal';
 import Button from '@material-ui/core/Button';
 import axios from 'axios';
-import LoginStore from '../stores/LoginStore';
-import Snackbar from '@material-ui/core/Snackbar';
+
 
 const useStyles = makeStyles({
     root: {
@@ -25,7 +25,7 @@ const useStyles = makeStyles({
         padding: '20px',
         //      background: '#fff',
     },
-    loginContent: {
+    registerContent: {
         width: '100%',
         margin: '0 auto',
         position: 'relative',
@@ -35,7 +35,7 @@ const useStyles = makeStyles({
         justifyContent: 'center',
         flexDirection: 'column',
     },
-    loginId: {
+    registerId: {
         width: '100%',
         height: '40px',
         marginTop: '30px',
@@ -43,7 +43,7 @@ const useStyles = makeStyles({
         outline: 'none',
         boxSizing: 'border-box',
     },
-    loginPassword: {
+    registerPassword: {
         width: '100%',
         height: '40px',
         marginTop: '15px',
@@ -51,24 +51,25 @@ const useStyles = makeStyles({
         outline: 'none',
         boxSizing: 'border-box',
     },
-    login: {
+    register: {
         display: 'flex',
         justifyContent: 'space-between',
         alignItems: 'center',
     },
-    autoLogin: {
+    autoRegister: {
         marginTop: '20px',
         fontSize: '12px',
         color: '#8d8d8d',
         lineHeight: 3,
     },
-    loginBtn: {
+    registerBtn: {
+        variant: "contained",
+        color: "white",
         height: '40px',
         fontSize: '14px',
         padding: '13px 30px',
         cursor: 'pointer',
         backgroundColor: 'black',
-        color: 'white',
         lineHeight: '1px',
         marginTop: '20px',
         marginBottom: '12px',
@@ -77,58 +78,76 @@ const useStyles = makeStyles({
     },
 });
 
-export default function LogInView(props) {
+export default function SignInView(props) {
     const [userId, setUserId] = useState('');
     const [userPassword, setUserPassword] = useState('');
-    const [open, setOpen] = useState(true);
+    const [checkPassword, setUserCheckPassword] = useState('');
+    const [userNickname, makeUserNickname] = useState('');
+    const [open, setOpen] = useState(false);
     const classes = useStyles();
-    const loginStore = useContext(LoginStore.context);
+    const handleOpen = () => {
+        setOpen(true);
+    };
+    const handleClose = () => {
+        setOpen(false);
+    };
     const handleChangeUserId = (e) => {
         setUserId(e.target.value);
     };
     const handleChangeUserPassword = (e) => {
         setUserPassword(e.target.value);
     };
-    const handleLoginCheck = (e) => {
-        if (userId != '' && userPassword != '') {
-            loginStore.login(userId, userPassword).then((result) => {
-                alert('로그인 성공');
-            });
-        } else {
-            alert('로그인 실패');
-        }
+    const handleChangeUserCheckPassword = (e) => {
+        setUserCheckPassword(e.target.value);
+    };
+    const makeChangeUserNickname = (e) => {
+        makeUserNickname(e.target.value);
+    };
+    const handleRegisteUser = () => {
+        console.register({ userId }, { userPassword, userNickname });
+        /*
+        서버에 등록
+        */
     };
     return (
         <div className={classes.root}>
             <div className={classes.content}>
-                <div className={classes.loginContent}>
+                <div className={classes.registerContent}>
+                <TextField
+                        className={classes.registerPassword}
+                        id="registerNickname"
+                        placeholder="별명"
+                        onChange={makeChangeUserNickname}
+                        value={userNickname}
+                    ></TextField>
                     <TextField
-                        className={classes.loginId}
-                        id="loginId"
+                        className={classes.registerId}
+                        id="registerId"
                         placeholder="아이디"
                         onChange={handleChangeUserId}
                         value={userId}
                     ></TextField>
                     <TextField
-                        className={classes.loginPassword}
-                        id="loginPassword"
+                        className={classes.registerPassword}
+                        id="registerPassword"
                         placeholder="비밀번호"
                         onChange={handleChangeUserPassword}
                         value={userPassword}
                     ></TextField>
-                    <div className={classes.login}>
-                        <label className={classes.autoLogin} for="stay">
-                            {''}
-                            <input type="checkbox" id="stay" />
-                            로그인 유지하기
-                        </label>
-                        <Link to="/sign-in">
-                            <div className={classes.autoLogin}>회원가입</div>
-                        </Link>
-                    </div>
-                    <Button className={classes.loginBtn} onClick={handleLoginCheck}>
-                        {''}로그인{''}
+                    <TextField
+                        className={classes.registerPassword}
+                        id="checkPassword"
+                        placeholder="비밀번호 확인"
+                        onChange={handleChangeUserCheckPassword}
+                        value={checkPassword}
+                    ></TextField>
+
+                    <Button className={classes.registerBtn} onClick={handleRegisteUser}>
+                        {''}가입하기{''}
                     </Button>
+                    <Modal open={open} onClose={handleClose}>
+                             <SignInView />
+                         </Modal>
                 </div>
             </div>
         </div>

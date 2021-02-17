@@ -23,7 +23,7 @@ class PostStore {
         });
     }
     @action
-    updatePost(post_id, post_title, post_content) {
+    updatePost(post_id, post_title, post_text) {
         return requestUpdatePost(post_id, post_title, post_content).then(res => {
             return res
         })

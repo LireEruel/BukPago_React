@@ -18,6 +18,7 @@ import Button from '@material-ui/core/Button';
 import Modal from '@material-ui/core/Modal';
 import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
+import { DataGrid } from '@material-ui/data-grid';
 import PostStore from '../stores/PostStore';
 
 var elem = document.compatMode === 'CSS1Compat' ? document.documentElement : document.body;
@@ -239,7 +240,7 @@ export default function Freeboard(props) {
                 </Link>
             </div>
             <div>
-                <Link to="/sign-up">
+                <Link to="/sign-in">
                     <Button>Hi!</Button>
                 </Link>
                 <Button onClick={handleOpen}>Open Modal</Button>

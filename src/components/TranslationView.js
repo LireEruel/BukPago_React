@@ -8,65 +8,64 @@ import Button from '@material-ui/core/Button';
 import Box from '@material-ui/core/Box';
 import IconButton from '@material-ui/core/IconButton';
 import ClearIcon from '@material-ui/icons/Clear';
+import Backspace from '@material-ui/icons/Backspace';
 import FileCopyIcon from '@material-ui/icons/FileCopy';
 import Snackbar from '@material-ui/core/Snackbar';
 import Alert from '@material-ui/lab/Alert';
-import TranslationStore from '../stores/TranslationStore'
-
-
+import TranslationStore from '../stores/TranslationStore';
 
 const useStyles = makeStyles({
-    root : {
-        width : '99%',
-        height : '100%',
-        display : 'inline-block',
+    root: {
+        width: '99%',
+        height: '100%',
+        display: 'inline-block',
     },
-    title : {
-        paddingTop : '2%',
-        textAlign : "center",
-        fontWeight : 600
+    title: {
+        paddingTop: '2%',
+        textAlign: 'center',
+        fontWeight: 600,
     },
-    content : {
-        paddingTop : '1%'
+    content: {
+        paddingTop: '1%',
     },
-    paper : {
-        marginTop : '1%', 
-        width : '35%',
-        height : '50%',
+    paper: {
+        marginTop: '1%',
+        width: '35%',
+        height: '50%',
     },
-    textField : {
-        width : '100%',
+    textField: {
+        width: '100%',
     },
-    button : {
-        float: 'right'
+    button: {
+        float: 'right',
     },
-    box : {
+    box: {
         display: 'flex',
-        flex : 1,
-        flexDirection : 'row-reverse'
+        flex: 1,
+        flexDirection: 'row-reverse',
     },
-    textLength : {
+    textLength: {
         position: 'absolute',
-        left : '45%',
-        top : '90%'
+        left: '45%',
+        top: '90%',
     },
-    clearButton : {
+    clearButton: {
         position: 'absolute',
-        left : '47%',
-        top : '40%',
-        marginRight : '2%',
+        left: '47%',
+        top: '40%',
+        marginRight: '2%',
     },
     bukPaper : {
         textAlign : "center",
         width : '10%',
         backgroundColor : '#ffd6d6'
     },
-    namPaper : {
-        textAlign : "center",
-        width : '10%',
-        backgroundColor : '#d6f8ff'
+    namPaper: {
+        textAlign: 'center',
+        width: '10%',
+        backgroundColor: '#d6f8ff',
     },
-})
+});
 
 export default function TranslationView(props) {
     const classes = useStyles();
@@ -77,17 +76,15 @@ export default function TranslationView(props) {
     const [content, setContent] = useState('');
     const [severity, setSeverity] = useState('success');
     const maxTextLength = 3000;
-    const translationStore = React.useContext(TranslationStore.context)
+    const translationStore = React.useContext(TranslationStore.context);
     const onChange = (e) => {
         const str = e.target.value;
-        if(str.length <= maxTextLength)
-        {
+        if (str.length <= maxTextLength) {
             setInputText(str);
             setInputTextLength(str.length);
-        }
-        else {
-            setContent('3000자 이하만 입력 가능합니다.')
-            setSeverity("warning")
+        } else {
+            setContent('3000자 이하만 입력 가능합니다.');
+            setSeverity('warning');
             setOpen(true);
         }
     };
@@ -100,13 +97,13 @@ export default function TranslationView(props) {
 
     const copyText = () => {
         navigator.clipboard.writeText(outputText);
-        setContent('복사가 완료되었습니다.')
-        setSeverity("success")
+        setContent('복사가 완료되었습니다.');
+        setSeverity('success');
         setOpen(true);
-    }
+    };
 
     const handleClose = () => {
-        setOpen(false)
+        setOpen(false);
     };
 
     const translate = () => {
@@ -124,8 +121,8 @@ export default function TranslationView(props) {
                     북한어 번역
                 </Typography>
             </div>
-            <br/>
-            <div className = {classes.content} >
+            <br />
+            <div className={classes.content}>
                 <Grid
                     className = {classes.grid}
                     container
@@ -133,51 +130,53 @@ export default function TranslationView(props) {
                     justify="space-evenly"
                     alignItems="center"
                 >
-                    <Paper className = {classes.bukPaper}>
-                        <Typography  variant="h5" >
-                            북한어
-                        </Typography>
+                    <Paper className={classes.bukPaper}>
+                        <Typography variant="h5">북한어</Typography>
                     </Paper>
-                    <Paper className = {classes.namPaper} >
-                        <Typography  variant="h5" >
-                            남한어
-                        </Typography>
+                    <Paper className={classes.namPaper}>
+                        <Typography variant="h5">남한어</Typography>
                     </Paper>
                 </Grid>
-                <Grid
-                    container
-                    direction="row"
-                    justify="center"
-                    alignItems="center"
-                >
-                    <Paper className = {classes.paper}>
-                        <TextField className = {classes.textField}
+                <Grid container direction="row" justify="center" alignItems="center">
+                    <Paper className={classes.paper}>
+                        <TextField
+                            className={classes.textField}
                             id="outlined-multiline-static"
-                            multiline                           
+                            multiline
                             autoFocus
                             rows={17}
-                            onChange={onChange} 
+                            onChange={onChange}
                             value={inputText}
                             variant="outlined"
-                            
                         />
-                        <Typography className = {classes.textLength}>{inputTextLength} / {maxTextLength}</Typography>
-                        <Box className = {classes.box} >
-                            <Button className = {classes.button} variant="contained" disableRipple onClick={translate} color="primary">
+                        <Typography className={classes.textLength}>
+                            {inputTextLength} / {maxTextLength}
+                        </Typography>
+                        <Box className={classes.box}>
+                            <Button
+                                className={classes.button}
+                                variant="contained"
+                                disableRipple
+                                onClick={translate}
+                                color="primary"
+                            >
                                 번역하기
                             </Button>
-                            {
-                               inputTextLength == 0 ? null :(
-                                   <IconButton className = {classes.clearButton} variant="contained" disableRipple onClick={textClear}>
-                                        <ClearIcon ></ClearIcon>
-                                    </IconButton>
-                               )
-                            }
+                            {inputTextLength == 0 ? null : (
+                                <IconButton
+                                    className={classes.clearButton}
+                                    variant="contained"
+                                    onClick={textClear}
+                                >
+                                    <Backspace></Backspace>
+                                </IconButton>
+                            )}
                         </Box>
                     </Paper>
 
-                    <Paper className = {classes.paper}>
-                        <TextField className = {classes.textField}
+                    <Paper className={classes.paper}>
+                        <TextField
+                            className={classes.textField}
                             id="outlined-multiline-static"
                             multiline
                             rows={17}
@@ -185,21 +184,33 @@ export default function TranslationView(props) {
                             InputProps={{
                                 readOnly: true,
                             }}
-                            value = {outputText}
+                            value={outputText}
                         />
-                        <Box className = {classes.box} >
-                            <Button className = {classes.button} variant="contained" disableRipple  color="primary" onClick={copyText}>
+                        <Box className={classes.box}>
+                            <Button
+                                className={classes.button}
+                                variant="contained"
+                                disableRipple
+                                color="primary"
+                                onClick={copyText}
+                            >
                                 <FileCopyIcon></FileCopyIcon>
                             </Button>
                         </Box>
                     </Paper>
                 </Grid>
-                <Snackbar open={open} autoHideDuration={1100} onClose={handleClose} content={content} severity = {severity}>
+                <Snackbar
+                    open={open}
+                    autoHideDuration={1100}
+                    onClose={handleClose}
+                    content={content}
+                    severity={severity}
+                >
                     <Alert onClose={handleClose} severity={severity}>
                         {content}
                     </Alert>
                 </Snackbar>
             </div>
         </div>
-    )
+    );
 }
