@@ -49,7 +49,7 @@ function HomeLayout(props) {
                         direction="row"
                         justify="space-between"
                         alignItems="flex-start"
-
+                    >
                         <Link
                             to={{
                                 pathname: '/buk-pago',
