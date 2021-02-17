@@ -1,4 +1,4 @@
-import React,  { useContext, useState } from 'react'
+import React,  {  useState } from 'react'
 import { Typography, } from '@material-ui/core';
 import { makeStyles } from "@material-ui/styles"
 import TextField from '@material-ui/core/TextField';
@@ -110,13 +110,13 @@ export default function TranslationView(props) {
     };
 
     const translate = () => {
-        translationStore.translate(inputText).then((result) => 
+        translationStore.translate(inputText).then(result => 
             {
-                console.log(result)
-                //여기에 이제 result에서 한국어 뽑아내서 setOutputText(어쩌구) 해야한다.
+                setOutputText(result)
             }
-        )
+        ).catch( err => { console.log(err);})
     }
+
     return(
         <div className={classes.root} >
             <div  className = {classes.title}>
