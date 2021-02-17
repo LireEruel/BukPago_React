@@ -1,12 +1,6 @@
-<<<<<<< HEAD
-import React, { useContext, useState } from 'react';
-import { Typography } from '@material-ui/core';
-import { makeStyles } from '@material-ui/styles';
-=======
 import React,  {  useState } from 'react'
 import { Typography, } from '@material-ui/core';
 import { makeStyles } from "@material-ui/styles"
->>>>>>> 34130850c0cac83e17c8042558db9e6b39457e3d
 import TextField from '@material-ui/core/TextField';
 import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
@@ -116,17 +110,6 @@ export default function TranslationView(props) {
     };
 
     const translate = () => {
-<<<<<<< HEAD
-        translationStore.translate(inputText).then((result) => {
-            console.log(result);
-            //여기에 이제 result에서 한국어 뽑아내서 setOutputText(어쩌구) 해야한다.
-        });
-    };
-    return (
-        <div className={classes.root}>
-            <div className={classes.title}>
-                <Typography className={classes.title} variant="h3">
-=======
         translationStore.translate(inputText).then(result => 
             {
                 setOutputText(result)
@@ -138,7 +121,6 @@ export default function TranslationView(props) {
         <div className={classes.root} >
             <div  className = {classes.title}>
                 <Typography className = {classes.title} variant="h3">
->>>>>>> 34130850c0cac83e17c8042558db9e6b39457e3d
                     북한어 번역
                 </Typography>
             </div>
