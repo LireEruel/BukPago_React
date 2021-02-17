@@ -4,4 +4,12 @@ export default class Translate{
         this.south = south,
         this.mean = mean
     }
+
+    get_dic(){
+        return{
+            id: this.north,
+            south : this.south,
+            mean : this.mean
+        }
+    }
 }
