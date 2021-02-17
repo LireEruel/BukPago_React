@@ -1,4 +1,4 @@
-import React, { Component, useState } from 'react';
+import React, { Component, useContext, useState } from 'react';
 import { makeStyles } from '@material-ui/styles';
 import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
@@ -6,6 +6,7 @@ import TextField from '@material-ui/core/TextField';
 import Box from '@material-ui/core/Box';
 import Button from '@material-ui/core/Button';
 import axios from 'axios';
+import PostStore from '../stores/PostStore';
 
 const useStyles = makeStyles({
     root: {
@@ -48,6 +49,7 @@ export default function WriteView() {
     const classes = useStyles();
     const [titleText, setTitleText] = useState('');
     const [contentText, setContentText] = useState('');
+    const postStore = useContext(PostStore.context);
     const handleChangeTitle = (e) => {
         setTitleText(e.target.value);
     };
@@ -57,11 +59,12 @@ export default function WriteView() {
     const handleWrite = (e) => {
         if (titleText === '') {
             return alert('제목을 입력하세요.');
-        }
-        if (contentText === '') {
+        } else if (contentText === '') {
             return alert('내용을 입력하세요.');
         }
-
+        postStore.addPost(titleText, contentText).then((res) => {
+            alert('성공적으로 게시되었습니다.');
+        });
     };
     return (
         <div className={classes.root}>

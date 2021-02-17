@@ -1,10 +1,11 @@
-import React, { Component, useState } from 'react';
+import React, { Component, useContext, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { makeStyles } from '@material-ui/styles';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import axios from 'axios';
-
+import LoginStore from '../stores/LoginStore';
+import Snackbar from '@material-ui/core/Snackbar';
 
 const useStyles = makeStyles({
     root: {
@@ -79,18 +80,23 @@ const useStyles = makeStyles({
 export default function LogInView(props) {
     const [userId, setUserId] = useState('');
     const [userPassword, setUserPassword] = useState('');
+    const [open, setOpen] = useState(true);
     const classes = useStyles();
+    const loginStore = useContext(LoginStore.context);
     const handleChangeUserId = (e) => {
         setUserId(e.target.value);
     };
     const handleChangeUserPassword = (e) => {
         setUserPassword(e.target.value);
     };
-    const handleLoginCheck = () => {
-        console.log({ userId }, { userPassword });
-        /*
-        서버에 확인하는 요청 해야할 것 같음
-        */
+    const handleLoginCheck = (e) => {
+        if (userId != '' && userPassword != '') {
+            loginStore.login(userId, userPassword).then((result) => {
+                alert('로그인 성공');
+            });
+        } else {
+            alert('로그인 실패');
+        }
     };
     return (
         <div className={classes.root}>

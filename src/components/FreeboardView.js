@@ -1,4 +1,4 @@
-import React, { useState, Component } from 'react';
+import React, { useState, useContext, Component } from 'react';
 import { Router, Route, Link } from 'react-router-dom';
 import LogInView from './LogInView';
 import { TablePagination, Typography } from '@material-ui/core';
@@ -19,7 +19,7 @@ import Modal from '@material-ui/core/Modal';
 import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
 import { DataGrid } from '@material-ui/data-grid';
-import axios from 'axios';
+import PostStore from '../stores/PostStore';
 
 var elem = document.compatMode === 'CSS1Compat' ? document.documentElement : document.body;
 
@@ -137,6 +137,7 @@ const rows = [
     createData(34, 'image', 'World', 15, 're2', '21:00', 10, 15),
 ];
 
+
 export default function Freeboard(props) {
 /*
     getListData = async = () => {
@@ -166,7 +167,7 @@ export default function Freeboard(props) {
     const [page, setPage] = useState(0);
     const [rowsPerPage, setRowsPerPage] = useState(8);
     const [open, setOpen] = useState(false);
-
+    const postStore = useContext(PostStore.context);
     const handleChangePage = (e, newPage) => {
         setPage(newPage);
     };
@@ -180,7 +181,9 @@ export default function Freeboard(props) {
     const handleClose = () => {
         setOpen(false);
     };
-
+    const data_lists = postStore.readPost();
+    var tmp = [];
+    var datas = data_lists.tmp;
     return (
         <div className={classes.root}>
             <div className={classes.title}>
@@ -207,7 +210,7 @@ export default function Freeboard(props) {
                         <TableHead>
                             <TableRow>
                                 {options.map((option) => {
-                                    return (
+                                    return (    
                                         <TableCell
                                             key={option.key}
                                             align={option.align}
@@ -219,39 +222,17 @@ export default function Freeboard(props) {
                                 })}
                             </TableRow>
                         </TableHead>
-                        <TableBody>
-                            {rows
-                                .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-                                .map((row) => {
-                                    return (
-                                        <TableRow key={row.post_number}>
-                                            {options.map((option) => {
-                                                const value = row[option.key];
-                                                return (
-                                                    <TableCell
-                                                        key={option.key}
-                                                        align={option.align}
-                                                        style={{ width: option.width }}
-                                                    >
-                                                        {value}
-                                                    </TableCell>
-                                                );
-                                            })}
-                                        </TableRow>
-                                    );
-                                })}
-                        </TableBody>
                     </Table>
+                </TableContainer>
                     <TablePagination
                         rowsPerPageOptions={[10]}
                         component="div"
-                        count={rows.length}
+                        count={data_lists.length}
                         rowsPerPage={rowsPerPage}
                         page={page}
                         onChangePage={handleChangePage}
                         onChangeRowsPerPage={handleChangeRowsPage}
-                    ></TablePagination>
-                </TableContainer>
+                        ></TablePagination>
                 <Link to="/write">
                     <Fab color="primary" aria-label="add" className={classes.fab}>
                         <AddIcon />
@@ -270,3 +251,25 @@ export default function Freeboard(props) {
         </div>
     );
 }
+/*
+                       <TableBody>
+                           {data_lists
+                               .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+                               .map((data_list) => {
+                                   return (
+                                       <TableRow key={datas[data_list]['post_number']}>    
+                                           {datas.map((data) => {
+                                               const value = data[data_list];
+                                               return (
+                                                   <TableCell
+                                                   key={data}
+                                                   >
+                                                       {value}
+                                                   </TableCell>
+                                               );
+                                           })}
+                                       </TableRow>
+                                   );
+                               })}
+                       </TableBody>
+*/
