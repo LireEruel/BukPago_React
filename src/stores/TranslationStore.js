@@ -17,11 +17,8 @@ class TranslationStore {
 
     @action
     translate(northText) {
-        requestTranslate(northText).then(result => {
-            return result
-        }) 
+        return requestTranslate(northText)
     }
-    
 
 }
 export default TranslationStore = TranslationStore.getInstance()
