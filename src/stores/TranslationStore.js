@@ -20,5 +20,13 @@ class TranslationStore {
         return requestTranslate(northText)
     }
 
+    @action
+    getDictionary(query) {
+        return requestGetDictionary(query).then(
+            result => {
+                this.translates = [...result]
+            }
+        )
+    }
 }
 export default TranslationStore = TranslationStore.getInstance()
