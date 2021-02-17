@@ -7,20 +7,21 @@ import { Link } from 'react-router-dom';
 
 const useStyle = makeStyles((theme) => ({
     root: {
-        width:'100%',
+        width: '100%',
         height: '100%',
     },
     appBar: {
-        backgroundColor:'#58a0d1'
+        backgroundColor: '#58a0d1',
     },
-    grid:{
-        paddingLeft:'5%',
-        width: '40%'
+    grid: {
+        paddingLeft: '5%',
+        width: '40%',
     },
     title: {
-        fontSize : '18px',
-        fontWeight : 600
+        fontSize: '18px',
+        fontWeight: 600,
     },
+<<<<<<< Updated upstream
     contentArea : {
         paddingTop : '5%',
         width : '100%',
@@ -31,31 +32,53 @@ const useStyle = makeStyles((theme) => ({
     }
 }))
 
+=======
+    contentArea: {
+        paddingTop: '5%',
+        width: '100%',
+        height: '100%',
+        minHeight: '80%',
+        minWidth: '100%',
+        position: 'sticky',
+    },
+}));
+>>>>>>> Stashed changes
 
 function HomeLayout(props) {
-
-    const {children} = props;
+    const { children } = props;
     const classes = useStyle();
 
-  
     return (
         <div className={classes.root}>
             <AppBar className={classes.appBar}>
-                <Toolbar className={classes.toolBar} alignItems="flex-end" position="fixed" >
-                    <Grid className={classes.grid} 
+                <Toolbar className={classes.toolBar} alignItems="flex-end" position="fixed">
+                    <Grid
+                        className={classes.grid}
                         container
                         direction="row"
                         justify="space-between"
                         alignItems="flex-start"
+<<<<<<< Updated upstream
                     >   
                         <Link
                             to= {{
                                 pathname: "/buk-pago"
                             }}
                             style={{textDecoration: 'none' }}
+=======
+                    >
+                        <Link
+                            to={{
+                                pathname: '/buk-pago',
+                            }}
+                            style={{ textDecoration: 'none' }}
+>>>>>>> Stashed changes
                         >
-                            <Button className={classes.title} color="secondary" size="large" >北파고</Button>
+                            <Button className={classes.title} color="secondary" size="large">
+                                北파고
+                            </Button>
                         </Link>
+<<<<<<< Updated upstream
                         <Button className={classes.title} color="secondary" size="large" >파일번역</Button>
                         <Button className={classes.title} color="secondary" size="large" >북한말 사전</Button>
                         <Link
@@ -63,21 +86,30 @@ function HomeLayout(props) {
                                 pathname: "/Free-board"
                             }}
                             style={{textDecoration: 'none' }}
+=======
+                        <Button className={classes.title} color="secondary" size="large">
+                            파일번역
+                        </Button>
+                        <Button className={classes.title} color="secondary" size="large">
+                            북한말 사전
+                        </Button>
+                        <Link
+                            to={{
+                                pathname: '/free-board',
+                            }}
+                            style={{ textDecoration: 'none' }}
+>>>>>>> Stashed changes
                         >
                             <Button className={classes.title} color="secondary" size="large">
                                 자유게시판
                             </Button>
                         </Link>
                     </Grid>
-                    
                 </Toolbar>
             </AppBar>
-            <div className={classes.contentArea}>
-                {children}    
-            </div>
+            <div className={classes.contentArea}>{children}</div>
         </div>
-    )
+    );
 }
-
 
 export default HomeLayout;
