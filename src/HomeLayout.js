@@ -63,9 +63,17 @@ function HomeLayout(props) {
                         <Button className={classes.title} color="secondary" size="large">
                             파일번역
                         </Button>
-                        <Button className={classes.title} color="secondary" size="large">
-                            북한말 사전
-                        </Button>
+                        <Link
+                            to={{
+                                pathname: '/buk-pago/dictionary',
+                            }}
+                            style={{ textDecoration: 'none' }}
+                        >
+                            <Button className={classes.title} color="secondary" size="large">
+                                북한말 사전
+                            </Button>
+                        </Link>
+                        
                         <Link
                             to={{
                                 pathname: '/free-board',
