@@ -1,7 +1,7 @@
-export default class Translate{
+export default class Dictionary{
     constructor(north, south, mean){
         this.north = north
-        this.south = south,
+        this.south = south
         this.mean = mean
     }
 

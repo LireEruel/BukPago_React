@@ -1,7 +1,6 @@
 import {observable , action} from 'mobx';
 import {createContext} from "react";
 import requestTranslate from "../controllers/TranslationController"
-import requestGetDictionary from "../controllers/TranslationController"
 
 class TranslationStore {
     @observable translates = [];
@@ -19,15 +18,6 @@ class TranslationStore {
     @action
     translate(northText) {
         return requestTranslate(northText)
-    }
-
-    @action
-    getDictionary(query) {
-        return requestGetDictionary(query).then(
-            result => {
-                this.translates = [...result]
-            }
-        )
     }
 }
 export default TranslationStore = TranslationStore.getInstance()

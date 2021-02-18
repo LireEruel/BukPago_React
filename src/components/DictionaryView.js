@@ -1,11 +1,11 @@
-import React, {useEffect, useContext, useRef, useState} from 'react'
-import { Button, Typography, } from '@material-ui/core';
+import React, {useEffect} from 'react'
+import {  Typography, } from '@material-ui/core';
 import { makeStyles } from "@material-ui/styles"
 import Grid from '@material-ui/core/Grid';
 import { DataGrid } from '@material-ui/data-grid';
 import TextField from '@material-ui/core/TextField';
 import SearchIcon from '@material-ui/icons/Search';
-import TranslateStore from '../stores/TranslationStore';
+import DictionaryStore from '../stores/DictionaryStore';
 
 var elem = (document.compatMode === "CSS1Compat") ? 
     document.documentElement :
@@ -58,11 +58,10 @@ export default function DictionaryView(props) {
             search()
         }
     }
-   
-    const translateStore = useContext(TranslateStore.context)
-
+    
+    const dictionaryStore = React.useContext(DictionaryStore.context)
     useEffect(() => {
-        translateStore.getDictionary();
+        dictionaryStore.getDictionary();
     }, []);
 
     return (
@@ -86,7 +85,7 @@ export default function DictionaryView(props) {
                     alignItems="center"
                 >
                     <div className = {classes.table}>
-                        <DataGrid columns = {columns} rows = {translateStore.translates} pageSize={8} />
+                        <DataGrid columns = {columns} rows = {dictionaryStore.dictionarys} pageSize={8} />
                     </div>
                 </Grid>
             </div>
