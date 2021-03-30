@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react'
+import React, {useEffect, useState} from 'react'
 import {  Typography, } from '@material-ui/core';
 import { makeStyles } from "@material-ui/styles"
 import Grid from '@material-ui/core/Grid';
@@ -50,8 +50,14 @@ const columns = [
 
 export default function DictionaryView(props) {
     const classes = useStyles();
+    const [inputText, setInputText] = useState('');
+    const onChange = (e) => {
+        const str = e.target.value;
+        setInputText(str);
+    };
+
     const search = () => {
-        dictionaryStore.getDictionary(query);
+        dictionaryStore.getDictionary(inputText);
     }
     const handleKeyDown = (event) => {
         if (event.key === 'Enter') {
@@ -71,7 +77,13 @@ export default function DictionaryView(props) {
                     북한말 사전
                 </Typography>
                 <div>
-                    <TextField className = {classes.search} id="standard-search" type="search" onKeyPress={handleKeyDown}/>
+                    <TextField 
+                        className = {classes.search} 
+                        id="standard-search" 
+                        type="search" 
+                        onKeyPress={handleKeyDown}
+                        onChange={onChange}    
+                    />
                     <SearchIcon onClick={search}/>
                 </div>
             </div>
