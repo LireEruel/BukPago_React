@@ -51,7 +51,7 @@ const columns = [
 export default function DictionaryView(props) {
     const classes = useStyles();
     const search = () => {
-        console.log('검색 시작!') // 검색 관련 함수는 나중에 작성하도록 하자.
+        dictionaryStore.getDictionary(query);
     }
     const handleKeyDown = (event) => {
         if (event.key === 'Enter') {

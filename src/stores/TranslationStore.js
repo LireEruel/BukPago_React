@@ -18,5 +18,13 @@ class TranslationStore {
     translate(northText) {
         return requestTranslate(northText)
     }
+
+    @action
+    translike(isLike, inputText, outputText){
+        
+        return requestTranslike(isLike, inputText, outputText).then(res => {
+            return res
+        })
+    }
 }
 export default TranslationStore = TranslationStore.getInstance();

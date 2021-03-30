@@ -9,3 +9,11 @@ export default async function requestTranslate(_northText) {
         }
     })
 }
+
+export async function requestTranslike(_isLike, _inputText, _outputText) {
+    return await axios.post(
+        '/api/translator/evaluation', {params : {isLike : _isLike, inputText: _inputText, outputText : _outputText}}, {withCredentials : true}
+    ).catch(error => {return error}).then(res => {
+        return res.data
+    })
+}
