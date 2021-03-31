@@ -15,7 +15,7 @@ const useStyle = makeStyles((theme) => ({
     },
     grid: {
         paddingLeft: '5%',
-        width: '40%',
+        width: '50%',
     },
     title: {
         fontSize: '18px',
@@ -82,6 +82,16 @@ function HomeLayout(props) {
                         >
                             <Button className={classes.title} color="secondary" size="large">
                                 자유게시판
+                            </Button>
+                        </Link>
+                        <Link
+                            to={{
+                                pathname: '/buk-pago/train',
+                            }}
+                            style={{ textDecoration: 'none' }}
+                        >
+                            <Button className={classes.title} color="secondary" size="large">
+                                北파고 Train
                             </Button>
                         </Link>
                     </Grid>

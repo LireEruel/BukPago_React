@@ -1,7 +1,7 @@
 import { observable, action } from 'mobx';
 import { createContext } from 'react';
 import requestTranslate from '../controllers/TranslationController';
-
+import requestTranslike from '../controllers/TranslationController';
 class TranslationStore {
     @observable translates = [];
     static instance = null;
