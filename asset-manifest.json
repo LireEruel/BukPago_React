@@ -1,8 +1,8 @@
 {
   "files": {
     "main.css": "/BukPago_React/static/css/main.7d180cbf.chunk.css",
-    "main.js": "/BukPago_React/static/js/main.cc65938b.chunk.js",
-    "main.js.map": "/BukPago_React/static/js/main.cc65938b.chunk.js.map",
+    "main.js": "/BukPago_React/static/js/main.d78587d9.chunk.js",
+    "main.js.map": "/BukPago_React/static/js/main.d78587d9.chunk.js.map",
     "runtime-main.js": "/BukPago_React/static/js/runtime-main.50c8e2d8.js",
     "runtime-main.js.map": "/BukPago_React/static/js/runtime-main.50c8e2d8.js.map",
     "static/js/2.5f14a033.chunk.js": "/BukPago_React/static/js/2.5f14a033.chunk.js",
@@ -17,6 +17,6 @@
     "static/js/runtime-main.50c8e2d8.js",
     "static/js/2.5f14a033.chunk.js",
     "static/css/main.7d180cbf.chunk.css",
-    "static/js/main.cc65938b.chunk.js"
+    "static/js/main.d78587d9.chunk.js"
   ]
 }
