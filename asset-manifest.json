@@ -1,0 +1,22 @@
+{
+  "files": {
+    "main.css": "/BukPago_React/static/css/main.7d180cbf.chunk.css",
+    "main.js": "/BukPago_React/static/js/main.cc65938b.chunk.js",
+    "main.js.map": "/BukPago_React/static/js/main.cc65938b.chunk.js.map",
+    "runtime-main.js": "/BukPago_React/static/js/runtime-main.50c8e2d8.js",
+    "runtime-main.js.map": "/BukPago_React/static/js/runtime-main.50c8e2d8.js.map",
+    "static/js/2.5f14a033.chunk.js": "/BukPago_React/static/js/2.5f14a033.chunk.js",
+    "static/js/2.5f14a033.chunk.js.map": "/BukPago_React/static/js/2.5f14a033.chunk.js.map",
+    "static/js/3.fb2d8706.chunk.js": "/BukPago_React/static/js/3.fb2d8706.chunk.js",
+    "static/js/3.fb2d8706.chunk.js.map": "/BukPago_React/static/js/3.fb2d8706.chunk.js.map",
+    "index.html": "/BukPago_React/index.html",
+    "static/css/main.7d180cbf.chunk.css.map": "/BukPago_React/static/css/main.7d180cbf.chunk.css.map",
+    "static/js/2.5f14a033.chunk.js.LICENSE.txt": "/BukPago_React/static/js/2.5f14a033.chunk.js.LICENSE.txt"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.50c8e2d8.js",
+    "static/js/2.5f14a033.chunk.js",
+    "static/css/main.7d180cbf.chunk.css",
+    "static/js/main.cc65938b.chunk.js"
+  ]
+}
