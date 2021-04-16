@@ -26,5 +26,12 @@ class TranslationStore {
             return res
         })
     }
+
+    @action
+    getTestCase(){
+        return requestGetTestCase().then(result=>{
+            return res
+        })
+    }
 }
 export default TranslationStore = TranslationStore.getInstance();

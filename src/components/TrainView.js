@@ -9,6 +9,7 @@ import CardContent from '@material-ui/core/CardContent';
 import ThumbUpAltIcon from '@material-ui/icons/ThumbUpAlt';
 import ThumbDownAltIcon from '@material-ui/icons/ThumbDownAlt';
 import Grid from '@material-ui/core/Grid';
+import Tooltip from '@material-ui/core/Tooltip';
 
 const useStyles = makeStyles({
     root: {
@@ -21,38 +22,65 @@ const useStyles = makeStyles({
         textAlign: 'center',
         fontWeight: 600,
     },
+    trainText: {
+        paddingTop: '2%',
+        fontWeight: 600,
+    },
     content: {
-        paddingTop: '5%',
+        paddingTop: '2%',
     },
     mainContent: {
-        width : '70%',
+        width : '100%',
     },
-    card: {
-        width: "75%",
+    testCard: {
+        marginTop:'3%',
+        width: "50%",
         height : "50%",
-        marginLeft : "15%"
+        marginLeft: '10%',
+    },
+    card:{
+        padding:'2%'
     },
     pass: {
-        float: 'right'
+        float: 'right',
+        marginRight: '2%'
     },
     cardGrid: {
-        width: '1000%'
+        marginTop:'5%',
+        width: '100%'
+    },
+    rankingCard : {
+        width: '20%',
+        marginLeft : '7%'
+    },
+    mainGrid : {
+        width : '100%'
     },
     ranking : {
-        width: '20%'
+        paddingBottom:'5%',
+        marginTop: '15%'
+    },
+    rankingNum : {
+        marginTop: '10%'
     }
 }
 )
 
+const pass = () => {
+    //translationStore.getTestCase();
+}
 export default function TranslationView(props) {
     const classes = useStyles();
     const [inputText,setInputText] = useState('안녕하세요 저는 바보입니다.');
     const [outputText,setOutputText] = useState('안녕하세요 저는 바보입니다.');
     const translationStore = React.useContext(TranslationStore.context);
+    const [ranking, setRanking] = useState(['핫','둘','셋','넷','핫','둘','셋','넷','핫','둘','셋','넷']);
 
     /*
     useEffect(() => {
         translationStore.getTestCase();
+        memberStore.getRanker();
+
     }, []);
     */
 
@@ -65,60 +93,110 @@ export default function TranslationView(props) {
             </div>
             <div className = {classes.content}>
                 <div className={classes.mainContent}>
-                    <Card className={classes.card}>
-                        <CardContent>
-                            <Typography variant="h5" component="h2">
-                                {inputText}
-                            </Typography>
-                            <br />
-                            <Typography variant="h6" component="h2">
-                                {outputText}
-                            </Typography>
-                        </CardContent>
-                        <CardActions>
-                                <Grid
-                                    className = {classes.cardGrid}
-                                    container 
-                                    direction="row"
-                                    justify="center"
-                                    alignItems="center"
-                                    spacing={4}
-                                >
-                                    <Grid item>
-                                        <Button 
-                                            variant="contained"
-                                            disableRipple
-                                            size='large'
-                                        >
-                                            <ThumbDownAltIcon></ThumbDownAltIcon>
-                                        </Button>
-                                    </Grid>
-                                    
-                                    <Grid item>
-                                        <Button 
-                                            variant="contained"
-                                            disableRipple
-                                            size='large'
-                                        >
-                                            <ThumbUpAltIcon></ThumbUpAltIcon>
-                                        </Button>
-                                    </Grid>
-                                </Grid>
-                            </CardActions>
-                        <div>
-                            <Typography className={classes.pass}>
-                                건너뛰기 →
-                            </Typography>
-                        </div>
-                    </Card>
-                    </div>
-                    <div className={classes.ranking}>
-                            <Card>
+                    <Grid 
+                        className= {classes.mainGrid}
+                        container
+                        direction="row"
+                    >
+                        <div className={classes.testCard}>
+                            <Card className={classes.card}>
                                 <CardContent>
-                                    얍!
+                                    <Typography className={classes.trainText} variant="h5" >
+                                        {inputText}
+                                    </Typography>
+                                    <br />
+                                    <Typography variant="h6" >
+                                        {outputText}
+                                    </Typography>
                                 </CardContent>
+                                <CardActions>
+                                        <Grid
+                                            className = {classes.cardGrid}
+                                            container 
+                                            direction="row"
+                                            justify="center"
+                                            alignItems="center"
+                                            spacing={4}
+                                        >
+                                            <Grid item>
+                                                <Button 
+                                                    variant="contained"
+                                                    disableRipple
+                                                    size='large'
+                                                >
+                                                    <ThumbDownAltIcon></ThumbDownAltIcon>
+                                                </Button>
+                                            </Grid>
+                                            
+                                            <Grid item>
+                                                <Button 
+                                                    variant="contained"
+                                                    disableRipple
+                                                    size='large'
+                                                >
+                                                    <ThumbUpAltIcon></ThumbUpAltIcon>
+                                                </Button>
+                                            </Grid>
+                                        </Grid>
+                                    </CardActions>
+                                <div>
+                                    <Tooltip className={classes.pass} onClick={pass}  disableHoverListener title="Add" >
+                                        <Button>건너뛰기 → </Button>
+                                    </Tooltip>
+                                </div>
                             </Card>
+                        </div>
+                        
+                        <div className={classes.rankingCard}>
+                                <Card>
+                                    <CardContent>
+                                        <Grid
+                                            container
+                                            direction="column"
+                                            justify="center"
+                                            alignItems="center"
+                                        >
+                                            <div>
+                                                <Grid container justify="center" alignItems="center">
+                                                    <Typography className = {classes.title} variant="h5">
+                                                        오늘의 순위
+                                                    </Typography>
+                                                </Grid>
+                                            </div>
+                                            <div className={classes.ranking} >
+                                                <Grid
+                                                    container
+                                                    direction="column"
+                                                    justify="center"
+                                                    alignItems="center"
+                                                    spacing={7}
+                                                >
+                                                    
+                                                {
+                                                    ranking.map((value,idx) => {
+                                                        
+                                                        return (
+                                                            
+                                                            <div>
+                                                                <Typography className={classes.rankingNum} variant="h6" >{idx+1}. {value}</Typography>
+                                                            </div>
+
+                                                               
+                                                        )
+                                                    }
+                                                    )
+                                                }
+                                                </Grid>
+                                            </div>
+                                        </Grid>
+                                        
+                                    </CardContent>
+                                </Card>
+                        </div>
+                    </Grid>
+                    
                     </div>
+                    
                 
             </div>
         </div>

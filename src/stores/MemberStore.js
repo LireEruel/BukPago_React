@@ -1,7 +1,10 @@
 import { action, observable } from 'mobx';
 import { createContext } from 'react';
-import requestLogin, { requestSignUp } from '../controllers/MemberController';
+import requestLogin, { requestSignUp,requestReadRanker} from '../controllers/MemberController';
 import Member from '../models/Members'
+import { CookiesProvider } from 'react-cookie';
+
+
 class MemberStore {
     @observable members = [];
     static instance = null;
@@ -20,5 +23,12 @@ class MemberStore {
     async login(email, pw) {
         return requestLogin(email, pw);
     }
+    @action
+    getRanker() {
+        return requestGetRanker().then(result=>{
+            return result
+        })
+    }
+
 }
 export default MemberStore = MemberStore.getInstance();
