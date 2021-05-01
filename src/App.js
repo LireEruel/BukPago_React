@@ -11,6 +11,7 @@ import { createMuiTheme } from '@material-ui/core';
 import MuiThemeProvider from '@material-ui/core/styles/MuiThemeProvider';
 import SignInView from './components/SignInView';
 import DictionaryView from './components/DictionaryView';
+import FileTranslationView from './components/FileTranslationView.js'
 const useStyle = makeStyles((theme) => ({
     '@global': {
         'body, html': {
@@ -46,6 +47,7 @@ const App = observer((props) => {
                     <HomeLayout>
                         <Switch>
                             <Route exact path="/buk-pago" component={TranslationView} />
+                            <Route exact path="/buk-pago/file-translate" component={FileTranslationView} />
                             <Route exact path="/free-board" component={FreeboardView} />
                             <Route exact path="/buk-pago/dictionary" component={DictionaryView} />
                         </Switch>

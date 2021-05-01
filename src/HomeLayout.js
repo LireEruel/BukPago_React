@@ -21,15 +21,15 @@ const useStyle = makeStyles((theme) => ({
         fontSize: '18px',
         fontWeight: 600,
     },
-    contentArea : {
-        paddingTop : '5%',
-        width : '100%',
-        height : '100%',
-        minHeight : '80%',
-        minWidth : '100%',
-        position : 'sticky',
+    contentArea: {
+        paddingTop: '5%',
+        width: '100%',
+        height: '100%',
+        minHeight: '80%',
+        minWidth: '100%',
+        position: 'sticky',
     },
-    link : {
+    link: {
         textDecoration: 'none'
     }
 }))
@@ -60,9 +60,16 @@ function HomeLayout(props) {
                                 北파고
                             </Button>
                         </Link>
-                        <Button className={classes.title} color="secondary" size="large">
-                            파일번역
-                        </Button>
+                        <Link
+                            to={{
+                                pathname: '/buk-pago/file-translate',
+                            }}
+                            style={{ textDecoration: 'none' }}
+                        >
+                            <Button className={classes.title} color="secondary" size="large">
+                                파일번역
+                            </Button>
+                        </Link>
                         <Link
                             to={{
                                 pathname: '/buk-pago/dictionary',
@@ -73,7 +80,6 @@ function HomeLayout(props) {
                                 북한말 사전
                             </Button>
                         </Link>
-                        
                         <Link
                             to={{
                                 pathname: '/free-board',
