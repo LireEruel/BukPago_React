@@ -32,6 +32,13 @@ const theme = createMuiTheme({
             contrastText: '#fff',
         }
     },
+    overrides: {
+        MuiButton: {
+            root: {
+                color: "white",
+            },
+        },
+    },
 });
 
 const App = observer((props) => {
