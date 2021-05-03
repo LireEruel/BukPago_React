@@ -15,6 +15,7 @@ import TranslationStore from '../stores/TranslationStore';
 import ThumbUpAltIcon from '@material-ui/icons/ThumbUpAlt';
 import ThumbDownAltIcon from '@material-ui/icons/ThumbDownAlt';
 import ButtonGroup from '@material-ui/core/ButtonGroup';
+import TrainStore from '../stores/TrainStore';
 
 const useStyles = makeStyles({
     root: {
@@ -84,7 +85,7 @@ export default function TranslationView(props) {
     const [translateState, setTranslateState] = useState(false)
     const maxTextLength = 3000;
     const translationStore = React.useContext(TranslationStore.context);
-    
+    const trainStore = React.useContext(TrainStore.context);
     const onInputChange = (e) => {
         const str = e.target.value;
         setTranslateState(false);
@@ -128,7 +129,7 @@ export default function TranslationView(props) {
     };
 
     const transLike = () => {
-        translationStore.transLike(true,inputText,outputText).then(result =>
+        trainStore.transLike(true,inputText,outputText).then(result =>
             {
                 setContent('피드백 감사합니다! :)')
                 setSeverity('success')
@@ -138,7 +139,7 @@ export default function TranslationView(props) {
     }
 
     const transDislike = () => {
-        translationStore.transLike(false,inputText,outputText).then(result =>
+        trainStore.transLike(false,inputText,outputText).then(result =>
             {
                 setContent('피드백 감사합니다! :)')
                 setSeverity('success')
@@ -157,7 +158,7 @@ export default function TranslationView(props) {
     }
 
     const transOffer = () => {
-        translationStore.transOffer(inputText,outputText).then(result =>
+        trainStore.transOffer(inputText,outputText).then(result =>
             {
                 setContent('피드백 감사합니다! :)')
                 setSeverity('success')

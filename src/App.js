@@ -4,9 +4,7 @@ import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import { observer } from 'mobx-react';
 import HomeLayout from './HomeLayout';
 import { makeStyles } from '@material-ui/styles';
-import FreeboardView from './components/FreeboardView';
 import TranslationView from './components/TranslationView';
-import WriteView from './components/WriteView';
 import { createMuiTheme } from '@material-ui/core';
 import MuiThemeProvider from '@material-ui/core/styles/MuiThemeProvider';
 import SignInView from './components/SignInView';
@@ -57,13 +55,11 @@ const App = observer((props) => {
                     <HomeLayout  cookies={cookies} hasCookie={hasCookie} setHasCookie={setHasCookie} removeCookie={removeCookie} hasCookie={hasCookie}>
                         <Switch>
                             <Route exact path="/" component={TranslationView} />
-                            <Route exact path="/free-board" component={FreeboardView} />
                             <Route exact path="/dictionary" component={DictionaryView} />
                             <Route exact path="/train" component={TrainView}/>
                         </Switch>
                     </HomeLayout>
                     <Switch>
-                        <Route path="/write" component={WriteView} />
                         <Route path="/sign-in" component={SignInView} />
                     </Switch>
                 </Router>

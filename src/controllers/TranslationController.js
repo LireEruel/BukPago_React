@@ -21,11 +21,15 @@ export async function requestTranslike(_isLike, _inputText, _outputText) {
 export async function requestGetTestCase() {
     return await axios.post(
         'api/evaluation',
-    )
+    ).catch(error => {return error}).then(res => {
+        return res.data
+    })
 }
 
 export async function requestTransOffer(_inputText,_outputText) {
     return await axios.post(
         'api/evaluation'
-    )
+    ).catch(error => {return error}).then(res => {
+        return res.data
+    })
 }

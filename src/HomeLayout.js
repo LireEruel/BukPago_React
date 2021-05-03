@@ -79,16 +79,7 @@ function HomeLayout(props) {
                             </Button>
                         </Link>
                         
-                        <Link
-                            to={{
-                                pathname: '/free-board',
-                            }}
-                            style={{ textDecoration: 'none' }}
-                        >
-                            <Button className={classes.title} color="secondary" size="large">
-                                자유게시판
-                            </Button>
-                        </Link>
+                        
                         <Link
                             to={{
                                 pathname: '/train',

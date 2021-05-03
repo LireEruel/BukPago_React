@@ -9,13 +9,15 @@ export default async function requestTranslike(_isLike, _inputText, _outputText)
 }
 
 export async function requestGetTestCase() {
-    return await axios.post(
+    return await axios.get(
         'api/evaluation',
     )
 }
 
 export async function requestTransOffer(_inputText,_outputText) {
     return await axios.post(
-        'api/evaluation'
-    )
+        'api/evaluation/make' , {params : {inputText : _inputText, outputText:_outputText}}, {withCredentials : true}
+    ).catch(error => {return error}).then(res => {
+        return res.data
+    })
 }
