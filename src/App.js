@@ -59,7 +59,7 @@ const App = observer((props) => {
                             <Route exact path="/train" component={TrainView}/>
                         </Switch>
                     </HomeLayout>
-                    <Switch>
+                    <Switch> 
                         <Route path="/sign-in" component={SignInView} />
                     </Switch>
                 </Router>
