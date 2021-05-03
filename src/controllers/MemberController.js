@@ -18,3 +18,11 @@ export async function requestSignUp(member) {
         {id : member.id, pw : member.pw, nickname : member.nickname}
     ).then(res => {console.log(res); return res}).catch(err => {return err})
 }
+
+export async function requestGetRanker(){
+    return await axios.get(
+        '/api/rank'
+    ).catch((error)=> {return error;}).then((res) => {
+        return res;
+    });
+}

@@ -1,5 +1,5 @@
 import './App.css';
-import React from 'react';
+import React,{useContext} from 'react';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import { observer } from 'mobx-react';
 import HomeLayout from './HomeLayout';
@@ -11,6 +11,10 @@ import { createMuiTheme } from '@material-ui/core';
 import MuiThemeProvider from '@material-ui/core/styles/MuiThemeProvider';
 import SignInView from './components/SignInView';
 import DictionaryView from './components/DictionaryView';
+import TrainView from './components/TrainView'
+import {useCookies} from 'react-cookie'
+
+
 const useStyle = makeStyles((theme) => ({
     '@global': {
         'body, html': {
@@ -37,17 +41,25 @@ const theme = createMuiTheme({
     },
 });
 
+
 const App = observer((props) => {
     const classes = useStyle();
+    const [cookies, setCookie,removeCookie] = useCookies(['jwt'])
+    const [hasCookie,setHasCookie] = React.useState(false)
+    React.useEffect(()=>{
+        if(cookies['jwt'] != undefined)
+            setHasCookie(true)
+    })
     return (
         <div className={classes.root}>
             <MuiThemeProvider theme={theme}>
                 <Router>
-                    <HomeLayout>
+                    <HomeLayout  cookies={cookies} hasCookie={hasCookie} setHasCookie={setHasCookie} removeCookie={removeCookie} hasCookie={hasCookie}>
                         <Switch>
-                            <Route exact path="/buk-pago" component={TranslationView} />
+                            <Route exact path="/" component={TranslationView} />
                             <Route exact path="/free-board" component={FreeboardView} />
-                            <Route exact path="/buk-pago/dictionary" component={DictionaryView} />
+                            <Route exact path="/dictionary" component={DictionaryView} />
+                            <Route exact path="/train" component={TrainView}/>
                         </Switch>
                     </HomeLayout>
                     <Switch>

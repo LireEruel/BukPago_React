@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component, useState, useEffect } from 'react';
 import { AppBar, Toolbar } from '@material-ui/core';
 import { makeStyles } from '@material-ui/styles';
 import Grid from '@material-ui/core/Grid';
@@ -15,7 +15,7 @@ const useStyle = makeStyles((theme) => ({
     },
     grid: {
         paddingLeft: '5%',
-        width: '40%',
+        width: '50%',
     },
     title: {
         fontSize: '18px',
@@ -37,7 +37,12 @@ const useStyle = makeStyles((theme) => ({
 
 function HomeLayout(props) {
     const { children } = props;
+    const [open, setState] = useState(false);
     const classes = useStyle();
+    const cookies = props.cookies
+    const setHasCookie = props.setHasCookie
+    const removeCookie = props.removeCookie
+    const hasCookie = props.hasCookie
 
     return (
         <div className={classes.root}>
@@ -52,7 +57,7 @@ function HomeLayout(props) {
                     >
                         <Link
                             to={{
-                                pathname: '/buk-pago',
+                                pathname: '/',
                             }}
                             style={{ textDecoration: 'none' }}
                         >
@@ -65,7 +70,7 @@ function HomeLayout(props) {
                         </Button>
                         <Link
                             to={{
-                                pathname: '/buk-pago/dictionary',
+                                pathname: '/dictionary',
                             }}
                             style={{ textDecoration: 'none' }}
                         >
@@ -82,6 +87,16 @@ function HomeLayout(props) {
                         >
                             <Button className={classes.title} color="secondary" size="large">
                                 자유게시판
+                            </Button>
+                        </Link>
+                        <Link
+                            to={{
+                                pathname: '/train',
+                            }}
+                            style={{ textDecoration: 'none' }}
+                        >
+                            <Button className={classes.title} color="secondary" size="large">
+                                北파고 Train
                             </Button>
                         </Link>
                     </Grid>

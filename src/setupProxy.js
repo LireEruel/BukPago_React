@@ -4,7 +4,7 @@ module.exports = function (app) {
     app.use (
         '/api',
         createProxyMiddleware({
-            target: 'http: //localhost:12050/',
+            target: 'https://lireeruel.github.io/BukPago_React/',
             changeOrigin : true,
         })
     )
