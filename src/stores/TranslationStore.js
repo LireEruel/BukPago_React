@@ -1,7 +1,8 @@
 import { observable, action } from 'mobx';
 import { createContext } from 'react';
 import requestTranslate from '../controllers/TranslationController';
-import requestTranslike from '../controllers/TranslationController';
+
+
 class TranslationStore {
     @observable translates = [];
     static instance = null;
@@ -19,19 +20,5 @@ class TranslationStore {
         return requestTranslate(northText)
     }
 
-    @action
-    translike(isLike, inputText, outputText){
-        
-        return requestTranslike(isLike, inputText, outputText).then(res => {
-            return res
-        })
-    }
-
-    @action
-    getTestCase(){
-        return requestGetTestCase().then(result=>{
-            return res
-        })
-    }
 }
 export default TranslationStore = TranslationStore.getInstance();

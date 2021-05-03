@@ -1,6 +1,6 @@
 import { action, observable } from 'mobx';
 import { createContext } from 'react';
-import requestLogin, { requestSignUp,requestReadRanker} from '../controllers/MemberController';
+import requestLogin, { requestSignUp,requestGetRanker} from '../controllers/MemberController';
 import Member from '../models/Members'
 import { CookiesProvider } from 'react-cookie';
 
