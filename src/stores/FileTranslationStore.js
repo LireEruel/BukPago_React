@@ -1,44 +1,48 @@
-import React from "react";
-import ReactDOM from "react-dom";
 import { makeObservable, observable, computed, action, flow } from "mobx"
-
+import React, { createContext } from "react";
 class FileTranslationStore {
-    @observable originalFile = [];
-    @observable translatedFile = [];
-    @observable rowCount = "0";
-    @observable numSelected = "0";
+    @observable originalFiles = [];
+    @observable translatedFiles = [];
+    @observable fileCount = 0;
+    @observable numSelected = 0;
+    @observable selected = [];
+
+    static instance = null;
 
     constructor() {
         makeObservable(this);
+        this.context = createContext(this);
+    }
+
+    static getInstance() {
+        if (!FileTranslationStore.instance) this.instance = new FileTranslationStore();
+        return FileTranslationStore.instance
     }
 
     @action
-    set setRowCount(newRowCount) {
-        this.rowCount = newRowCount;
+    uploadFile(files) {
+        const originalFiles = [];
+
+        for (const file of files) {
+            const fileInfo = this.extractFileInfo(file);
+            this.fileCount++;
+            originalFiles.push(fileInfo);
+        }
+
+        this.originalFiles = {
+            ...this.originalFiles,
+            originalFiles
+        }
     }
 
-    @action
-    set setNumSelected(newNumSelected) {
-        this.numSelected = newNumSelected;
-    }
+    extractFileInfo(file) {
+        const fileInfo = {
+            name: file.name,
+            size: file.size
+        }
 
-    @computed
-    get originalFile() {
-        return this.originalFile;
+        return fileInfo;
     }
+};
 
-    @computed
-    get translatedFile() {
-        return this.translatedFile;
-    }
-
-    @computed
-    get rowCount() {
-        return this.rowCount;
-    }
-
-    @computed
-    get numSelected() {
-        return this.numSelected;
-    }
-}
+export default FileTranslationStore = FileTranslationStore.getInstance();
