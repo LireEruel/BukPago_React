@@ -15,6 +15,12 @@ import List from '@material-ui/core/List';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import ListItem from '@material-ui/core/ListItem';
+import Table from '@material-ui/core/Table';
+import TableBody from '@material-ui/core/TableBody';
+import TableCell from '@material-ui/core/TableCell';
+import TableContainer from '@material-ui/core/TableContainer';
+import TableHead from '@material-ui/core/TableHead';
+import TableRow from '@material-ui/core/TableRow';
 import clsx from 'clsx';
 
 import FileTranslationStore from '../stores/FileTranslationStore'
@@ -32,10 +38,10 @@ const useCustomToolbarStyles = makeStyles({
         fontWeight: "600",
         fontSize: "1rem",
     },
-    upload: {
+    uploadButton: {
         backgroundColor: '#228b22',
     },
-    download: {
+    downloadButton: {
         width: '120px',
     },
     input: {
@@ -48,12 +54,30 @@ const CustomToolbar = (props) => {
     const { title, isMain, fileTranslationStore } = props;
 
     const handleUploadFile = (e) => {
-        fileTranslationStore.uploadFile(e.target.files);
+        console.log('activated!')
+        const fileList = e.target.files;
+
+        for (const file of fileList) {
+            const reader = new FileReader();
+
+            reader.onload = (e) => {
+                const content = e.target.result;
+
+                let fileInfo = {
+                    name: file.name,
+                    size: file.size,
+                    content: content,
+                }
+
+                fileTranslationStore.uploadFile(fileInfo)
+            }
+            reader.readAsText(file);
+        }
     }
 
     let button = <div>
         <Button
-            className={clsx(classes.button, classes.download)}
+            className={clsx(classes.button, classes.downloadButton)}
             variant="contained"
             component="label"
             color="primary"
@@ -79,7 +103,7 @@ const CustomToolbar = (props) => {
         ) : (
             <div>
                 <Button
-                    className={clsx(classes.button, classes.upload)}
+                    className={clsx(classes.button, classes.uploadButton)}
                     variant="contained"
                     component="label"
                     endIcon={<PublishIcon />}
@@ -91,7 +115,7 @@ const CustomToolbar = (props) => {
                         multiple
                         type="file"
                         accept=".txt"
-                        onChange={handleUploadFile}
+                        onChange={handleUploadFile.bind(this)}
                     />
                 </Button>
             </div>
@@ -106,7 +130,7 @@ const CustomToolbar = (props) => {
                         {fileTranslationStore.numSelected} 선택 됨
                     </Typography>
                 ) : (
-                    <Typography className={classes.title} variant="h5" component="div">
+                    <Typography className={classes.title} variant="h6" component="div">
                         {title}
                     </Typography>
                 )
@@ -116,51 +140,86 @@ const CustomToolbar = (props) => {
     )
 }
 
-const useCustomListStyle = makeStyles({
+const useCustomTableHeaderStyles = makeStyles({
     root: {
-        width: "100%",
+        width: '100%',
     },
-    listItem: {
-        width: "100%"
-    },
-    id: {
+    idCell: {
         width: '5%'
     },
-    name: {
-        width: '85%'
+    nameCell: {
+        width: '75%'
     },
-    size: {
-        width: '10%'
+    sizeCell: {
+        width: '20%'
     }
 })
 
-const CustomList = (props) => {
-    const classes = useCustomListStyle();
+const CustomTableHeader = (props) => {
+    const classes = useCustomTableHeaderStyles();
+    const { fileTranslationStore } = props;
 
+    return (
+        <TableHead className={classes.root}>
+            <TableRow>
+                <TableCell padding="checkbox">
+                    <Checkbox
+                        indeterminate={fileTranslationStore.numSelected > 0 && fileTranslationStore.numSelected < fileTranslationStore.originalFiles.length}
+                    />
+                </TableCell>
+                <TableCell className={classes.idCell} key='id' align='center'>ID</TableCell>
+                <TableCell className={classes.nameCell} key='fileName' align='left'>파일 이름</TableCell>
+                <TableCell className={classes.sizeCell} key='filSize' align='left'>파일 크기</TableCell>
+            </TableRow>
+        </TableHead>
+    )
+}
+
+const useCustomTableStyles = makeStyles({
+    root: {
+        width: '100%'
+    }
+})
+
+const CustomCheckboxTable = (props) => {
+    const classes = useCustomTableStyles();
     const { title, isMain, fileTranslationStore } = props;
 
     return (
-        <List className={classes.root}>
-            <CustomToolbar title={title} isMain={isMain} fileTranslationStore={fileTranslationStore} />
-            <ListItem dense divider className={classes.listItem}>
-                <ListItemIcon>
-                    <Checkbox />
-                </ListItemIcon>
-                <ListItemText className={classes.id} primary='ID' />
-                <ListItemText className={classes.name} primary='파일 이름' />
-                <ListItemText className={classes.size} primary='파일 크기' />
-            </ListItem>
-            {fileTranslationStore.originalFiles.map((file, idx) => (
-                <ListItem button className={classes.listItem}>
-                    <ListItemIcon>
-                        <Checkbox />
-                    </ListItemIcon>
-                    <ListItemText className={idx} primary={file.id} />
-                    <ListItemText className={classes.name} primary={file.name} />
-                    <ListItemText className={classes.size} primary={file.size} />
-                </ListItem>
-            ))}
-        </List>
+        <div className={classes.root}>
+            <CustomToolbar
+                title={title}
+                isMain={isMain}
+                fileTranslationStore={fileTranslationStore}
+            />
+            <CustomTableHeader fileTranslationStore={fileTranslationStore} />
+            <TableBody>
+                {fileTranslationStore.originalFiles.map((fileInfo, index) => {
+                    <TableRow>
+                        <TableCell>
+                            
+                        </TableCell>
+                    </TableRow>
+                })}
+            </TableBody>
+        </div>
+    )
+}
+
+const CustomNonCheckboxTable = (props) => {
+    const classes = useCustomTableStyles();
+    const { title, isMain, fileTranslationStore } = props;
+
+
+    return (
+        <div className={classes.root}>
+            <CustomToolbar
+                title={title}
+                isMain={isMain}
+                fileTranslationStore={fileTranslationStore}
+            />
+            <CustomTableHeader fileTranslationStore={fileTranslationStore} />
+        </div>
     )
 }
 
@@ -225,7 +284,7 @@ export default function FileTranslationView(props) {
                     alignItems="flex-start"
                 >
                     <Box component={Paper} className={clsx(classes.columFlexBox, classes.leftBox)}>
-                        <CustomList title='원본파일' isMain={true} fileTranslationStore={fileTranslationStore} />
+                        <CustomCheckboxTable title='원본파일' isMain={true} fileTranslationStore={fileTranslationStore} />
                     </Box>
 
                     <Box className={clsx(classes.columFlexBox, classes.alignCenter, classes.middleBox)}>
@@ -240,7 +299,7 @@ export default function FileTranslationView(props) {
                     </Box>
 
                     <Box component={Paper} className={clsx(classes.columFlexBox, classes.rightBox)}>
-                        <CustomList title='변환파일' isMain={false} fileTranslationStore={fileTranslationStore} />
+                        <CustomNonCheckboxTable title='변환파일' isMain={false} fileTranslationStore={fileTranslationStore} />
                     </Box>
                 </Grid>
             </div>
