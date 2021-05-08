@@ -20,28 +20,13 @@ class FileTranslationStore {
     }
 
     @action
-    uploadFile(files) {
-        const originalFiles = [];
-
-        for (const file of files) {
-            const fileInfo = this.extractFileInfo(file);
-            this.fileCount++;
-            originalFiles.push(fileInfo);
-        }
-
-        this.originalFiles = {
-            ...this.originalFiles,
-            originalFiles
-        }
+    uploadFile(fileInfo) {
+        this.originalFiles.push(fileInfo);
+        this.fileCount++;
     }
 
-    extractFileInfo(file) {
-        const fileInfo = {
-            name: file.name,
-            size: file.size
-        }
+    readFileText(file) {
 
-        return fileInfo;
     }
 };
 
