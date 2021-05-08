@@ -73,6 +73,8 @@ const CustomToolbar = (props) => {
             }
             reader.readAsText(file);
         }
+
+        console.log(fileTranslationStore.originalFiles)
     }
 
     let button = <div>
@@ -178,6 +180,15 @@ const CustomTableHeader = (props) => {
 const useCustomTableStyles = makeStyles({
     root: {
         width: '100%'
+    },
+    idCell: {
+        width: '5%'
+    },
+    nameCell: {
+        width: '75%'
+    },
+    sizeCell: {
+        width: '20%'
     }
 })
 
@@ -195,11 +206,16 @@ const CustomCheckboxTable = (props) => {
             <CustomTableHeader fileTranslationStore={fileTranslationStore} />
             <TableBody>
                 {fileTranslationStore.originalFiles.map((fileInfo, index) => {
-                    <TableRow>
-                        <TableCell>
-                            
-                        </TableCell>
-                    </TableRow>
+                    return (
+                        <TableRow>
+                            <TableCell padding="checkbox">
+                                <Checkbox />
+                            </TableCell>
+                            <TableCell className={classes.idCell}>{index}</TableCell>
+                            <TableCell className={classes.nameCell}>{fileInfo.name}</TableCell>
+                            <TableCell className={classes.sizeCell}>{fileInfo.size}</TableCell>
+                        </TableRow>
+                    )
                 })}
             </TableBody>
         </div>
