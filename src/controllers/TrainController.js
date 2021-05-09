@@ -13,7 +13,7 @@ export default async function requestTranslike(_isLike, _NK, _SK) {
 export async function requestGetTestCase() {
     return await axios.get(
         'api/evaluation', {withCredentials : true}
-    ).catch(error => {return error}).then(res => {
+    ).catch(error => {return error}).then(result => {
         var data = [];
         if(result.data != null){ // 5-2
             var tmp = result.data
