@@ -1,14 +1,9 @@
 import React, { useRef, useContext } from 'react';
-import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import TextField from '@material-ui/core/TextField';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import Checkbox from '@material-ui/core/Checkbox';
 import Link from '@material-ui/core/Link';
 import Grid from '@material-ui/core/Grid';
-import Box from '@material-ui/core/Box';
-import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
@@ -36,7 +31,6 @@ const useStyles = makeStyles((theme) => ({
 
 export default function SignUpView(props) {
     const classes = useStyles();
-    const setHasCookie = props.setHasCookie;
     const memberStore = useContext(MemberStore.context);
     const id = useRef('');
     const pw = useRef('');
@@ -69,7 +63,6 @@ export default function SignUpView(props) {
         memberStore.register(member).then((res) => {
             if (res.status == 200) {
                 //SnackbarStore.pushMessage(res.data['message'], true);
-                setHasCookie(true);
             } else {
                 //SnackbarStore.pushMessage(res.data['message'], false);
             }
@@ -80,7 +73,7 @@ export default function SignUpView(props) {
         <Container component="main" maxWidth="xs">
             <CssBaseline />
             <div className={classes.paper}>
-                <Typography component="h1" variant="h4">
+                <Typography component="h1" variant="h5">
                     회원가입
                 </Typography>
                 <form className={classes.form} noValidate>
@@ -92,8 +85,8 @@ export default function SignUpView(props) {
                                 fullWidth
                                 id="email"
                                 label="닉네임"
-                                name="email"
                                 autoComplete="email"
+                                inputRef={name}
                             />
                         </Grid>
                         <Grid item xs={12}>
@@ -103,7 +96,6 @@ export default function SignUpView(props) {
                                 fullWidth
                                 id="email"
                                 label="아이디"
-                                name="email"
                                 autoComplete="email"
                                 inputRef={id}
                             />
@@ -113,7 +105,6 @@ export default function SignUpView(props) {
                                 variant="outlined"
                                 required
                                 fullWidth
-                                name="password"
                                 label="Password"
                                 type="password"
                                 id="password"
@@ -128,7 +119,6 @@ export default function SignUpView(props) {
                                 fullWidth
                                 id="email"
                                 label="이메일"
-                                name="email"
                                 autoComplete="email"
                                 inputRef={email}
                             />
@@ -146,7 +136,7 @@ export default function SignUpView(props) {
                     </Button>
                     <Grid container justify="flex-end">
                         <Grid item>
-                            <Link href="#" variant="body2">
+                            <Link href="/signIn" variant="body2">
                                 계정이 이미 있으신가요?
                             </Link>
                         </Grid>
