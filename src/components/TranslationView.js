@@ -1,6 +1,6 @@
-import React,  {  useState } from 'react'
-import { Typography, } from '@material-ui/core';
-import { makeStyles } from "@material-ui/styles"
+import React, { useState } from 'react';
+import { Typography } from '@material-ui/core';
+import { makeStyles } from '@material-ui/styles';
 import TextField from '@material-ui/core/TextField';
 import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
@@ -35,7 +35,7 @@ const useStyles = makeStyles({
         marginTop: '1%',
         width: '35%',
         height: '50%',
-        position : 'relative'
+        position: 'relative',
     },
     textField: {
         width: '100%',
@@ -58,10 +58,10 @@ const useStyles = makeStyles({
         right: '0%',
         top: '0%',
     },
-    bukPaper : {
-        textAlign : "center",
-        width : '10%',
-        backgroundColor : '#ffd6d6'
+    bukPaper: {
+        textAlign: 'center',
+        width: '10%',
+        backgroundColor: '#ffd6d6',
     },
     namPaper: {
         textAlign: 'center',
@@ -69,8 +69,8 @@ const useStyles = makeStyles({
         backgroundColor: '#d6f8ff',
     },
     upDownBtn: {
-        float: 'left'
-    }
+        float: 'left',
+    },
 });
 
 export default function TranslationView(props) {
@@ -82,7 +82,7 @@ export default function TranslationView(props) {
     const [open, setOpen] = useState(false);
     const [content, setContent] = useState('');
     const [severity, setSeverity] = useState('success');
-    const [translateState, setTranslateState] = useState(false)
+    const [translateState, setTranslateState] = useState(false);
     const maxTextLength = 3000;
     const translationStore = React.useContext(TranslationStore.context);
     const trainStore = React.useContext(TrainStore.context);
@@ -129,54 +129,66 @@ export default function TranslationView(props) {
     };
 
     const transLike = () => {
-        trainStore.transLike(true,inputText,outputText).then(result =>
-            {
-                setContent('피드백 감사합니다! :)')
-                setSeverity('success')
-                setOpen(true)
-            }
-        ).catch(err => {console.log(err);})
-    }
+        trainStore
+            .transLike(true, inputText, outputText)
+            .then((result) => {
+                setContent('피드백 감사합니다! :)');
+                setSeverity('success');
+                setOpen(true);
+            })
+            .catch((err) => {
+                console.log(err);
+            });
+    };
 
     const transDislike = () => {
-        trainStore.transLike(false,inputText,outputText).then(result =>
-            {
-                setContent('피드백 감사합니다! :)')
-                setSeverity('success')
-                setOpen(true)
-            }
-        ).catch(err => {console.log(err);})
-    }
+        trainStore
+            .transLike(false, inputText, outputText)
+            .then((result) => {
+                setContent('피드백 감사합니다! :)');
+                setSeverity('success');
+                setOpen(true);
+            })
+            .catch((err) => {
+                console.log(err);
+            });
+    };
 
     const translate = () => {
-        translationStore.translate(inputText).then(result => 
-            {
-                setOutputText(result)
-                setTranslateState(true)
-            }
-        ).catch( err => { console.log(err);})
-    }
+        translationStore
+            .translate(inputText)
+            .then((result) => {
+                setOutputText(result);
+                setTranslateState(true);
+            })
+            .catch((err) => {
+                console.log(err);
+            });
+    };
 
     const transOffer = () => {
-        trainStore.transOffer(inputText,outputText).then(result =>
-            {
-                setContent('피드백 감사합니다! :)')
-                setSeverity('success')
-                setOpen(true)
-            }
-        ).catch( err => { console.log(err);})
-    }
-    return(
-        <div className={classes.root} >
-            <div  className = {classes.title}>
-                <Typography className = {classes.title} variant="h3">
+        trainStore
+            .transOffer(inputText, outputText)
+            .then((result) => {
+                setContent('피드백 감사합니다! :)');
+                setSeverity('success');
+                setOpen(true);
+            })
+            .catch((err) => {
+                console.log(err);
+            });
+    };
+    return (
+        <div className={classes.root}>
+            <div className={classes.title}>
+                <Typography className={classes.title} variant="h3">
                     북한어 번역
                 </Typography>
             </div>
             <br />
             <div className={classes.content}>
                 <Grid
-                    className = {classes.grid}
+                    className={classes.grid}
                     container
                     direction="row"
                     justify="space-evenly"
@@ -227,63 +239,62 @@ export default function TranslationView(props) {
                     </Paper>
 
                     <Paper className={classes.paper}>
-                        {translateState == false ?  
-                            (
-                                <TextField
-                                    className={classes.textField}
-                                    id="outlined-multiline-static"
-                                    multiline
-                                    rows={17}
-                                    variant="outlined"
-                                    InputProps={{
-                                        readOnly: true,
-                                    }}
-                                    value={outputText}
-                                />
-                            )   :
+                        {translateState == false ? (
                             <TextField
-                                    className={classes.textField}
-                                    id="outlined-multiline-static"
-                                    multiline
-                                    rows={17}
-                                    variant="outlined"
-                                    value={outputText}
-                                    onChange={onOutputChange}
+                                className={classes.textField}
+                                id="outlined-multiline-static"
+                                multiline
+                                rows={17}
+                                variant="outlined"
+                                InputProps={{
+                                    readOnly: true,
+                                }}
+                                value={outputText}
                             />
-                        }
+                        ) : (
+                            <TextField
+                                className={classes.textField}
+                                id="outlined-multiline-static"
+                                multiline
+                                rows={17}
+                                variant="outlined"
+                                value={outputText}
+                                onChange={onOutputChange}
+                            />
+                        )}
                         <Box className={classes.box}>
-                            {translateState == false ? null : 
-                                (
-                                    <ButtonGroup color="primary" aria-label="outlined primary button group">
-                                        <Button 
-                                            className = {classes.upDownBtn}
-                                            disableRipple
-                                            color="primary"
-                                            onClick={transLike}
-                                        >
-                                            <ThumbUpAltIcon></ThumbUpAltIcon>
-                                        </Button>
-                                        <Button 
-                                            className = {classes.upDownBtn}
-                                            disableRipple
-                                            color="primary"
-                                            onClick={transDislike}
-                                        >
-                                            <ThumbDownAltIcon></ThumbDownAltIcon>
-                                        </Button>
-                                        <Button 
-                                            className = {classes.upDownBtn}
-                                            disableRipple
-                                            color="primary"
-                                            onClick={transOffer}
-                                        >
-                                            수정하기
-                                        </Button>
-                                    </ButtonGroup>
-                                )
-                            }
-                           
-                            
+                            {translateState == false ? null : (
+                                <ButtonGroup
+                                    color="primary"
+                                    aria-label="outlined primary button group"
+                                >
+                                    <Button
+                                        className={classes.upDownBtn}
+                                        disableRipple
+                                        color="primary"
+                                        onClick={transLike}
+                                    >
+                                        <ThumbUpAltIcon></ThumbUpAltIcon>
+                                    </Button>
+                                    <Button
+                                        className={classes.upDownBtn}
+                                        disableRipple
+                                        color="primary"
+                                        onClick={transDislike}
+                                    >
+                                        <ThumbDownAltIcon></ThumbDownAltIcon>
+                                    </Button>
+                                    <Button
+                                        className={classes.upDownBtn}
+                                        disableRipple
+                                        color="primary"
+                                        onClick={transOffer}
+                                    >
+                                        수정하기
+                                    </Button>
+                                </ButtonGroup>
+                            )}
+
                             <Button
                                 className={classes.button}
                                 variant="contained"

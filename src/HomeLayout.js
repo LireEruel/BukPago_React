@@ -4,6 +4,9 @@ import { makeStyles } from '@material-ui/styles';
 import Grid from '@material-ui/core/Grid';
 import Button from '@material-ui/core/Button';
 import { Link } from 'react-router-dom';
+import IconButton from '@material-ui/core/IconButton';
+import AccountCircle from '@material-ui/icons/AccountCircle';
+import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 
 const useStyle = makeStyles((theme) => ({
     root: {
@@ -13,43 +16,48 @@ const useStyle = makeStyles((theme) => ({
     appBar: {
         backgroundColor: '#58a0d1',
     },
-    grid: {
-        paddingLeft: '5%',
-        width: '50%',
+    contentGrid: {
+        paddingLeft: '3%',
+        width: '40%',
+    },
+    accountGrid: {
+        width: '60%',
     },
     title: {
         fontSize: '18px',
         fontWeight: 600,
     },
-    contentArea : {
-        paddingTop : '5%',
-        width : '100%',
-        height : '100%',
-        minHeight : '80%',
-        minWidth : '100%',
-        position : 'sticky',
+    contentArea: {
+        paddingTop: '5%',
+        width: '100%',
+        height: '100%',
+        minHeight: '80%',
+        minWidth: '100%',
+        position: 'sticky',
     },
-    link : {
-        textDecoration: 'none'
-    }
-}))
-
+    link: {
+        textDecoration: 'none',
+    },
+    accountIcon: {
+        float: 'right',
+    },
+}));
 
 function HomeLayout(props) {
     const { children } = props;
-    const [open, setState] = useState(false);
+    const [open, setOpen] = useState(false);
     const classes = useStyle();
-    const cookies = props.cookies
-    const setHasCookie = props.setHasCookie
-    const removeCookie = props.removeCookie
-    const hasCookie = props.hasCookie
+    const cookies = props.cookies;
+    const setHasCookie = props.setHasCookie;
+    const removeCookie = props.removeCookie;
+    const hasCookie = props.hasCookie;
 
     return (
         <div className={classes.root}>
             <AppBar className={classes.appBar}>
                 <Toolbar className={classes.toolBar} alignItems="flex-end" position="fixed">
                     <Grid
-                        className={classes.grid}
+                        className={classes.contentGrid}
                         container
                         direction="row"
                         justify="space-between"
@@ -78,8 +86,7 @@ function HomeLayout(props) {
                                 북한말 사전
                             </Button>
                         </Link>
-                        
-                        
+
                         <Link
                             to={{
                                 pathname: '/train',
@@ -90,6 +97,42 @@ function HomeLayout(props) {
                                 北파고 Train
                             </Button>
                         </Link>
+                    </Grid>
+                    <Grid
+                        className={classes.accountGrid}
+                        container
+                        direction="row"
+                        justify="flex-end"
+                        alignItems="center"
+                    >
+                        <div className={classes.accountIcon}>
+                            {hasCookie == false ? (
+                                <div>
+                                    <Link
+                                        to={{
+                                            pathname: '/signUp',
+                                        }}
+                                        style={{ textDecoration: 'none' }}
+                                    >
+                                        <Button className={classes.title} variant="contained">
+                                            로그인
+                                        </Button>
+                                    </Link>
+                                </div>
+                            ) : (
+                                <div>
+                                    <IconButton>
+                                        <ExitToAppIcon color="secondary" fontSize="large" />
+                                    </IconButton>
+                                    <IconButton
+                                        className={classes.accountIcon}
+                                        onClick={removeCookie}
+                                    >
+                                        <AccountCircle color="secondary" fontSize="large" />
+                                    </IconButton>
+                                </div>
+                            )}
+                        </div>
                     </Grid>
                 </Toolbar>
             </AppBar>

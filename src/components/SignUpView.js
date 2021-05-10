@@ -1,151 +1,148 @@
-import React, { Component, useState, useContext } from 'react';
-import { Link } from 'react-router-dom';
-import { makeStyles } from '@material-ui/styles';
-import TextField from '@material-ui/core/TextField';
+import React, { useRef, useContext } from 'react';
 import Button from '@material-ui/core/Button';
-import axios from 'axios';
+import CssBaseline from '@material-ui/core/CssBaseline';
+import TextField from '@material-ui/core/TextField';
+import Link from '@material-ui/core/Link';
+import Grid from '@material-ui/core/Grid';
+import Typography from '@material-ui/core/Typography';
+import { makeStyles } from '@material-ui/core/styles';
+import Container from '@material-ui/core/Container';
 import MemberStore from '../stores/MemberStore';
-import Member from '../models/Member'
-
-
-const useStyles = makeStyles({
-    root: {
-        position: 'relative',
-        width: '480px',
-        height: '620px',
-        margin: 'auto',
-        backgroundColor: 'rgba(0, 0, 0, 0.6)',
-    },
-    content: {
-        width: '100%',
-        height: '100%',
-        backgroundColor: 'white',
-        position: 'relative',
-        boxSizing: 'border-box',
-        margin: '80px auto',
-        padding: '20px',
-        //      background: '#fff',
-    },
-    registerContent: {
-        width: '100%',
-        margin: '0 auto',
-        position: 'relative',
-        padding: '0 20px 32px',
-        boxSizing: 'border-box',
+import Member from '../models/Member';
+const useStyles = makeStyles((theme) => ({
+    paper: {
+        marginTop: theme.spacing(8),
         display: 'flex',
-        justifyContent: 'center',
         flexDirection: 'column',
-    },
-    registerId: {
-        width: '100%',
-        height: '40px',
-        marginTop: '30px',
-        padding: '9px 12px',
-        outline: 'none',
-        boxSizing: 'border-box',
-    },
-    registerPassword: {
-        width: '100%',
-        height: '40px',
-        marginTop: '15px',
-        padding: '9px 12px',
-        outline: 'none',
-        boxSizing: 'border-box',
-    },
-    register: {
-        display: 'flex',
-        justifyContent: 'space-between',
         alignItems: 'center',
     },
-    autoRegister: {
-        marginTop: '20px',
-        fontSize: '12px',
-        color: '#8d8d8d',
-        lineHeight: 3,
+    avatar: {
+        margin: theme.spacing(1),
+        backgroundColor: theme.palette.secondary.main,
     },
-    registerBtn: {
-        variant: "contained",
-        color: "white",
-        height: '40px',
-        fontSize: '14px',
-        padding: '13px 30px',
-        cursor: 'pointer',
-        backgroundColor: 'black',
-        lineHeight: '1px',
-        marginTop: '20px',
-        marginBottom: '12px',
-        borderRadius: '3px',
-        borderStyle: 'none',
+    form: {
+        width: '100%', // Fix IE 11 issue.
+        marginTop: theme.spacing(3),
     },
-});
+    submit: {
+        margin: theme.spacing(3, 0, 2),
+    },
+}));
 
 export default function SignUpView(props) {
-    const [userId, setUserId] = useState('');
-    const [userPassword, setUserPassword] = useState('');
-    const [checkPassword, setUserCheckPassword] = useState('');
-    const [userNickname, makeUserNickname] = useState('');
-    const memberStore = useContext(MemberStore.context)
     const classes = useStyles();
-    const handleChangeUserId = (e) => {
-        setUserId(e.target.value);
-    };
-    const handleChangeUserPassword = (e) => {
-        setUserPassword(e.target.value);
-    };
-    const handleChangeUserCheckPassword = (e) => {
-        setUserCheckPassword(e.target.value);
-    };
-    const makeChangeUserNickname = (e) => {
-        makeUserNickname(e.target.value);
-    };
-    const handleRegisteUser = (e) => {
-        var member = new Meber(userId, userPassword, userNickname)
-        memberStore.signUp(member).then(res => {
-            if(res.status == 200) {
-                alert(res.data['message'])
-            } else {
-                alert(res.data['message'])
-            }
-        })
-    };
-    return (
-        <div className={classes.root}>
-            <div className={classes.content}>
-                <div className={classes.registerContent}>
-                <TextField
-                        className={classes.registerPassword}
-                        id="registerNickname"
-                        placeholder="별명"
-                        onChange={makeChangeUserNickname}
-                        value={userNickname}
-                    ></TextField>
-                    <TextField
-                        className={classes.registerId}
-                        id="registerId"
-                        placeholder="아이디"
-                        onChange={handleChangeUserId}
-                        value={userId}
-                    ></TextField>
-                    <TextField
-                        className={classes.registerPassword}
-                        id="registerPassword"
-                        placeholder="비밀번호"
-                        onChange={handleChangeUserPassword}
-                        value={userPassword}
-                    ></TextField>
-                    <TextField
-                        className={classes.registerPassword}
-                        id="checkPassword"
-                        placeholder="비밀번호 확인"
-                        onChange={handleChangeUserCheckPassword}
-                        value={checkPassword}
-                    ></TextField>
+    const memberStore = useContext(MemberStore.context);
+    const id = useRef('');
+    const pw = useRef('');
+    const name = useRef('');
+    const email = useRef('');
 
-                    <Button className={classes.registerBtn} onClick={handleRegisteUser}>
-                        {''}가입하기{''}
+    function register(e) {
+        e.preventDefault();
+        if (id.current.value == '') {
+            return;
+        }
+        if (pw.current.value == '') {
+            return;
+        }
+        if (name.current.value == '') {
+            return;
+        }
+        if (email.current.value == '') {
+            return;
+        }
+
+        var member = new Member(
+            id.current.value,
+            pw.current.value,
+            name.current.value,
+            email.current.value,
+        );
+
+        console.log(member);
+        memberStore.register(member).then((res) => {
+            if (res.status == 200) {
+                //SnackbarStore.pushMessage(res.data['message'], true);
+            } else {
+                //SnackbarStore.pushMessage(res.data['message'], false);
+            }
+        });
+    }
+
+    return (
+        <Container component="main" maxWidth="xs">
+            <CssBaseline />
+            <div className={classes.paper}>
+                <Typography component="h1" variant="h5">
+                    회원가입
+                </Typography>
+                <form className={classes.form} noValidate>
+                    <Grid container spacing={2}>
+                        <Grid item xs={12}>
+                            <TextField
+                                variant="outlined"
+                                required
+                                fullWidth
+                                id="email"
+                                label="닉네임"
+                                autoComplete="email"
+                                inputRef={name}
+                            />
+                        </Grid>
+                        <Grid item xs={12}>
+                            <TextField
+                                variant="outlined"
+                                required
+                                fullWidth
+                                id="email"
+                                label="아이디"
+                                autoComplete="email"
+                                inputRef={id}
+                            />
+                        </Grid>
+                        <Grid item xs={12}>
+                            <TextField
+                                variant="outlined"
+                                required
+                                fullWidth
+                                label="Password"
+                                type="password"
+                                id="password"
+                                autoComplete="current-password"
+                                inputRef={pw}
+                            />
+                        </Grid>
+                        <Grid item xs={12}>
+                            <TextField
+                                variant="outlined"
+                                required
+                                fullWidth
+                                id="email"
+                                label="이메일"
+                                autoComplete="email"
+                                inputRef={email}
+                            />
+                        </Grid>
+                    </Grid>
+                    <Button
+                        type="submit"
+                        fullWidth
+                        variant="contained"
+                        color="primary"
+                        className={classes.submit}
+                        onClick={register}
+                    >
+                        Sign Up
                     </Button>
-                </div>
+                    <Grid container justify="flex-end">
+                        <Grid item>
+                            <Link href="/signIn" variant="body2">
+                                계정이 이미 있으신가요?
+                            </Link>
+                        </Grid>
+                    </Grid>
+                </form>
             </div>
-        </div>
+        </Container>
     );
 }

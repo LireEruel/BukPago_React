@@ -1,155 +1,108 @@
-import React, { Component, useState } from 'react';
-import { Link } from 'react-router-dom';
-import { makeStyles } from '@material-ui/styles';
-import TextField from '@material-ui/core/TextField';
-import Modal from '@material-ui/core/Modal';
+import React, { useRef, useContext } from 'react';
+import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
-import axios from 'axios';
+import CssBaseline from '@material-ui/core/CssBaseline';
+import TextField from '@material-ui/core/TextField';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
+import Checkbox from '@material-ui/core/Checkbox';
+import Link from '@material-ui/core/Link';
+import Grid from '@material-ui/core/Grid';
+import Box from '@material-ui/core/Box';
+import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
+import Typography from '@material-ui/core/Typography';
+import { makeStyles } from '@material-ui/core/styles';
+import Container from '@material-ui/core/Container';
+import MemberStore from '../stores/MemberStore';
 
-
-const useStyles = makeStyles({
-    root: {
-        position: 'relative',
-        width: '480px',
-        height: '620px',
-        margin: 'auto',
-        backgroundColor: 'rgba(0, 0, 0, 0.6)',
-    },
-    content: {
-        width: '100%',
-        height: '100%',
-        backgroundColor: 'white',
-        position: 'relative',
-        boxSizing: 'border-box',
-        margin: '80px auto',
-        padding: '20px',
-        //      background: '#fff',
-    },
-    registerContent: {
-        width: '100%',
-        margin: '0 auto',
-        position: 'relative',
-        padding: '0 20px 32px',
-        boxSizing: 'border-box',
+const useStyles = makeStyles((theme) => ({
+    paper: {
+        marginTop: theme.spacing(8),
         display: 'flex',
-        justifyContent: 'center',
         flexDirection: 'column',
-    },
-    registerId: {
-        width: '100%',
-        height: '40px',
-        marginTop: '30px',
-        padding: '9px 12px',
-        outline: 'none',
-        boxSizing: 'border-box',
-    },
-    registerPassword: {
-        width: '100%',
-        height: '40px',
-        marginTop: '15px',
-        padding: '9px 12px',
-        outline: 'none',
-        boxSizing: 'border-box',
-    },
-    register: {
-        display: 'flex',
-        justifyContent: 'space-between',
         alignItems: 'center',
     },
-    autoRegister: {
-        marginTop: '20px',
-        fontSize: '12px',
-        color: '#8d8d8d',
-        lineHeight: 3,
+    avatar: {
+        margin: theme.spacing(1),
+        backgroundColor: theme.palette.secondary.main,
     },
-    registerBtn: {
-        variant: "contained",
-        color: "white",
-        height: '40px',
-        fontSize: '14px',
-        padding: '13px 30px',
-        cursor: 'pointer',
-        backgroundColor: 'black',
-        lineHeight: '1px',
-        marginTop: '20px',
-        marginBottom: '12px',
-        borderRadius: '3px',
-        borderStyle: 'none',
+    form: {
+        width: '100%', // Fix IE 11 issue.
+        marginTop: theme.spacing(1),
     },
-});
+    submit: {
+        margin: theme.spacing(3, 0, 2),
+    },
+}));
 
-export default function SignInView(props) {
-    const [userId, setUserId] = useState('');
-    const [userPassword, setUserPassword] = useState('');
-    const [checkPassword, setUserCheckPassword] = useState('');
-    const [userNickname, makeUserNickname] = useState('');
-    const [open, setOpen] = useState(false);
+export default function SignIn() {
     const classes = useStyles();
-    const handleOpen = () => {
-        setOpen(true);
+    const memberStore = useContext(MemberStore.context);
+    const id = useRef('');
+    const pw = useRef('');
+    const login = () => {
+        memberStore.login(id, pw);
     };
-    const handleClose = () => {
-        setOpen(false);
-    };
-    const handleChangeUserId = (e) => {
-        setUserId(e.target.value);
-    };
-    const handleChangeUserPassword = (e) => {
-        setUserPassword(e.target.value);
-    };
-    const handleChangeUserCheckPassword = (e) => {
-        setUserCheckPassword(e.target.value);
-    };
-    const makeChangeUserNickname = (e) => {
-        makeUserNickname(e.target.value);
-    };
-    const handleRegisteUser = () => {
-        console.register({ userId }, { userPassword, userNickname });
-        /*
-        서버에 등록
-        */
-    };
-    return (
-        <div className={classes.root}>
-            <div className={classes.content}>
-                <div className={classes.registerContent}>
-                <TextField
-                        className={classes.registerPassword}
-                        id="registerNickname"
-                        placeholder="별명"
-                        onChange={makeChangeUserNickname}
-                        value={userNickname}
-                    ></TextField>
-                    <TextField
-                        className={classes.registerId}
-                        id="registerId"
-                        placeholder="아이디"
-                        onChange={handleChangeUserId}
-                        value={userId}
-                    ></TextField>
-                    <TextField
-                        className={classes.registerPassword}
-                        id="registerPassword"
-                        placeholder="비밀번호"
-                        onChange={handleChangeUserPassword}
-                        value={userPassword}
-                    ></TextField>
-                    <TextField
-                        className={classes.registerPassword}
-                        id="checkPassword"
-                        placeholder="비밀번호 확인"
-                        onChange={handleChangeUserCheckPassword}
-                        value={checkPassword}
-                    ></TextField>
 
-                    <Button className={classes.registerBtn} onClick={handleRegisteUser}>
-                        {''}가입하기{''}
+    return (
+        <Container component="main" maxWidth="xs">
+            <CssBaseline />
+            <div className={classes.paper}>
+                <Avatar className={classes.avatar}>
+                    <LockOutlinedIcon />
+                </Avatar>
+                <Typography component="h1" variant="h5">
+                    로그인
+                </Typography>
+                <form className={classes.form} noValidate>
+                    <TextField
+                        variant="outlined"
+                        margin="normal"
+                        required
+                        fullWidth
+                        label="id"
+                        autoComplete="current-id"
+                        autoFocus
+                        inputRef={id}
+                    />
+                    <TextField
+                        variant="outlined"
+                        margin="normal"
+                        required
+                        fullWidth
+                        label="Password"
+                        type="password"
+                        id="password"
+                        inputRef={pw}
+                        autoComplete="current-password"
+                    />
+                    <FormControlLabel
+                        control={<Checkbox value="remember" color="primary" />}
+                        label="Remember me"
+                    />
+                    <Button
+                        type="submit"
+                        fullWidth
+                        variant="contained"
+                        color="primary"
+                        className={classes.submit}
+                        onClick={login}
+                    >
+                        Sign In
                     </Button>
-                    <Modal open={open} onClose={handleClose}>
-                             <SignInView />
-                         </Modal>
-                </div>
+                    <Grid container>
+                        <Grid item xs>
+                            <Link href="#" variant="body2">
+                                비밀번호 찾기
+                            </Link>
+                        </Grid>
+                        <Grid item>
+                            <Link href="/signUp" variant="body2">
+                                {'회원가입 하기'}
+                            </Link>
+                        </Grid>
+                    </Grid>
+                </form>
             </div>
-        </div>
+        </Container>
     );
 }
