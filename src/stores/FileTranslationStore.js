@@ -1,33 +1,40 @@
-import { makeObservable, observable, computed, action, flow } from "mobx"
-import React, { createContext } from "react";
-class FileTranslationStore {
-    @observable originalFiles = [];
-    @observable translatedFiles = [];
-    @observable fileCount = 0;
-    @observable numSelected = 0;
-    @observable selected = [];
-
-    static instance = null;
+import { makeAutoObservable, observable, computed, action, flow } from "mobx"
+export class FileTranslationStore {
+    originalFiles = [];
+    translatedFiles = [];
+    fileCount = 0;
 
     constructor() {
-        makeObservable(this);
-        this.context = createContext(this);
+        makeAutoObservable(this, {
+            originalFiles: observable,
+            translatedFiles: observable,
+            fileCount: observable,
+            uploadFile: action
+        });
     }
 
-    static getInstance() {
-        if (!FileTranslationStore.instance) this.instance = new FileTranslationStore();
-        return FileTranslationStore.instance
-    }
+    uploadFile(files) {
+        console.log(files)
 
-    @action
-    uploadFile(fileInfo) {
-        this.originalFiles.push(fileInfo);
-        this.fileCount++;
-    }
+        for (const file of files) {
+            const reader = new FileReader();
 
-    readFileText(file) {
+            reader.onload = (e) => {
+                const content = e.target.result;
 
+                let fileInfo = {
+                    name: file.name,
+                    size: file.size,
+                    content: content,
+                }
+
+                this.originalFiles.push(fileInfo)
+                this.fileCount++;
+            }
+            reader.readAsText(file);
+        }
+
+
+        console.log(this.originalFiles)
     }
 };
-
-export default FileTranslationStore = FileTranslationStore.getInstance();
