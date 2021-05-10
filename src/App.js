@@ -13,6 +13,7 @@ import SignUpView from './components/SignUpView';
 import SignInView from './components/SignInView';
 import DictionaryView from './components/DictionaryView';
 import TrainView from './components/TrainView';
+import FileTranslationView from './components/FileTranslationView.js'
 
 const useStyle = makeStyles((theme) => ({
     '@global': {
@@ -32,10 +33,13 @@ const theme = createMuiTheme({
             dark: '#3d7092',
             light: '#79b3da',
             contrastText: '#fff',
-        },
-        secondary: {
-            main: '#ffffff',
-            contrastText: '#fff',
+        }
+    },
+    overrides: {
+        MuiButton: {
+            root: {
+                color: "white",
+            },
         },
     },
 });
@@ -65,6 +69,8 @@ const App = observer((props) => {
                             <Route exact path="/" component={TranslationView} />
                             <Route exact path="/dictionary" component={DictionaryView} />
                             <Route exact path="/train" component={TrainView} />
+                            <Route exact path="/buk-pago/file-translate" component={FileTranslationView} />
+                            <Route exact path="/buk-pago/dictionary" component={DictionaryView} />
                         </Switch>
                     </HomeLayout>
                 </Router>
