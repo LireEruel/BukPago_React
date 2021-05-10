@@ -96,7 +96,7 @@ export default function SignIn() {
                             </Link>
                         </Grid>
                         <Grid item>
-                            <Link href="/signUp" variant="body2">
+                            <Link href="/buk-pago/signUp" variant="body2">
                                 {'회원가입 하기'}
                             </Link>
                         </Grid>

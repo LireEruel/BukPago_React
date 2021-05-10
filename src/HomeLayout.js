@@ -65,7 +65,7 @@ function HomeLayout(props) {
                     >
                         <Link
                             to={{
-                                pathname: '/',
+                                pathname: '/buk-pago',
                             }}
                             style={{ textDecoration: 'none' }}
                         >
@@ -85,7 +85,7 @@ function HomeLayout(props) {
                         </Link>
                         <Link
                             to={{
-                                pathname: '/dictionary',
+                                pathname: '/buk-pago/dictionary',
                             }}
                             style={{ textDecoration: 'none' }}
                         >
@@ -95,11 +95,11 @@ function HomeLayout(props) {
                         </Link>
                         <Link
                             to={{
-                                pathname: '/train',
+                                pathname: '/buk-pago/train',
                             }}
                             style={{ textDecoration: 'none' }}
                         >
-                            <Button className={classes.title} color="secondary" size="large">
+                            <Button className={classes.title} size="large">
                                 北파고 Train
                             </Button>
                         </Link>
@@ -116,7 +116,7 @@ function HomeLayout(props) {
                                 <div>
                                     <Link
                                         to={{
-                                            pathname: '/signUp',
+                                            pathname: '/buk-pago/signIn',
                                         }}
                                         style={{ textDecoration: 'none' }}
                                     >

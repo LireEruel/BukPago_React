@@ -64,13 +64,12 @@ const App = observer((props) => {
                         hasCookie={hasCookie}
                     >
                         <Switch>
-                            <Route path="/signUp" component={SignUpView} />
-                            <Route path="/signIn" component={SignInView} />
-                            <Route exact path="/" component={TranslationView} />
-                            <Route exact path="/dictionary" component={DictionaryView} />
-                            <Route exact path="/train" component={TrainView} />
-                            <Route exact path="/buk-pago/file-translate" component={FileTranslationView} />
+                            <Route path="/buk-pago/signUp" component={SignUpView} />
+                            <Route path="/buk-pago/signIn" component={SignInView} />
+                            <Route exact path="/buk-pago" component={TranslationView} />
                             <Route exact path="/buk-pago/dictionary" component={DictionaryView} />
+                            <Route exact path="/buk-pago/train" component={TrainView} />
+                            <Route exact path="/buk-pago/file-translate" component={FileTranslationView} />
                         </Switch>
                     </HomeLayout>
                 </Router>

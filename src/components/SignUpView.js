@@ -136,7 +136,7 @@ export default function SignUpView(props) {
                     </Button>
                     <Grid container justify="flex-end">
                         <Grid item>
-                            <Link href="/signIn" variant="body2">
+                            <Link href="/buk-pago/signIn" variant="body2">
                                 계정이 이미 있으신가요?
                             </Link>
                         </Grid>
