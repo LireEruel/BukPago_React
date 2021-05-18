@@ -61,20 +61,20 @@ export default observer(function CustomCheckboxTable(props) {
         const newSelected = []
 
         if (event.target.checked) {
-            FileTranslationStore.originalFiles.forEach((file, index) => {
-                newSelected.push(index)
+            FileTranslationStore.originalFiles.forEach((file) => {
+                newSelected.push(file.name)
             })
         }
 
         setSelected(newSelected);
     }
 
-    const handleClick = (event, index) => {
-        const selectedIndex = selected.indexOf(index);
+    const handleClick = (event, name) => {
+        const selectedIndex = selected.indexOf(name);
         let newSelected = [];
 
         if (selectedIndex === -1) {
-            newSelected = newSelected.concat(selected, index);
+            newSelected = newSelected.concat(selected, name);
         } else if (selectedIndex === 0) {
             newSelected = newSelected.concat(selected.slice(1));
         } else if (selectedIndex === selected.length - 1) {
@@ -89,8 +89,8 @@ export default observer(function CustomCheckboxTable(props) {
         setSelected(newSelected);
     }
 
-    const isSelected = (index) => {
-        return selected.indexOf(index) !== -1;
+    const isSelected = (name) => {
+        return selected.indexOf(name) !== -1;
     }
 
     return (
@@ -155,14 +155,14 @@ export default observer(function CustomCheckboxTable(props) {
                     </TableHead>
                     <TableBody>
                         {FileTranslationStore.originalFiles.map((fileInfo, index) => {
-                            const isItemSelected = isSelected(index);
+                            const isItemSelected = isSelected(fileInfo.name);
 
                             return (
                                 <TableRow
                                     hover
-                                    onClick={(event) => handleClick(event, index)}
+                                    onClick={(event) => handleClick(event, fileInfo.name)}
                                     role="checkbox"
-                                    key={index}
+                                    key={fileInfo.name}
                                     selected={isItemSelected}
                                 >
                                     <TableCell padding="checkbox">
