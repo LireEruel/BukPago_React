@@ -13,10 +13,10 @@ export class FileTranslationStore {
         });
     }
 
-    uploadFile(files) {
-        console.log(files)
+    uploadFile(fileList) {
+        console.log(fileList)
 
-        for (const file of files) {
+        for (const file of fileList) {
             const reader = new FileReader();
 
             reader.onload = (e) => {
@@ -28,13 +28,23 @@ export class FileTranslationStore {
                     content: content,
                 }
 
-                this.originalFiles.push(fileInfo)
-                this.fileCount++;
+                const index = this.isExist(file);
+
+                if (index === -1) {
+                    this.originalFiles.push(fileInfo)
+                    this.fileCount++;
+                } else {
+                    this.originalFiles[index] = fileInfo;
+                }
+
             }
             reader.readAsText(file);
         }
+    }
 
+    isExist(file) {
+        const fileName = file.name;
 
-        console.log(this.originalFiles)
+        return this.originalFiles.findIndex(e => e.name === fileName);
     }
 };
