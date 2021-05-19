@@ -3,7 +3,7 @@ import clsx from 'clsx';
 import { makeStyles } from "@material-ui/styles"
 import { Box, Button, Grid, Paper, Typography } from '@material-ui/core';
 import ArrowForwardIcon from '@material-ui/icons/ArrowForward';
-import CustomCheckboxTable from './CustomCheckboxTable';
+import CustomUploadTable from './CustomUploadTable';
 
 
 const useBodyStyles = makeStyles({
@@ -66,7 +66,7 @@ export default function FileTranslationView(props) {
                     alignItems="flex-start"
                 >
                     <Box component={Paper} className={clsx(classes.columFlexBox, classes.leftBox)}>
-                        <CustomCheckboxTable />
+                        <CustomUploadTable />
                     </Box>
 
                     <Box className={clsx(classes.columFlexBox, classes.alignCenter, classes.middleBox)}>
