@@ -46,7 +46,7 @@ const useCustomTableStyles = makeStyles({
     },
 })
 
-export default observer(function CustomCheckboxTable(props) {
+export default observer(function CustomUploadTable(props) {
     const classes = useCustomTableStyles();
     const { FileTranslationStore } = useStores();
 
