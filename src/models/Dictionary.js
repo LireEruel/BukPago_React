@@ -1,14 +1,14 @@
 export default class Dictionary{
-    constructor(north, south, mean){
-        this.north = north
-        this.south = south
+    constructor(NK, SK, mean){
+        this.NK = NK
+        this.SK = SK
         this.mean = mean
     }
 
     get_dic(){
         return{
-            id: this.north,
-            south : this.south,
+            id: this.NK,
+            SK : this.SK,
             mean : this.mean
         }
     }

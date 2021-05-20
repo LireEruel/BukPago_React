@@ -1,51 +1,49 @@
-
 import clsx from 'clsx';
-import { makeStyles } from "@material-ui/styles"
+import { makeStyles } from '@material-ui/styles';
 import { Box, Button, Grid, Paper, Typography } from '@material-ui/core';
 import ArrowForwardIcon from '@material-ui/icons/ArrowForward';
 import CustomCheckboxTable from './CustomCheckboxTable';
 
-
 const useBodyStyles = makeStyles({
     root: {
-        width: "100%",
-        height: "100%",
-        display: "inline-block",
+        width: '100%',
+        height: '100%',
+        display: 'inline-block',
     },
     title: {
-        paddingTop: "4%",
-        textAlign: "center",
-        fontWeight: "600"
+        paddingTop: '2%',
+        textAlign: 'center',
+        fontWeight: 600,
     },
     content: {
-        paddingTop: "5%",
-        width: "100%",
-        height: "auto"
+        paddingTop: '5%',
+        width: '100%',
+        height: 'auto',
     },
     leftBox: {
-        width: "40%",
+        width: '40%',
     },
     rightBox: {
-        width: "40%",
+        width: '40%',
     },
     middleBox: {
-        width: "8%",
-        height: "100%"
+        width: '8%',
+        height: '100%',
     },
     columFlexBox: {
-        display: "flex",
-        flexDirection: "column",
-        justifyContent: "center",
-        alignItems: "flex-start",
+        display: 'flex',
+        flexDirection: 'column',
+        justifyContent: 'center',
+        alignItems: 'flex-start',
     },
     alignCenter: {
-        alignItems: "center"
+        alignItems: 'center',
     },
     translateBtn: {
-        fontWeight: "600",
-        fontSize: "1rem",
-    }
-})
+        fontWeight: '600',
+        fontSize: '1rem',
+    },
+});
 
 export default function FileTranslationView(props) {
     const classes = useBodyStyles();
@@ -53,23 +51,24 @@ export default function FileTranslationView(props) {
     return (
         <div className={classes.root}>
             <div className={classes.title}>
-                <Typography variant="h3">
+                <Typography variant="h3" className={classes.title}>
                     파일번역
                 </Typography>
             </div>
             <br />
             <div className={classes.content}>
-                <Grid
-                    container
-                    direction="row"
-                    justify="center"
-                    alignItems="flex-start"
-                >
+                <Grid container direction="row" justify="center" alignItems="flex-start">
                     <Box component={Paper} className={clsx(classes.columFlexBox, classes.leftBox)}>
                         <CustomCheckboxTable />
                     </Box>
 
-                    <Box className={clsx(classes.columFlexBox, classes.alignCenter, classes.middleBox)}>
+                    <Box
+                        className={clsx(
+                            classes.columFlexBox,
+                            classes.alignCenter,
+                            classes.middleBox,
+                        )}
+                    >
                         <Button
                             variant="contained"
                             className={classes.translateBtn}
@@ -80,10 +79,12 @@ export default function FileTranslationView(props) {
                         </Button>
                     </Box>
 
-                    <Box component={Paper} className={clsx(classes.columFlexBox, classes.rightBox)}>
-                    </Box>
+                    <Box
+                        component={Paper}
+                        className={clsx(classes.columFlexBox, classes.rightBox)}
+                    ></Box>
                 </Grid>
             </div>
         </div>
-    )
-};
+    );
+}
