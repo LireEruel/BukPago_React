@@ -46,56 +46,46 @@ const useCustomTableStyles = makeStyles({
     },
 })
 
-export default observer(function CustomCheckboxTable(props) {
+export default observer(function CustomUploadTable(props) {
     const classes = useCustomTableStyles();
-    const [selected, setSelected] = useState([]);
     const { FileTranslationStore } = useStores();
 
-    const handleUploadFile = (e) => {
-        let files = e.target.files
+    const returnFileSize = (size) => {
+        if (size === 0) {
+            return 'n/a'
+        }
 
-        FileTranslationStore.uploadFile(files)
+        var sizes = ['bytes', 'kB', 'MB', 'GB', 'TB', 'PB'];
+        var e = Math.floor(Math.log(size) / Math.log(1024));
+        return (size / Math.pow(1024, e)).toFixed(2) + " " + sizes[e];
+    }
+
+    const handleUploadFile = (event) => {
+        if (event.target.click) {
+            const files = event.target.files;
+            FileTranslationStore.uploadFile(files)
+        }
+    }
+
+    const handleDeleteFile = (event) => {
+        FileTranslationStore.DeleteFiles();
     }
 
     const handleSelectAllClick = (event) => {
-        const newSelected = []
-
-        if (event.target.checked) {
-            FileTranslationStore.originalFiles.forEach((file, index) => {
-                newSelected.push(index)
-            })
-        }
-
-        setSelected(newSelected);
+        FileTranslationStore.setSelectAll(event);
     }
 
-    const handleClick = (event, index) => {
-        const selectedIndex = selected.indexOf(index);
-        let newSelected = [];
-
-        if (selectedIndex === -1) {
-            newSelected = newSelected.concat(selected, index);
-        } else if (selectedIndex === 0) {
-            newSelected = newSelected.concat(selected.slice(1));
-        } else if (selectedIndex === selected.length - 1) {
-            newSelected = newSelected.concat(selected.slice(0, -1));
-        } else if (selectedIndex > 0) {
-            newSelected = newSelected.concat(
-                selected.slice(0, selectedIndex),
-                selected.slice(selectedIndex + 1),
-            );
-        }
-
-        setSelected(newSelected);
+    const handleClick = (event, name) => {
+        FileTranslationStore.setSelected(name);
     }
 
-    const isSelected = (index) => {
-        return selected.indexOf(index) !== -1;
+    const isSelected = (name) => {
+        return FileTranslationStore.selected.indexOf(name) !== -1;
     }
 
     return (
         <div className={classes.root}>
-            <Toolbar className={clsx(classes.toolbarRoot, { [classes.highlight]: selected.length > 0 })}>
+            <Toolbar className={clsx(classes.toolbarRoot, { [classes.highlight]: FileTranslationStore.selected.length > 0 })}>
                 {
                     FileTranslationStore.numSelected > 0 ? (
                         <Typography className={classes.toolbarTitle} variant="subtitle1" component="div">
@@ -107,13 +97,14 @@ export default observer(function CustomCheckboxTable(props) {
                         </Typography>
                     )
                 }
-                {selected.length > 0 ? (
+                {FileTranslationStore.selected.length > 0 ? (
                     <Button
                         className={classes.button}
                         variant="contained"
                         component="label"
                         color="secondary"
                         endIcon={<DeleteIcon />}
+                        onClick={handleDeleteFile}
                     >
                         삭제
                     </Button>
@@ -122,6 +113,7 @@ export default observer(function CustomCheckboxTable(props) {
                         className={clsx(classes.button, classes.uploadButton)}
                         variant="contained"
                         component="label"
+                        for="upload"
                         endIcon={<PublishIcon />}
                     >
                         업로드
@@ -143,8 +135,8 @@ export default observer(function CustomCheckboxTable(props) {
                         <TableRow>
                             <TableCell padding="checkbox">
                                 <Checkbox
-                                    indeterminate={selected.length > 0 && selected.length < FileTranslationStore.fileCount}
-                                    checked={FileTranslationStore.fileCount > 0 && selected.length === FileTranslationStore.fileCount}
+                                    indeterminate={FileTranslationStore.selected.length > 0 && FileTranslationStore.selected.length < FileTranslationStore.fileCount}
+                                    checked={FileTranslationStore.fileCount > 0 && FileTranslationStore.selected.length === FileTranslationStore.fileCount}
                                     onChange={handleSelectAllClick}
                                 />
                             </TableCell>
@@ -155,14 +147,14 @@ export default observer(function CustomCheckboxTable(props) {
                     </TableHead>
                     <TableBody>
                         {FileTranslationStore.originalFiles.map((fileInfo, index) => {
-                            const isItemSelected = isSelected(index);
+                            const isItemSelected = isSelected(fileInfo.name);
 
                             return (
                                 <TableRow
                                     hover
-                                    onClick={(event) => handleClick(event, index)}
+                                    onClick={(event) => handleClick(event, fileInfo.name)}
                                     role="checkbox"
-                                    key={index}
+                                    key={fileInfo.name}
                                     selected={isItemSelected}
                                 >
                                     <TableCell padding="checkbox">
@@ -170,9 +162,9 @@ export default observer(function CustomCheckboxTable(props) {
                                             checked={isItemSelected}
                                         />
                                     </TableCell>
-                                    <TableCell className={classes.idCell}>{index}</TableCell>
+                                    <TableCell className={classes.idCell}>{index + 1}</TableCell>
                                     <TableCell className={classes.nameCell}>{fileInfo.name}</TableCell>
-                                    <TableCell className={classes.sizeCell}>{fileInfo.size}</TableCell>
+                                    <TableCell className={classes.sizeCell}>{returnFileSize(fileInfo.size)}</TableCell>
                                 </TableRow>
                             )
                         })}
