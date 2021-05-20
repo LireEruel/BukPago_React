@@ -4,13 +4,15 @@ import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import { observer } from 'mobx-react';
 import HomeLayout from './HomeLayout';
 import { makeStyles } from '@material-ui/styles';
-import TranslationView from './components/TranslationView';
+import { useCookies } from 'react-cookie';
 import { createMuiTheme } from '@material-ui/core';
 import MuiThemeProvider from '@material-ui/core/styles/MuiThemeProvider';
+
+import TranslationView from './components/TranslationView';
 import SignUpView from './components/SignUpView';
+import SignInView from './components/SignInView';
 import DictionaryView from './components/DictionaryView';
 import TrainView from './components/TrainView';
-import { useCookies } from 'react-cookie';
 
 const useStyle = makeStyles((theme) => ({
     '@global': {
@@ -49,31 +51,23 @@ const App = observer((props) => {
     return (
         <div className={classes.root}>
             <MuiThemeProvider theme={theme}>
-                {hasCookie === false ? (
-                    <Router>
+                <Router>
+                    <HomeLayout
+                        cookies={cookies}
+                        hasCookie={hasCookie}
+                        setHasCookie={setHasCookie}
+                        removeCookie={removeCookie}
+                        hasCookie={hasCookie}
+                    >
                         <Switch>
-                            <Route path="/signup">
-                                <SignUpView setHasCookie={setHasCookie}></SignUpView>
-                            </Route>
+                            <Route path="/signUp" component={SignUpView} />
+                            <Route path="/signIn" component={SignInView} />
+                            <Route exact path="/" component={TranslationView} />
+                            <Route exact path="/dictionary" component={DictionaryView} />
+                            <Route exact path="/train" component={TrainView} />
                         </Switch>
-                    </Router>
-                ) : (
-                    <Router>
-                        <HomeLayout
-                            cookies={cookies}
-                            hasCookie={hasCookie}
-                            setHasCookie={setHasCookie}
-                            removeCookie={removeCookie}
-                            hasCookie={hasCookie}
-                        >
-                            <Switch>
-                                <Route exact path="/" component={TranslationView} />
-                                <Route exact path="/dictionary" component={DictionaryView} />
-                                <Route exact path="/train" component={TrainView} />
-                            </Switch>
-                        </HomeLayout>
-                    </Router>
-                )}
+                    </HomeLayout>
+                </Router>
             </MuiThemeProvider>
         </div>
     );

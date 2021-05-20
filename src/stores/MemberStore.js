@@ -25,6 +25,13 @@ class MemberStore {
     }
 
     @action
+    login(id, pw) {
+        return requestLogin(id, pw).then((result) => {
+            return result;
+        });
+    }
+
+    @action
     getRanker() {
         return requestGetRanker().then((result) => {
             return result;

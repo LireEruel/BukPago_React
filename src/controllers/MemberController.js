@@ -1,23 +1,23 @@
 import axios from 'axios';
 import Member from '../models/Member';
 
-export default async function requestLogin(email, pw) {
+export default async function requestLogin(_id, _pw) {
     return await axios
-        .post('api/login', { email: email, password: pw })
-        .catch((error) => {
-            return error;
-        })
+        .post('/api/login', { id: _id, pw: _pw })
         .then((res) => {
             return res;
+        })
+        .catch((err) => {
+            return err;
         });
 }
 
 export async function requestSignUp(member) {
     return await axios
-        .post('/api/member/', {
+        .post('/api/signUp', {
             id: member.id,
             pw: member.pw,
-            nickname: member.nickname,
+            name: member.name,
             email: member.email,
         })
         .then((res) => {
