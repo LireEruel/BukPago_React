@@ -68,6 +68,7 @@ export default observer(function CustomUploadTable(props) {
     }
 
     const handleDeleteFile = (event) => {
+        event.preventDefault();
         FileTranslationStore.DeleteFiles();
     }
 
@@ -113,7 +114,7 @@ export default observer(function CustomUploadTable(props) {
                         className={clsx(classes.button, classes.uploadButton)}
                         variant="contained"
                         component="label"
-                        for="upload"
+                        aria-labelledby="upload"
                         endIcon={<PublishIcon />}
                     >
                         업로드
