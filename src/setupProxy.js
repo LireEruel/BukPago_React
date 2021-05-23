@@ -1,11 +1,11 @@
-const {createProxyMiddleware} = require('http-proxy-middleware');
+const { createProxyMiddleware } = require('http-proxy-middleware');
 
 module.exports = function (app) {
-    app.use (
+    app.use(
         '/api',
         createProxyMiddleware({
-            target: 'https://lireeruel.github.io/BukPago_React/',
-            changeOrigin : true,
-        })
-    )
-}
+            target: '"http://127.0.0.1:12050/',
+            changeOrigin: true,
+        }),
+    );
+};

@@ -17,9 +17,7 @@ class MemberStore {
 
     @action
     register(id, pw, name, email) {
-        const newMember = new Member(id, pw, name, email, 0, 0);
-        console.log(newMember);
-        return requestSignUp(newMember).then((result) => {
+        return requestSignUp(id, pw, name, email).then((result) => {
             return result;
         });
     }
