@@ -7,6 +7,7 @@ import { makeStyles } from '@material-ui/styles';
 import { useCookies } from 'react-cookie';
 import { createMuiTheme } from '@material-ui/core';
 import MuiThemeProvider from '@material-ui/core/styles/MuiThemeProvider';
+import { SnackbarProvider } from 'material-ui-snackbar-provider'
 
 import TranslationView from './components/TranslationView';
 import SignUpView from './components/SignUpView';
@@ -55,24 +56,26 @@ const App = observer((props) => {
     return (
         <div className={classes.root}>
             <MuiThemeProvider theme={theme}>
-                <Router>
-                    <HomeLayout
-                        cookies={cookies}
-                        hasCookie={hasCookie}
-                        setHasCookie={setHasCookie}
-                        removeCookie={removeCookie}
-                        hasCookie={hasCookie}
-                    >
-                        <Switch>
-                            <Route path="/buk-pago/signUp" component={SignUpView} />
-                            <Route path="/buk-pago/signIn" component={SignInView} />
-                            <Route exact path="/buk-pago" component={TranslationView} />
-                            <Route exact path="/buk-pago/dictionary" component={DictionaryView} />
-                            <Route exact path="/buk-pago/train" component={TrainView} />
-                            <Route exact path="/buk-pago/file-translate" component={FileTranslationView} />
-                        </Switch>
-                    </HomeLayout>
-                </Router>
+                <SnackbarProvider SnackbarProps={{ autoHideDuration: 4000 }}>
+                    <Router>
+                        <HomeLayout
+                            cookies={cookies}
+                            hasCookie={hasCookie}
+                            setHasCookie={setHasCookie}
+                            removeCookie={removeCookie}
+                            hasCookie={hasCookie}
+                        >
+                            <Switch>
+                                <Route path="/buk-pago/signUp" component={SignUpView} />
+                                <Route path="/buk-pago/signIn" component={SignInView} />
+                                <Route exact path="/buk-pago" component={TranslationView} />
+                                <Route exact path="/buk-pago/dictionary" component={DictionaryView} />
+                                <Route exact path="/buk-pago/train" component={TrainView} />
+                                <Route exact path="/buk-pago/file-translate" component={FileTranslationView} />
+                            </Switch>
+                        </HomeLayout>
+                    </Router>
+                </SnackbarProvider>
             </MuiThemeProvider>
         </div>
     );
