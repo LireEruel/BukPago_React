@@ -3,7 +3,7 @@ import Member from '../models/Member';
 
 export default async function requestLogin(_id, _pw) {
     return await axios
-        .post('/api/login', { id: _id, pw: _pw })
+        .post('/api/member/login', { id: _id, password: _pw })
         .then((res) => {
             return res;
         })
@@ -12,16 +12,15 @@ export default async function requestLogin(_id, _pw) {
         });
 }
 
-export async function requestSignUp(member) {
+export async function requestSignUp(id, pw, name, email) {
     return await axios
-        .post('/api/signUp', {
-            id: member.id,
-            pw: member.pw,
-            name: member.name,
-            email: member.email,
+        .post('/api/member/signUp', {
+            pw: pw,
+            id: id,
+            name: name,
+            email: email,
         })
         .then((res) => {
-            console.log(res);
             return res;
         })
         .catch((err) => {
@@ -31,7 +30,7 @@ export async function requestSignUp(member) {
 
 export async function requestGetRanker() {
     return await axios
-        .get('/api/rank')
+        .get('/api/member/rank')
         .catch((error) => {
             return error;
         })

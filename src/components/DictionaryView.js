@@ -61,8 +61,7 @@ export default function DictionaryView(props) {
     };
 
     const search = () => {
-        // code 담아서 보내는걸로 수정 필요
-        dictionaryStore.getDictionary(inputText);
+        dictionaryStore.searchDic(code, inputText);
     };
     const handleKeyDown = (event) => {
         if (event.key === 'Enter') {
