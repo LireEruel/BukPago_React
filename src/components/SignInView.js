@@ -8,11 +8,13 @@ import Checkbox from '@material-ui/core/Checkbox';
 import Link from '@material-ui/core/Link';
 import Grid from '@material-ui/core/Grid';
 import Box from '@material-ui/core/Box';
+import { observer } from 'mobx-react';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import MemberStore from '../stores/MemberStore';
+import { useHistory } from 'react-router-dom';
 
 const useStyles = makeStyles((theme) => ({
     paper: {
@@ -34,14 +36,25 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-export default function SignIn() {
+const SignInView = observer((props) => {
     const classes = useStyles();
     const memberStore = useContext(MemberStore.context);
     const id = useRef('');
     const pw = useRef('');
-    const login = () => {
-        memberStore.login(id, pw);
-    };
+    const setHasCookie = props.setHasCookie;
+    let history = useHistory();
+
+    function login(e) {
+        e.preventDefault();
+        memberStore.login(id.current.value, pw.current.value).then((res) => {
+            if (res.status == 200) {
+                setHasCookie(true);
+                history.push('/buk-pago');
+            } else {
+                //
+            }
+        });
+    }
 
     return (
         <Container component="main" maxWidth="xs">
@@ -105,4 +118,6 @@ export default function SignIn() {
             </div>
         </Container>
     );
-}
+});
+
+export default SignInView;

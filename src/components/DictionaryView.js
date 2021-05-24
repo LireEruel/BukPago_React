@@ -61,8 +61,14 @@ export default function DictionaryView(props) {
     };
 
     const search = () => {
-        // code 담아서 보내는걸로 수정 필요
-        dictionaryStore.getDictionary(inputText);
+        console.log('코드 : ' + code, '내용 : ' + inputText);
+        dictionaryStore.searchDic(code, inputText).then((res) => {
+            if (res.status == 200) {
+                //
+            } else {
+                //
+            }
+        });
     };
     const handleKeyDown = (event) => {
         if (event.key === 'Enter') {
