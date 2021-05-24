@@ -1,9 +1,6 @@
-import { useState } from 'react';
 import { observer } from 'mobx-react'
-import { Button, Checkbox, lighten, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Toolbar, Typography } from '@material-ui/core';
-import { makeStyles } from '@material-ui/styles';
-import DeleteIcon from '@material-ui/icons/Delete';
-import PublishIcon from '@material-ui/icons/Publish';
+import { Button, Checkbox, lighten, makeStyles, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Toolbar, Typography } from '@material-ui/core';
+import GetAppIcon from '@material-ui/icons/GetApp';
 
 import { useStores } from '../stores/Context';
 import clsx from 'clsx';
@@ -11,6 +8,9 @@ import clsx from 'clsx';
 const useCustomTableStyles = makeStyles({
     root: {
         width: '100%'
+    },
+    tableWrapper: {
+        overflowX: 'auto',
     },
     toolbarRoot: {
         paddingTop: '1%'
@@ -23,15 +23,15 @@ const useCustomTableStyles = makeStyles({
         fontWeight: "600",
         fontSize: "1rem",
     },
-    uploadButton: {
-        backgroundColor: '#228b22',
+    downloadButton: {
+        backgroundColor: '#F07069',
     },
     input: {
         display: "none",
     },
     highlight: {
-        color: '#f50057',
-        backgroundColor: lighten('#ff4081', 0.85),
+        color: '#58a0d1',
+        backgroundColor: lighten('#79b3da', 0.85),
     },
     headerRoot: {
         width: '100%'
@@ -47,7 +47,7 @@ const useCustomTableStyles = makeStyles({
     },
 })
 
-export default observer(function CustomUploadTable(props) {
+export default observer(function CustomDownloadTable(props) {
     const classes = useCustomTableStyles();
     const { FileTranslationStore } = useStores();
 
@@ -61,67 +61,32 @@ export default observer(function CustomUploadTable(props) {
         return (size / Math.pow(1024, e)).toFixed(2) + " " + sizes[e];
     }
 
-    const handleUploadFile = (event) => {
-        if (event.target.click) {
-            const files = event.target.files;
-            FileTranslationStore.uploadFile(files)
-        }
-    }
-
-    const handleDeleteFile = (event) => {
-        event.preventDefault();
-        FileTranslationStore.DeleteFiles();
-    }
-
     const handleSelectAllClick = (event) => {
-        FileTranslationStore.setSelectAll('original', event);
+        FileTranslationStore.setSelectAll('translated', event);
     }
 
     const handleClick = (event, name) => {
-        FileTranslationStore.setSelected('original', name);
+        FileTranslationStore.setSelected('translated', name);
     }
 
     const isSelected = (name) => {
-        return FileTranslationStore.selectedOriginal.indexOf(name) !== -1;
+        return FileTranslationStore.selectedTranslated.indexOf(name) !== -1;
     }
 
     return (
         <div className={classes.root}>
-            <Toolbar className={clsx(classes.toolbarRoot, { [classes.highlight]: FileTranslationStore.selectedOriginal.length > 0 })}>
+            <Toolbar className={clsx(classes.toolbarRoot)}>
                 <Typography className={classes.toolbarTitle} variant="h6" component="div">
-                    원본파일
+                    번역파일
                 </Typography>
-                {FileTranslationStore.selectedOriginal.length > 0 ? (
-                    <Button
-                        className={classes.button}
-                        variant="contained"
-                        component="label"
-                        color="secondary"
-                        endIcon={<DeleteIcon />}
-                        onClick={handleDeleteFile}
-                    >
-                        삭제
-                    </Button>
-                ) : (
-                    <Button
-                        className={clsx(classes.button, classes.uploadButton)}
-                        variant="contained"
-                        component="label"
-                        aria-labelledby="upload"
-                        endIcon={<PublishIcon />}
-                    >
-                        업로드
-                        <input
-                            id='upload'
-                            className={classes.input}
-                            multiple
-                            type="file"
-                            accept=".txt"
-                            onChange={handleUploadFile}
-                        />
-                    </Button>
-                )
-                }
+                <Button
+                    className={clsx(classes.button, classes.downloadButton)}
+                    variant="contained"
+                    component="label"
+                    endIcon={<GetAppIcon />}
+                >
+                    다운로드
+                </Button>
             </Toolbar>
             <TableContainer>
                 <Table className={classes.table}>
@@ -129,8 +94,8 @@ export default observer(function CustomUploadTable(props) {
                         <TableRow>
                             <TableCell padding="checkbox">
                                 <Checkbox
-                                    indeterminate={FileTranslationStore.selectedOriginal.length > 0 && FileTranslationStore.selectedOriginal.length < FileTranslationStore.fileCount}
-                                    checked={FileTranslationStore.fileCount > 0 && FileTranslationStore.selectedOriginal.length === FileTranslationStore.fileCount}
+                                    indeterminate={FileTranslationStore.selectedTranslated.length > 0 && FileTranslationStore.selectedTranslated.length < FileTranslationStore.fileCount}
+                                    checked={FileTranslationStore.fileCount > 0 && FileTranslationStore.selectedTranslated.length === FileTranslationStore.fileCount}
                                     onChange={handleSelectAllClick}
                                 />
                             </TableCell>
@@ -140,7 +105,7 @@ export default observer(function CustomUploadTable(props) {
                         </TableRow>
                     </TableHead>
                     <TableBody>
-                        {FileTranslationStore.originalFiles.map((fileInfo, index) => {
+                        {FileTranslationStore.translatedFiles.map((fileInfo, index) => {
                             const isItemSelected = isSelected(fileInfo.name);
 
                             return (
@@ -149,7 +114,7 @@ export default observer(function CustomUploadTable(props) {
                                     onClick={(event) => handleClick(event, fileInfo.name)}
                                     role="checkbox"
                                     key={fileInfo.name}
-                                    selectedOriginal={isItemSelected}
+                                    selected={isItemSelected}
                                 >
                                     <TableCell padding="checkbox">
                                         <Checkbox
@@ -167,4 +132,4 @@ export default observer(function CustomUploadTable(props) {
             </TableContainer>
         </div>
     )
-});
+})

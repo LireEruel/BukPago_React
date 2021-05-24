@@ -3,6 +3,7 @@ import { makeStyles } from '@material-ui/styles';
 import { Box, Button, Grid, Paper, Typography } from '@material-ui/core';
 import ArrowForwardIcon from '@material-ui/icons/ArrowForward';
 import CustomUploadTable from './CustomUploadTable';
+import CustomDownloadTable from './CustomDownloadTable';
 import { useSnackbar } from 'material-ui-snackbar-provider'
 
 const useBodyStyles = makeStyles({
@@ -12,7 +13,7 @@ const useBodyStyles = makeStyles({
         display: 'inline-block',
     },
     title: {
-        paddingTop: '2%',
+        paddingTop: "2%",
         textAlign: 'center',
         fontWeight: 600,
     },
@@ -92,11 +93,12 @@ export default function FileTranslationView(props) {
                             변환
                         </Button>
                     </Box>
-
                     <Box
                         component={Paper}
                         className={clsx(classes.columFlexBox, classes.rightBox)}
-                    ></Box>
+                    >
+
+                    </Box>
                 </Grid>
             </div>
         </div>
