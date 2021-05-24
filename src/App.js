@@ -7,6 +7,7 @@ import { makeStyles } from '@material-ui/styles';
 import { useCookies } from 'react-cookie';
 import { createMuiTheme } from '@material-ui/core';
 import MuiThemeProvider from '@material-ui/core/styles/MuiThemeProvider';
+import { SnackbarProvider } from 'material-ui-snackbar-provider'
 
 import TranslationView from './components/TranslationView';
 import SignUpView from './components/SignUpView';

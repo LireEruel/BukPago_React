@@ -3,6 +3,7 @@ import { makeStyles } from '@material-ui/styles';
 import { Box, Button, Grid, Paper, Typography } from '@material-ui/core';
 import ArrowForwardIcon from '@material-ui/icons/ArrowForward';
 import CustomUploadTable from './CustomUploadTable';
+import { useSnackbar } from 'material-ui-snackbar-provider'
 
 const useBodyStyles = makeStyles({
     root: {
@@ -47,6 +48,18 @@ const useBodyStyles = makeStyles({
 
 export default function FileTranslationView(props) {
     const classes = useBodyStyles();
+    const snackbar = useSnackbar();
+
+    const handleOpen = () => {
+        snackbar.showMessage(
+            'active!',
+            'Undo', () => handleUndo()
+        )
+    }
+
+    const handleUndo = () => {
+        console.log('undo!')
+    }
 
     return (
         <div className={classes.root}>
@@ -74,6 +87,7 @@ export default function FileTranslationView(props) {
                             className={classes.translateBtn}
                             color="primary"
                             endIcon={<ArrowForwardIcon />}
+                            onClick={handleOpen}
                         >
                             변환
                         </Button>
