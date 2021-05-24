@@ -1,21 +1,32 @@
 import { makeAutoObservable, observable, computed, action, flow } from "mobx"
+
+import requestFileTranslate from '../controllers/FileTranslationController'
 export class FileTranslationStore {
     originalFiles = [];
     translatedFiles = [];
     fileCount = 0;
-    selected = [];
+    selectedOriginal = [];
+    selectedTranslated = [];
 
     constructor() {
         makeAutoObservable(this, {
             originalFiles: observable,
             translatedFiles: observable,
             fileCount: observable,
-            selected: observable,
+            selectedOriginal: observable,
+            selectedTranslated: observable,
             uploadFile: action,
             DeleteFiles: action,
             setSelected: action,
             setSelectAll: action,
+            translateFiles: action
         });
+    }
+
+    findIndex(file) {
+        const fileName = file.name;
+
+        return this.originalFiles.findIndex(e => e.name === fileName);
     }
 
     uploadFile(fileList) {
@@ -44,49 +55,74 @@ export class FileTranslationStore {
         }
     }
 
-    findIndex(file) {
-        const fileName = file.name;
-
-        return this.originalFiles.findIndex(e => e.name === fileName);
-    }
-
     DeleteFiles() {
-        for (const name of this.selected) {
+        for (const name of this.selectedOriginal) {
             this.originalFiles = this.originalFiles.filter((file) => file.name !== name)
         }
         this.fileCount = this.originalFiles.length;
-        this.selected = [];
+        this.selectedOriginal = [];
     }
 
-    setSelected(name) {
-        const selectedIndex = this.selected.indexOf(name);
+    setSelected(caller, name) {
         let newSelected = [];
 
-        if (selectedIndex === -1) {
-            newSelected = newSelected.concat(this.selected, name);
-        } else if (selectedIndex === 0) {
-            newSelected = newSelected.concat(this.selected.slice(1));
-        } else if (selectedIndex === this.selected.length - 1) {
-            newSelected = newSelected.concat(this.selected.slice(0, -1));
-        } else if (selectedIndex > 0) {
-            newSelected = newSelected.concat(
-                this.selected.slice(0, selectedIndex),
-                this.selected.slice(selectedIndex + 1),
-            );
-        }
+        if (caller === 'original') {
+            const selectedIndex = this.selectedOriginal.indexOf(name);
 
-        this.selected = [...newSelected]
+            if (selectedIndex === -1) {
+                newSelected = newSelected.concat(this.selectedOriginal, name);
+            } else if (selectedIndex === 0) {
+                newSelected = newSelected.concat(this.selectedOriginal.slice(1));
+            } else if (selectedIndex === this.selectedOriginal.length - 1) {
+                newSelected = newSelected.concat(this.selectedOriginal.slice(0, -1));
+            } else if (selectedIndex > 0) {
+                newSelected = newSelected.concat(
+                    this.selectedOriginal.slice(0, selectedIndex),
+                    this.selectedOriginal.slice(selectedIndex + 1),
+                );
+            }
+
+            this.selectedOriginal = [...newSelected]
+        } else if (caller === 'translated') {
+            const selectedIndex = this.selectedTranslated.indexOf(name);
+
+            if (selectedIndex === -1) {
+                newSelected = newSelected.concat(this.selectedTranslated, name);
+            } else if (selectedIndex === 0) {
+                newSelected = newSelected.concat(this.selectedTranslated.slice(1));
+            } else if (selectedIndex === this.selectedTranslated.length - 1) {
+                newSelected = newSelected.concat(this.selectedTranslated.slice(0, -1));
+            } else if (selectedIndex > 0) {
+                newSelected = newSelected.concat(
+                    this.selectedTranslated.slice(0, selectedIndex),
+                    this.selectedTranslated.slice(selectedIndex + 1),
+                );
+            }
+
+            this.selectedTranslated = [...newSelected]
+        }
     }
 
-    setSelectAll(event) {
+    setSelectAll(caller, event) {
         const newSelected = []
-
-        if (event.target.checked) {
-            this.originalFiles.forEach((file) => {
-                newSelected.push(file.name)
-            })
+        if (caller === 'original') {
+            if (event.target.checked) {
+                this.originalFiles.forEach((file) => {
+                    newSelected.push(file.name)
+                })
+            }
+            this.selectedOriginal = [...newSelected]
+        } else if (caller === 'translated') {
+            if (event.target.checked) {
+                this.translateFiles.forEach((file) => {
+                    newSelected.push(file.name)
+                })
+            }
+            this.selectedTranslated = [...newSelected]
         }
+    }
 
-        this.selected = [...newSelected]
+    translateFiles() {
+        this.translatedFiles = requestFileTranslate(this.originalFiles);
     }
 };
