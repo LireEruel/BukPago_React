@@ -3,7 +3,7 @@ import Member from '../models/Member';
 
 export default async function requestLogin(_id, _pw) {
     return await axios
-        .post('/api/member/login', { id: _id, password: _pw })
+        .post('/api/member/login', { id: _id, pw: _pw })
         .then((res) => {
             return res;
         })

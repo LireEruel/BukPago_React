@@ -24,6 +24,7 @@ class DictionaryStore {
 
     @action
     searchDic(code, query) {
+        console.log(code, query);
         return requestSearchDictionary(code, query).then((result) => {
             this.dictionarys = [...result];
         });
