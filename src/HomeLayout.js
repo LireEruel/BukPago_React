@@ -7,6 +7,7 @@ import { Link } from 'react-router-dom';
 import IconButton from '@material-ui/core/IconButton';
 import AccountCircle from '@material-ui/icons/AccountCircle';
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
+import clsx from 'clsx';
 
 const useStyle = makeStyles((theme) => ({
     root: {
@@ -37,6 +38,9 @@ const useStyle = makeStyles((theme) => ({
     },
     link: {
         textDecoration: 'none',
+    },
+    iconBtn: {
+        backgroundColor: 'white',
     },
     accountIcon: {
         float: 'right',
@@ -127,14 +131,14 @@ function HomeLayout(props) {
                                 </div>
                             ) : (
                                 <div>
-                                    <IconButton>
-                                        <ExitToAppIcon color="secondary" fontSize="large" />
+                                    <IconButton className={classes.iconBtn}>
+                                        <ExitToAppIcon fontSize="large" />
                                     </IconButton>
                                     <IconButton
-                                        className={classes.accountIcon}
+                                        className={clsx(classes.accountIcon, classes.iconBtn)}
                                         onClick={removeCookie}
                                     >
-                                        <AccountCircle color="secondary" fontSize="large" />
+                                        <AccountCircle fontSize="large" />
                                     </IconButton>
                                 </div>
                             )}
