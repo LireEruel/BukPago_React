@@ -13,11 +13,7 @@ const useBodyStyles = makeStyles({
         display: 'inline-block',
     },
     title: {
-<<<<<<< HEAD
-        paddingTop: '2%',
-=======
         paddingTop: "2%",
->>>>>>> 1fd950e ([update] 화면 레이아웃 일부 수정 및 번역 테이블 추가)
         textAlign: 'center',
         fontWeight: 600,
     },
@@ -97,17 +93,12 @@ export default function FileTranslationView(props) {
                             변환
                         </Button>
                     </Box>
-
-<<<<<<< HEAD
                     <Box
                         component={Paper}
                         className={clsx(classes.columFlexBox, classes.rightBox)}
-                    ></Box>
-=======
-                    <Box component={Paper} className={clsx(classes.columFlexBox, classes.rightBox)}>
-                        <CustomDownloadTable />
+                    >
+
                     </Box>
->>>>>>> 1fd950e ([update] 화면 레이아웃 일부 수정 및 번역 테이블 추가)
                 </Grid>
             </div>
         </div>
