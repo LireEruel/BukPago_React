@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { observer } from 'mobx-react'
-import { Button, Checkbox, lighten, makeStyles, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Toolbar, Typography } from '@material-ui/core';
+import { Button, Checkbox, lighten, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Toolbar, Typography } from '@material-ui/core';
+import { makeStyles } from '@material-ui/styles';
 import DeleteIcon from '@material-ui/icons/Delete';
 import PublishIcon from '@material-ui/icons/Publish';
 
@@ -73,32 +74,24 @@ export default observer(function CustomUploadTable(props) {
     }
 
     const handleSelectAllClick = (event) => {
-        FileTranslationStore.setSelectAll(event);
+        FileTranslationStore.setSelectAll('original', event);
     }
 
     const handleClick = (event, name) => {
-        FileTranslationStore.setSelected(name);
+        FileTranslationStore.setSelected('original', name);
     }
 
     const isSelected = (name) => {
-        return FileTranslationStore.selected.indexOf(name) !== -1;
+        return FileTranslationStore.selectedOriginal.indexOf(name) !== -1;
     }
 
     return (
         <div className={classes.root}>
-            <Toolbar className={clsx(classes.toolbarRoot, { [classes.highlight]: FileTranslationStore.selected.length > 0 })}>
-                {
-                    FileTranslationStore.numSelected > 0 ? (
-                        <Typography className={classes.toolbarTitle} variant="subtitle1" component="div">
-                            {FileTranslationStore.numSelected} 선택 됨
-                        </Typography>
-                    ) : (
-                        <Typography className={classes.toolbarTitle} variant="h6" component="div">
-                            원본파일
-                        </Typography>
-                    )
-                }
-                {FileTranslationStore.selected.length > 0 ? (
+            <Toolbar className={clsx(classes.toolbarRoot, { [classes.highlight]: FileTranslationStore.selectedOriginal.length > 0 })}>
+                <Typography className={classes.toolbarTitle} variant="h6" component="div">
+                    원본파일
+                </Typography>
+                {FileTranslationStore.selectedOriginal.length > 0 ? (
                     <Button
                         className={classes.button}
                         variant="contained"
@@ -136,8 +129,8 @@ export default observer(function CustomUploadTable(props) {
                         <TableRow>
                             <TableCell padding="checkbox">
                                 <Checkbox
-                                    indeterminate={FileTranslationStore.selected.length > 0 && FileTranslationStore.selected.length < FileTranslationStore.fileCount}
-                                    checked={FileTranslationStore.fileCount > 0 && FileTranslationStore.selected.length === FileTranslationStore.fileCount}
+                                    indeterminate={FileTranslationStore.selectedOriginal.length > 0 && FileTranslationStore.selectedOriginal.length < FileTranslationStore.fileCount}
+                                    checked={FileTranslationStore.fileCount > 0 && FileTranslationStore.selectedOriginal.length === FileTranslationStore.fileCount}
                                     onChange={handleSelectAllClick}
                                 />
                             </TableCell>
@@ -156,7 +149,7 @@ export default observer(function CustomUploadTable(props) {
                                     onClick={(event) => handleClick(event, fileInfo.name)}
                                     role="checkbox"
                                     key={fileInfo.name}
-                                    selected={isItemSelected}
+                                    selectedOriginal={isItemSelected}
                                 >
                                     <TableCell padding="checkbox">
                                         <Checkbox
