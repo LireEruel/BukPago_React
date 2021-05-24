@@ -77,12 +77,12 @@ export default function SignUpView(props) {
         memberStore.register(member).then((res) => {
             if (res.status == 200) {
                 //SnackbarStore.pushMessage(res.data['message'], true);
+                snackbar.showMessage(
+                    res.message,
+                )
             } else {
                 //SnackbarStore.pushMessage(res.data['message'], false);
             }
-            snackbar.showMessage(
-                res.message,
-            )
         });
     }
 
