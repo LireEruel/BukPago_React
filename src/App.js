@@ -56,7 +56,7 @@ const App = observer((props) => {
     return (
         <div className={classes.root}>
             <MuiThemeProvider theme={theme}>
-                <SnackbarProvider SnackbarProps={{ autoHideDuration: 4000 }}>
+                <SnackbarProvider SnackbarProps={{ autoHideDuration: 4000, anchorOrigin: { vertical: 'bottom', horizontal: 'left' } }}>
                     <Router>
                         <HomeLayout
                             cookies={cookies}
