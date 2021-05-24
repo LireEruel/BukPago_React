@@ -9,9 +9,6 @@ const useCustomTableStyles = makeStyles({
     root: {
         width: '100%'
     },
-    tableWrapper: {
-        overflowX: 'auto',
-    },
     toolbarRoot: {
         paddingTop: '1%'
     },

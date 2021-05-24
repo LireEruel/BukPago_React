@@ -15,6 +15,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import MemberStore from '../stores/MemberStore';
 import { useHistory } from 'react-router-dom';
+import { useSnackbar } from 'material-ui-snackbar-provider'
 
 const useStyles = makeStyles((theme) => ({
     paper: {
@@ -43,16 +44,24 @@ const SignInView = observer((props) => {
     const pw = useRef('');
     const setHasCookie = props.setHasCookie;
     let history = useHistory();
+    const snackbar = useSnackbar();
 
     function login(e) {
         e.preventDefault();
+        if (id.current.value === '' || pw.current.value === '') {
+            snackbar.showMessage(
+                '아이디 또는 비밀 번호를 입력해 주세요.',
+                '확인'
+            )
+        }
         memberStore.login(id.current.value, pw.current.value).then((res) => {
             if (res.status == 200) {
                 setHasCookie(true);
                 history.push('/buk-pago');
-            } else {
-                //
             }
+            snackbar.showMessage(
+                res.message,
+            )
         });
     }
 
