@@ -56,30 +56,32 @@ const App = observer((props) => {
     return (
         <div className={classes.root}>
             <MuiThemeProvider theme={theme}>
-                <Router>
-                    <HomeLayout
-                        cookies={cookies}
-                        hasCookie={hasCookie}
-                        setHasCookie={setHasCookie}
-                        removeCookie={removeCookie}
-                        hasCookie={hasCookie}
-                    >
-                        <Switch>
-                            <Route path="/buk-pago/signUp" component={SignUpView} />
-                            <Route path="/buk-pago/signIn">
-                                <SignInView setHasCookie={setHasCookie}> </SignInView>
-                            </Route>
-                            <Route exact path="/buk-pago" component={TranslationView} />
-                            <Route exact path="/buk-pago/dictionary" component={DictionaryView} />
-                            <Route exact path="/buk-pago/train" component={TrainView} />
-                            <Route
-                                exact
-                                path="/buk-pago/file-translate"
-                                component={FileTranslationView}
-                            />
-                        </Switch>
-                    </HomeLayout>
-                </Router>
+                <SnackbarProvider SnackbarProps={{ autoHideDuration: 4000 }}>
+                    <Router>
+                        <HomeLayout
+                            cookies={cookies}
+                            hasCookie={hasCookie}
+                            setHasCookie={setHasCookie}
+                            removeCookie={removeCookie}
+                            hasCookie={hasCookie}
+                        >
+                            <Switch>
+                                <Route path="/buk-pago/signUp" component={SignUpView} />
+                                <Route path="/buk-pago/signIn">
+                                    <SignInView setHasCookie={setHasCookie}> </SignInView>
+                                </Route>
+                                <Route exact path="/buk-pago" component={TranslationView} />
+                                <Route exact path="/buk-pago/dictionary" component={DictionaryView} />
+                                <Route exact path="/buk-pago/train" component={TrainView} />
+                                <Route
+                                    exact
+                                    path="/buk-pago/file-translate"
+                                    component={FileTranslationView}
+                                />
+                            </Switch>
+                        </HomeLayout>
+                    </Router>
+                </SnackbarProvider>
             </MuiThemeProvider>
         </div>
     );
