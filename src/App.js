@@ -14,7 +14,8 @@ import SignUpView from './components/SignUpView';
 import SignInView from './components/SignInView';
 import DictionaryView from './components/DictionaryView';
 import TrainView from './components/TrainView';
-import FileTranslationView from './components/FileTranslationView.js';
+import FileTranslationView from './components/FileTranslationView';
+import TranslateApiView from './components/TranslateApiView'
 
 const useStyle = makeStyles((theme) => ({
     '@global': {
@@ -73,11 +74,8 @@ const App = observer((props) => {
                                 <Route exact path="/buk-pago" component={TranslationView} />
                                 <Route exact path="/buk-pago/dictionary" component={DictionaryView} />
                                 <Route exact path="/buk-pago/train" component={TrainView} />
-                                <Route
-                                    exact
-                                    path="/buk-pago/file-translate"
-                                    component={FileTranslationView}
-                                />
+                                <Route exact path="/buk-pago/file-translate" component={FileTranslationView} />
+                                <Route exact path="/buk-pago/api" component={TranslateApiView} />
                             </Switch>
                         </HomeLayout>
                     </Router>

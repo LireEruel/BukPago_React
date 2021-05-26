@@ -107,6 +107,16 @@ function HomeLayout(props) {
                                 北파고 Train
                             </Button>
                         </Link>
+                        <Link
+                            to={{
+                                pathname: '/buk-pago/api'
+                            }}
+                            style={{ textDecoration: 'none' }}
+                        >
+                            <Button className={classes.title} size='large'>
+                                北파고 API
+                            </Button>
+                        </Link>
                     </Grid>
                     <Grid
                         className={classes.accountGrid}

@@ -12,6 +12,9 @@ const useCustomTableStyles = makeStyles({
     root: {
         width: '100%'
     },
+    container: {
+        maxHeight: '375px'
+    },
     toolbarRoot: {
         paddingTop: '1%'
     },
@@ -20,7 +23,6 @@ const useCustomTableStyles = makeStyles({
     },
     button: {
         color: 'white',
-        fontWeight: "600",
         fontSize: "1rem",
     },
     uploadButton: {
@@ -56,7 +58,7 @@ export default observer(function CustomUploadTable(props) {
             return 'n/a'
         }
 
-        var sizes = ['bytes', 'kB', 'MB', 'GB', 'TB', 'PB'];
+        var sizes = ['바이트', '킬로바이트', '메가바이트', '기가바이트', '테라바이트', '페타바이트'];
         var e = Math.floor(Math.log(size) / Math.log(1024));
         return (size / Math.pow(1024, e)).toFixed(2) + " " + sizes[e];
     }
@@ -74,10 +76,12 @@ export default observer(function CustomUploadTable(props) {
     }
 
     const handleSelectAllClick = (event) => {
+        event.preventDefault();
         FileTranslationStore.setSelectAll('original', event);
     }
 
     const handleClick = (event, name) => {
+        event.preventDefault();
         FileTranslationStore.setSelected('original', name);
     }
 
@@ -123,8 +127,8 @@ export default observer(function CustomUploadTable(props) {
                 )
                 }
             </Toolbar>
-            <TableContainer>
-                <Table className={classes.table}>
+            <TableContainer className={classes.container}>
+                <Table stickyHeader className={classes.table}>
                     <TableHead className={classes.headerRoot}>
                         <TableRow>
                             <TableCell padding="checkbox">
@@ -149,12 +153,10 @@ export default observer(function CustomUploadTable(props) {
                                     onClick={(event) => handleClick(event, fileInfo.name)}
                                     role="checkbox"
                                     key={fileInfo.name}
-                                    selectedOriginal={isItemSelected}
+                                    selected={isItemSelected}
                                 >
                                     <TableCell padding="checkbox">
-                                        <Checkbox
-                                            checked={isItemSelected}
-                                        />
+                                        <Checkbox checked={isItemSelected} />
                                     </TableCell>
                                     <TableCell className={classes.idCell}>{index + 1}</TableCell>
                                     <TableCell className={classes.nameCell}>{fileInfo.name}</TableCell>
