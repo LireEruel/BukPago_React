@@ -1,15 +1,15 @@
-export default class Dictionary{
-    constructor(NK, SK, mean){
-        this.NK = NK
-        this.SK = SK
-        this.mean = mean
+export default class Dictionary {
+    constructor(NK, SK, mean) {
+        this.NK = NK;
+        this.SK = SK;
+        this.mean = mean;
     }
 
-    get_dic(){
-        return{
+    get_dic() {
+        return {
             id: this.NK,
-            SK : this.SK,
-            mean : this.mean
-        }
+            south: this.SK,
+            mean: this.mean,
+        };
     }
 }

@@ -15,6 +15,10 @@ import SignInView from './components/SignInView';
 import DictionaryView from './components/DictionaryView';
 import TrainView from './components/TrainView';
 import FileTranslationView from './components/FileTranslationView.js';
+import MyPageView from './components/MyPageView';
+
+
+
 
 const useStyle = makeStyles((theme) => ({
     '@global': {
@@ -77,6 +81,7 @@ const App = observer((props) => {
                                 path="/buk-pago/file-translate"
                                 component={FileTranslationView}
                             />
+                            <Route exact path= "/buk-pago/myPage" component={MyPageView}/>
                         </Switch>
                     </HomeLayout>
                 </Router>

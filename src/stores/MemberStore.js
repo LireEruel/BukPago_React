@@ -25,7 +25,6 @@ class MemberStore {
     @action
     login(id, pw) {
         return requestLogin(id, pw).then((result) => {
-            console.log('Ds');
             return result;
         });
     }
