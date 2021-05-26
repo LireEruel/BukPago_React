@@ -66,7 +66,7 @@ export default function EvaluatedView(props){
     const nk = element.nk;
     const sk = element.sk;
     const isLike = element.isLike;
-
+    console.log(element);
     return(
         <div className = {classes.root}>
             <Card className={classes.card}>
@@ -78,6 +78,7 @@ export default function EvaluatedView(props){
                                 :
                                 <ThumbDownIcon color="secondary"/>    
                             }
+                            
                                 <Typography  className={classes.title}>{nk}</Typography>
                                 <Typography>{sk}</Typography>  
                                     

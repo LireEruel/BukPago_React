@@ -15,6 +15,7 @@ import Alert from '@material-ui/lab/Alert';
 import TrainStore from '../stores/TrainStore';
 import { SpaceBar } from '@material-ui/icons';
 import { composeClasses } from '@material-ui/data-grid';
+import MemberUpdateDialog from './MemberUpdataDialog';
 
 
 
@@ -68,10 +69,21 @@ const useStyles = makeStyles ( {
 
 export default function ProfileCard(props){
     const classes = useStyles();
+    const id=props.id
     const name = props.name;
-    const admin = props.admin;
+    const isAdmin = props.isAdmin;
     const email = props.email;
+    
+    const [open, setOpen] = React.useState(false);
 
+    const handleClickOpen = () => {
+        setOpen(true);
+    };
+
+    const handleClose = (value) => {
+        setOpen(false);
+
+    };
     return(
         <div className = {classes.root}>
             <Card className={classes.card}>
@@ -136,9 +148,9 @@ export default function ProfileCard(props){
                                             </Typography>
                                         </div>
                                         <Tab></Tab>
-                                        <div className={classes.admin}>
+                                        <div className={classes.isAdmin}>
                                             <Typography  className={classes.title} variant="h6">
-                                                {admin}
+                                                {isAdmin}
                                             </Typography>
                                         </div>
                                     </Grid>
@@ -147,12 +159,10 @@ export default function ProfileCard(props){
                             </Grid>
                         </CardContent>
                         <CardActions>
-                            <Button className={classes.editButton}
-                                    disableRipple
-                                    color="primary"
-                                    size="large">수정하기</Button>
+                            <MemberUpdateDialog className={classes.editButton} open={open} onClose = {handleClose} id = {id} name={name} email = {email} />          
                         </CardActions>
-                    </Card>                  
+                    </Card>     
+                       
         </div>
     )
 }

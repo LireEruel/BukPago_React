@@ -9,11 +9,11 @@ import MemberStore from '../stores/MemberStore';
 import CardContent from '@material-ui/core/CardContent';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
+import { useHistory } from 'react-router-dom';
 
 import Profile from './ProfileCard';
 import RankingCard from './RankingCard';
 import EvaluatedView from './EvaluatedView';
-
 
 const useStyles = makeStyles({
     root: {
@@ -70,7 +70,7 @@ const useStyles = makeStyles({
         height : '70%'
     },
     evalCard : {
-        height : '70%'
+        paddingBottom : '5%'
     }
 })
 
@@ -78,41 +78,77 @@ const useStyles = makeStyles({
 export default function TranslationView(props) {
 
     const classes = useStyles();
+    const hasCookie = props.hasCookie;
+    let history = useHistory();
+
     const memberStore = useContext(MemberStore.context);
     const [name, setName] = useState("주오");
-    const [admin, setAdmin] = useState("일반 회원");
+    const [isAdmin, setIsAdmin] = useState("일반 회원");
     const [email, setEmail] = useState("qssz1326@naver.com");
     const [percent, setPercent] = useState(17);
     const [ranking, setRanking] = useState(1232243123);
-    const [evaluated, setEvaluated] = useState([{nk:'안녕', sk:"하세요", isLike:true},{nk:'안녕', sk:"하세요", isLike:false},{nk:'안녕', sk:"하세요", isLike:true},{nk:'안녕', sk:"하세요", isLike:true},{nk:'안녕', sk:"하세요", isLike:true},  ]);
+    const [evaluated, setEvaluated] = useState([]);
+    const [id, setId] = useState("jsh001505");
+
+    useEffect(() => {
+        /*
+        if(hasCookie == false)
+            history.push('/buk-pago');
+        
+        memberStore.getUserInfo().then((res) => {
+            setId(res.data.id);
+            setName(res.data.nickname);
+            setIsAdmin(res.data.isAdmin);
+            setEmail(res.data.Email);
+            setEvaluated(res.data.evalInfo);
+        });
+        memberStore.getMyRank().then((res) => {
+            setPercent(res.data.percent);
+            setRanking(res.data.ranking);
+        });
+        */
+    })
+
 
     return(
         <div className={classes.root}>
             <div className={classes.content}>
                 <Grid className={classes.grid} container direction="row" justify="space-around">
                     <div className={classes.left}>
-                        <Profile name={name} admin={admin} email={email}  />
+                        <Profile name={name} isAdmin={isAdmin} email={email} id={id}/>
                         <RankingCard percent={percent} ranking= {ranking} />
                     </div>  
                     <div className={classes.right}>
-
-                        <Card className={classes.evalCard}>
-                            <CardContent>
-                                <Typography className={classes.title} variant="h4">
-                                    평가기록
-                                </Typography>
-                            </CardContent>
-                                {
-                                    evaluated.map((element) => {
-                                        return(
+                            <Card className={classes.evalCard}>
+                                <CardContent>
+                                    <Typography className={classes.title} variant="h4">
+                                        평가기록
+                                    </Typography>
+                                </CardContent>
+                                    {
+                                        evaluated.length == 0 ? 
+                                        (
                                             <Grid item align="center">
-                                                <EvaluatedView element={element}/>
-                                            </Grid>                            
+                                                <br/>
+                                                <Typography  className={classes.title} variant="h5"> 최근 번역 평가 기록이 없습니다.</Typography>
+                                            </Grid> 
+                                        )                                     
+                                        :
+                                        (
+                                            evaluated.map((element) => {
+                                                return(
+                                                    <Grid item align="center">
+                                                        <EvaluatedView element={element}/>
+                                                    </Grid>                            
+                                                )
+                                            }
                                         )
-                                    })
-                                }
-                                
-                        </Card>
+                                        )
+                                    
+                                    }
+                                    
+                            </Card>
+
                     </div>                  
                 </Grid>
                    

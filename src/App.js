@@ -81,7 +81,9 @@ const App = observer((props) => {
                                 path="/buk-pago/file-translate"
                                 component={FileTranslationView}
                             />
-                            <Route exact path= "/buk-pago/myPage" component={MyPageView}/>
+                            <Route exact path= "/buk-pago/myPage">
+                                <MyPageView hasCookie={hasCookie}></MyPageView>
+                            </Route>
                         </Switch>
                     </HomeLayout>
                 </Router>

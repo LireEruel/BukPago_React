@@ -1,6 +1,6 @@
 import { action, observable } from 'mobx';
 import { createContext } from 'react';
-import requestLogin, { requestSignUp, requestGetRanker } from '../controllers/MemberController';
+import requestLogin, { requestSignUp, requestGetRanker,requestGetUserInfo,requestGetMyRank,requestUpdateUser } from '../controllers/MemberController';
 import Member from '../models/Member';
 import { CookiesProvider } from 'react-cookie';
 
@@ -34,6 +34,27 @@ class MemberStore {
         return requestGetRanker().then((result) => {
             return result;
         });
+    }
+
+    @action
+    getUserInfo(){
+        return requestGetUserInfo().then((result)=> {
+            return result;
+        })
+    }
+
+    @action
+    getMyRank() {
+        return requestGetMyRank().then((result) => {
+            return result;
+        })
+    }
+
+    @action
+    updateUser(){
+        return requestUpdateUser().then((result) => {
+            return result;
+        })
     }
 }
 export default MemberStore = MemberStore.getInstance();

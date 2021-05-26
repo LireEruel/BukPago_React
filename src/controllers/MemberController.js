@@ -38,3 +38,36 @@ export async function requestGetRanker() {
             return res;
         });
 }
+
+export async function requestGetUserInfo() {
+    return await axios
+        .get('/api/member/user')
+        .catch((error) => {
+            return error;
+        })
+        .then((res) => {
+            return res;
+        })
+}
+
+export async function requestGetMyRank() {
+    return await axios
+        .get('api/member/user/rank')
+        .catch((error) => {
+            return error;
+        })
+        .then((res) => {
+            return res;
+        })
+}
+
+export async function requestUpdateUser() {
+    return await axios
+        .put('api/member/user')
+        .catch((error) => {
+            return error;
+        })
+        .then((res) => {
+            return res;
+        })
+}
