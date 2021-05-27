@@ -4,7 +4,7 @@ import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import { observer } from 'mobx-react';
 import HomeLayout from './HomeLayout';
 import { makeStyles } from '@material-ui/styles';
-import { useCookies } from 'react-cookie';
+import { useCookies,CookiesProvider  } from 'react-cookie';
 import { createMuiTheme } from '@material-ui/core';
 import MuiThemeProvider from '@material-ui/core/styles/MuiThemeProvider';
 import { SnackbarProvider } from 'material-ui-snackbar-provider'
@@ -18,6 +18,7 @@ import MyPageView from './components/MyPageView';
 
 import FileTranslationView from './components/FileTranslationView';
 import TranslationApiView from './components/TranslationApiView'
+import { isConstructorDeclaration } from 'typescript';
 
 
 const useStyle = makeStyles((theme) => ({
@@ -51,12 +52,18 @@ const theme = createMuiTheme({
 
 const App = observer((props) => {
     const classes = useStyle();
-    const [cookies, setCookie, removeCookie] = useCookies(['jwt']);
+    const [cookies, setCookie, removeCookie] = useCookies(['loginAuth']);
     const [hasCookie, setHasCookie] = useState(false);
+
     console.log(hasCookie);
+    console.log(cookies['loginAuth']);
+
+
     React.useEffect(() => {
-        if (cookies['jwt'] != undefined) setHasCookie(true);
+        if (cookies['loginAuth'] != undefined) setHasCookie(true);
     });
+
+
     return (
         <div className={classes.root}>
             <MuiThemeProvider theme={theme}>
@@ -68,6 +75,7 @@ const App = observer((props) => {
                         setHasCookie={setHasCookie}
                         removeCookie={removeCookie}
                         hasCookie={hasCookie}
+                        setCookie={setCookie}
                     >
                         <Switch>
                             <Route path="/buk-pago/signUp" component={SignUpView} />

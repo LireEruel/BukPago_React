@@ -101,7 +101,6 @@ export default function MemberUpdateDialog(props) {
                 <TextField
                     margin="dense"
                     id="email"
-                    inputRef={email}
                     defaultValue={defult_key}
                     label="api 키"
                     type="text"

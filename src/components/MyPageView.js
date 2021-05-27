@@ -90,6 +90,7 @@ export default function TranslationView(props) {
     const [evaluated, setEvaluated] = useState([]);
     const [id, setId] = useState("jsh001505");
     const [key, setKey] = useState(23142341234);
+    
     useEffect(() => {
         
         if(hasCookie == false)

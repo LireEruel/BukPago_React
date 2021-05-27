@@ -101,6 +101,7 @@ export default function TranslationView(props) {
 
     useEffect(() => {
         //getTestCase();
+        /*
         memberStore.getRanker().then(result=>{
             if(result.status == 200)
             {
@@ -111,6 +112,7 @@ export default function TranslationView(props) {
             }
          
         });
+        */
     }, []);
 
     const transLike = () => {

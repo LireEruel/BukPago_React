@@ -155,7 +155,16 @@ export default function TranslationView(props) {
     };
 
     const translate = () => {
-        translationStore
+        if(inputText.length <4)
+        {
+            setContent('4글자 이상 작성해주세요!');
+            setSeverity('error');
+            setOpen(true);
+            setTranslateState(false);
+        }
+        else
+        {
+            translationStore
             .translate(inputText)
             .then((result) => {
                 setOutputText(result);
@@ -164,6 +173,8 @@ export default function TranslationView(props) {
             .catch((err) => {
                 console.log(err);
             });
+        }
+        
     };
 
     const transOffer = () => {

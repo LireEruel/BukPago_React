@@ -61,9 +61,11 @@ export async function requestGetMyRank() {
         })
 }
 
-export async function requestUpdateUser() {
+export async function requestUpdateUser(id,name,email) {
+    const member = new Member(id,"",name,email);
+
     return await axios
-        .put('api/member/user')
+        .put('/api/member/user',{member : member})
         .catch((error) => {
             return error;
         })

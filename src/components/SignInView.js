@@ -58,7 +58,6 @@ const SignInView = observer((props) => {
             if (res.status == 200) {
                 setHasCookie(true);
                 history.push('/buk-pago');
-                
                 snackbar.showMessage(
                     res.data.message,
                 )
