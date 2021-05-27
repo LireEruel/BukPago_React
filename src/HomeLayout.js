@@ -55,6 +55,7 @@ function HomeLayout(props) {
     const logout = () => {
         setHasCookie(false)
         removeCookie()
+        window.location.reload();
     }
     return (
         <div className={classes.root}>

@@ -15,7 +15,7 @@ import Alert from '@material-ui/lab/Alert';
 import TrainStore from '../stores/TrainStore';
 import { SpaceBar } from '@material-ui/icons';
 import { composeClasses } from '@material-ui/data-grid';
-import MemberUpdateDialog from './MemberUpdataDialog';
+import MemberUpdateDialog from './MemberUpdateDialog';
 
 
 

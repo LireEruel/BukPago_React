@@ -36,10 +36,12 @@ export default function MemberUpdateDialog(props) {
     const defult_id = props.id
     const defult_name = props.name
     const defult_email = props.email
+    const defult_key = props.key
     const id = useRef()
     const name = useRef()
     const email = useRef()
     const memberStore = React.useContext(MemberStore.context)
+    
     const handleClickOpen = () => {
         setOpen(true);
     }
@@ -58,6 +60,20 @@ export default function MemberUpdateDialog(props) {
         })
     };
 
+    const updateKey = () => {
+        memberStore.updateKey().then(result => {
+            if(result['status'] == 200)
+            {
+                setCode(1)
+                window.location.reload();
+            }      
+            else
+                setCode(2)
+            setOpen(false)
+            setBarOpen(true)
+            setMessage(result['data']['message'])
+        })
+    }
 
     return (
         <div>
@@ -96,18 +112,35 @@ export default function MemberUpdateDialog(props) {
                     inputRef={email}
                     defaultValue={defult_email}
                     label="이메일"
-                    type="number"
+                    type="text"
                     multiline
                     fullWidth
                 />
+                <TextField
+                    margin="dense"
+                    id="email"
+                    inputRef={email}
+                    defaultValue={defult_key}
+                    label="api 키"
+                    type="text"
+                    multiline
+                    fullWidth
+                    InputProps={{
+                    readOnly: true,
+                    }}
+                />
             </DialogContent>
             <DialogActions>
+                <Button onClick={updateKey} color="primary">
+                    api 키 재발급
+                </Button> 
                 <Button onClick={handleClose} color="primary">
                     수정
                 </Button> 
                 <Button onClick={() => {setOpen(false) }} color="primary">
                     닫기
                 </Button>
+                
             </DialogActions>
             </Dialog>
             <Snackbar open={barOpen} autoHideDuration={6000} onClose={() => {setBarOpen(false)}}>

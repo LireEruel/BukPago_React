@@ -89,7 +89,7 @@ export default function TranslationView(props) {
     const [ranking, setRanking] = useState(1232243123);
     const [evaluated, setEvaluated] = useState([]);
     const [id, setId] = useState("jsh001505");
-
+    const [key, setKey] = useState(23142341234);
     useEffect(() => {
         /*
         if(hasCookie == false)
@@ -106,7 +106,12 @@ export default function TranslationView(props) {
             setPercent(res.data.percent);
             setRanking(res.data.ranking);
         });
-        */
+        
+      
+       memberStore.getApiKey().then((res) => {
+           setKey(res.data.key);
+       })
+         */
     })
 
 
@@ -115,7 +120,7 @@ export default function TranslationView(props) {
             <div className={classes.content}>
                 <Grid className={classes.grid} container direction="row" justify="space-around">
                     <div className={classes.left}>
-                        <Profile name={name} isAdmin={isAdmin} email={email} id={id}/>
+                        <Profile name={name} isAdmin={isAdmin} email={email} id={id} key={key} />
                         <RankingCard percent={percent} ranking= {ranking} />
                     </div>  
                     <div className={classes.right}>

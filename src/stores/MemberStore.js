@@ -1,6 +1,6 @@
 import { action, observable } from 'mobx';
 import { createContext } from 'react';
-import requestLogin, { requestSignUp, requestGetRanker,requestGetUserInfo,requestGetMyRank,requestUpdateUser } from '../controllers/MemberController';
+import requestLogin, { requestSignUp, requestGetRanker,requestGetUserInfo,requestGetMyRank,requestUpdateUser,requsetUpdateKey } from '../controllers/MemberController';
 import Member from '../models/Member';
 import { CookiesProvider } from 'react-cookie';
 
@@ -53,6 +53,13 @@ class MemberStore {
     @action
     updateUser(){
         return requestUpdateUser().then((result) => {
+            return result;
+        })
+    }
+
+    @action
+    updateKey(){
+        return requsetUpdateKey().then((result) => {
             return result;
         })
     }

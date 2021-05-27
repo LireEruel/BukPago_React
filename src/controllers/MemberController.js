@@ -71,3 +71,14 @@ export async function requestUpdateUser() {
             return res;
         })
 }
+
+export async function requsetUpdateKey() {
+    return await axios
+        .put('api/bukpagoAPI')
+        .catch((error) => {
+            return error;
+        })
+        .then((res) => {
+            return res;
+        })
+}
