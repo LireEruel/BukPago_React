@@ -5,6 +5,9 @@ import ArrowForwardIcon from '@material-ui/icons/ArrowForward';
 import CustomUploadTable from './CustomUploadTable';
 import CustomDownloadTable from './CustomDownloadTable';
 import { useSnackbar } from 'material-ui-snackbar-provider'
+import { observer } from 'mobx-react';
+
+import { useStores } from '../stores/Context'
 
 const useBodyStyles = makeStyles({
     root: {
@@ -23,43 +26,42 @@ const useBodyStyles = makeStyles({
         height: 'auto',
     },
     leftBox: {
-        width: '40%',
+        width: '42.5%',
     },
     rightBox: {
-        width: '40%',
+        width: '42.5%',
     },
     middleBox: {
         width: '8%',
-        height: '100%',
+        paddingTop: '1%',
     },
     columFlexBox: {
         display: 'flex',
         flexDirection: 'column',
-        justifyContent: 'center',
-        alignItems: 'flex-start',
-    },
-    alignCenter: {
+        justifyContent: 'flex-start',
         alignItems: 'center',
     },
+    alignCenter: {
+        justifyContent: 'center',
+    },
     translateBtn: {
-        fontWeight: '600',
         fontSize: '1rem',
     },
 });
 
-export default function FileTranslationView(props) {
+export default observer(function FileTranslationView(props) {
+    const { FileTranslationStore } = useStores();
     const classes = useBodyStyles();
     const snackbar = useSnackbar();
 
-    const handleOpen = () => {
-        snackbar.showMessage(
-            'active!',
-            'Undo', () => handleUndo()
-        )
-    }
-
-    const handleUndo = () => {
-        console.log('undo!')
+    const handleTranslate = () => {
+        if (FileTranslationStore.fileCount === 0) {
+            snackbar.showMessage(
+                '번역할 파일이 존재 하지 않습니다'
+            )
+        } else {
+            FileTranslationStore.requestFileTranslate();
+        }
     }
 
     return (
@@ -77,30 +79,23 @@ export default function FileTranslationView(props) {
                     </Box>
 
                     <Box
-                        className={clsx(
-                            classes.columFlexBox,
-                            classes.alignCenter,
-                            classes.middleBox,
-                        )}
+                        className={clsx(classes.columFlexBox, classes.alignCenter, classes.middleBox)}
                     >
                         <Button
                             variant="contained"
                             className={classes.translateBtn}
                             color="primary"
                             endIcon={<ArrowForwardIcon />}
-                            onClick={handleOpen}
+                            onClick={handleTranslate}
                         >
-                            변환
+                            번역
                         </Button>
                     </Box>
-                    <Box
-                        component={Paper}
-                        className={clsx(classes.columFlexBox, classes.rightBox)}
-                    >
-
+                    <Box component={Paper} className={clsx(classes.columFlexBox, classes.rightBox)} >
+                        <CustomDownloadTable />
                     </Box>
                 </Grid>
             </div>
         </div>
     );
-}
+});

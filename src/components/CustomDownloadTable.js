@@ -9,8 +9,8 @@ const useCustomTableStyles = makeStyles({
     root: {
         width: '100%'
     },
-    tableWrapper: {
-        overflowX: 'auto',
+    container: {
+        maxHeight: '375px'
     },
     toolbarRoot: {
         paddingTop: '1%'
@@ -20,7 +20,6 @@ const useCustomTableStyles = makeStyles({
     },
     button: {
         color: 'white',
-        fontWeight: "600",
         fontSize: "1rem",
     },
     downloadButton: {
@@ -61,11 +60,18 @@ export default observer(function CustomDownloadTable(props) {
         return (size / Math.pow(1024, e)).toFixed(2) + " " + sizes[e];
     }
 
+    const downloadFile = (event) => {
+        event.preventDefault();
+        FileTranslationStore.downloadFiles();
+    }
+
     const handleSelectAllClick = (event) => {
+        event.preventDefault();
         FileTranslationStore.setSelectAll('translated', event);
     }
 
     const handleClick = (event, name) => {
+        event.preventDefault();
         FileTranslationStore.setSelected('translated', name);
     }
 
@@ -79,17 +85,20 @@ export default observer(function CustomDownloadTable(props) {
                 <Typography className={classes.toolbarTitle} variant="h6" component="div">
                     번역파일
                 </Typography>
-                <Button
-                    className={clsx(classes.button, classes.downloadButton)}
-                    variant="contained"
-                    component="label"
-                    endIcon={<GetAppIcon />}
-                >
-                    다운로드
-                </Button>
+                {FileTranslationStore.selectedTranslated.length > 0 &&
+                    <Button
+                        className={clsx(classes.button, classes.downloadButton)}
+                        variant="contained"
+                        component="label"
+                        endIcon={<GetAppIcon />}
+                        onClick={downloadFile}
+                    >
+                        다운로드
+                    </Button>
+                }
             </Toolbar>
-            <TableContainer>
-                <Table className={classes.table}>
+            <TableContainer className={classes.container}>
+                <Table stickyHeader className={classes.table}>
                     <TableHead className={classes.headerRoot}>
                         <TableRow>
                             <TableCell padding="checkbox">
@@ -117,9 +126,7 @@ export default observer(function CustomDownloadTable(props) {
                                     selected={isItemSelected}
                                 >
                                     <TableCell padding="checkbox">
-                                        <Checkbox
-                                            checked={isItemSelected}
-                                        />
+                                        <Checkbox checked={isItemSelected} />
                                     </TableCell>
                                     <TableCell className={classes.idCell}>{index + 1}</TableCell>
                                     <TableCell className={classes.nameCell}>{fileInfo.name}</TableCell>

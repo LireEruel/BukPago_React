@@ -14,10 +14,10 @@ import SignUpView from './components/SignUpView';
 import SignInView from './components/SignInView';
 import DictionaryView from './components/DictionaryView';
 import TrainView from './components/TrainView';
-import FileTranslationView from './components/FileTranslationView.js';
 import MyPageView from './components/MyPageView';
 
-
+import FileTranslationView from './components/FileTranslationView';
+import TranslationApiView from './components/TranslationApiView'
 
 
 const useStyle = makeStyles((theme) => ({
@@ -60,7 +60,8 @@ const App = observer((props) => {
     return (
         <div className={classes.root}>
             <MuiThemeProvider theme={theme}>
-                <Router>
+                <SnackbarProvider SnackbarProps={{ autoHideDuration: 4000, anchorOrigin: { vertical: 'bottom', horizontal: 'left' } }}>
+                     <Router>
                     <HomeLayout
                         cookies={cookies}
                         hasCookie={hasCookie}
@@ -87,6 +88,7 @@ const App = observer((props) => {
                         </Switch>
                     </HomeLayout>
                 </Router>
+                </SnackbarProvider>
             </MuiThemeProvider>
         </div>
     );

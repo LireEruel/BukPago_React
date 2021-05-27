@@ -9,6 +9,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import MemberStore from '../stores/MemberStore';
 import Member from '../models/Member';
+import { useSnackbar } from 'material-ui-snackbar-provider';
 const useStyles = makeStyles((theme) => ({
     paper: {
         marginTop: theme.spacing(8),
@@ -36,20 +37,33 @@ export default function SignUpView(props) {
     const pw = useRef('');
     const name = useRef('');
     const email = useRef('');
+    const snackbar = useSnackbar();
 
     function register(e) {
         e.preventDefault();
-        if (id.current.value == '') {
-            return;
+        if (name.current.value === '') {
+            snackbar.showMessage(
+                '닉네임을 입력해 주세요',
+                '확인'
+            )
         }
-        if (pw.current.value == '') {
-            return;
+        if (id.current.value === '') {
+            snackbar.showMessage(
+                '아이디를 입력해 주세요',
+                '확인'
+            )
         }
-        if (name.current.value == '') {
-            return;
+        if (pw.current.value === '') {
+            snackbar.showMessage(
+                '비밀번호를 입력해주세요',
+                '확인'
+            )
         }
-        if (email.current.value == '') {
-            return;
+        if (email.current.value === '') {
+            snackbar.showMessage(
+                '이메일을 입력해 주세요',
+                '확인'
+            )
         }
 
         var member = new Member(
@@ -63,6 +77,9 @@ export default function SignUpView(props) {
         memberStore.register(member).then((res) => {
             if (res.status == 200) {
                 //SnackbarStore.pushMessage(res.data['message'], true);
+                snackbar.showMessage(
+                    res.message,
+                )
             } else {
                 //SnackbarStore.pushMessage(res.data['message'], false);
             }

@@ -7,6 +7,7 @@ import { Link } from 'react-router-dom';
 import IconButton from '@material-ui/core/IconButton';
 import AccountCircle from '@material-ui/icons/AccountCircle';
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
+import clsx from 'clsx';
 
 const useStyle = makeStyles((theme) => ({
     root: {
@@ -37,6 +38,9 @@ const useStyle = makeStyles((theme) => ({
     },
     link: {
         textDecoration: 'none',
+    },
+    iconBtn: {
+        backgroundColor: 'white',
     },
     accountIcon: {
         float: 'right',
@@ -108,6 +112,16 @@ function HomeLayout(props) {
                                 北파고 Train
                             </Button>
                         </Link>
+                        <Link
+                            to={{
+                                pathname: '/buk-pago/api'
+                            }}
+                            style={{ textDecoration: 'none' }}
+                        >
+                            <Button className={classes.title} size='large'>
+                                北파고 API
+                            </Button>
+                        </Link>
                     </Grid>
                     <Grid
                         className={classes.accountGrid}
@@ -132,21 +146,23 @@ function HomeLayout(props) {
                                 </div>
                             ) : (
                                 <div>
-                                    <IconButton onClick={logout}>
-                                        <ExitToAppIcon color="secondary" fontSize="large" />
+
+                                    <IconButton className={classes.iconBtn}>
+                                        <ExitToAppIcon fontSize="large" />
                                     </IconButton>
-                                    <Link
+                                     <Link
                                         to={{
                                             pathname: '/buk-pago/myPage',
                                         }}
                                         style={{ textDecoration: 'none' }}
                                     >
-                                        <IconButton className={classes.accountIcon}>
-                                            <AccountCircle color="secondary" fontSize="large" />
-                                        </IconButton>
+                                    <IconButton
+                                        className={clsx(classes.accountIcon, classes.iconBtn)}
+                                        onClick={removeCookie}
+                                    >
+                                        <AccountCircle fontSize="large" />
+                                    </IconButton>
                                     </Link>
-                                    
-                                        
                                 </div>
                             )}
                         </div>

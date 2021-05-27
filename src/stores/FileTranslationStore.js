@@ -19,13 +19,14 @@ export class FileTranslationStore {
             DeleteFiles: action,
             setSelected: action,
             setSelectAll: action,
-            translateFiles: action
+            translateFiles: action,
+            requestFileTranslate: action,
+            downloadFiles: action,
         });
     }
 
     findIndex(file) {
         const fileName = file.name;
-
         return this.originalFiles.findIndex(e => e.name === fileName);
     }
 
@@ -46,7 +47,7 @@ export class FileTranslationStore {
                 const index = this.findIndex(file);
 
                 if (index === -1) {
-                    this.originalFiles.push(fileInfo)
+                    this.originalFiles.push(fileInfo);
                     this.fileCount++;
                 } else {
                     this.originalFiles[index] = fileInfo;
@@ -57,7 +58,7 @@ export class FileTranslationStore {
 
     DeleteFiles() {
         for (const name of this.selectedOriginal) {
-            this.originalFiles = this.originalFiles.filter((file) => file.name !== name)
+            this.originalFiles = this.originalFiles.filter((file) => file.name !== name);
         }
         this.fileCount = this.originalFiles.length;
         this.selectedOriginal = [];
@@ -104,7 +105,8 @@ export class FileTranslationStore {
     }
 
     setSelectAll(caller, event) {
-        const newSelected = []
+        const newSelected = [];
+
         if (caller === 'original') {
             if (event.target.checked) {
                 this.originalFiles.forEach((file) => {
@@ -114,7 +116,7 @@ export class FileTranslationStore {
             this.selectedOriginal = [...newSelected]
         } else if (caller === 'translated') {
             if (event.target.checked) {
-                this.translateFiles.forEach((file) => {
+                this.translatedFiles.forEach((file) => {
                     newSelected.push(file.name)
                 })
             }
@@ -122,7 +124,27 @@ export class FileTranslationStore {
         }
     }
 
-    translateFiles() {
+    requestFileTranslate() {
         this.translatedFiles = requestFileTranslate(this.originalFiles);
+    }
+
+    downloadFiles() {
+        for (const name of this.selectedTranslated) {
+            const fileInfo = this.translatedFiles.find((value) => value.name === name)
+
+            let file = new File([fileInfo.content], fileInfo.name, { type: 'text/plain' })
+            const objURL = window.URL.createObjectURL(file);
+
+            // 이전에 생성된 메모리 해제
+            if (window.__Xr_objURL_forCreatingFile__) {
+                window.URL.revokeObjectURL(window.__Xr_objURL_forCreatingFile__);
+            }
+            window.__Xr_objURL_forCreatingFile__ = objURL;
+
+            var a = document.createElement('a');
+            a.download = fileInfo.name;
+            a.href = objURL;
+            a.click();
+        }
     }
 };
