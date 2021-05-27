@@ -1,7 +1,13 @@
+import React, { useRef, useState } from "react";
 import { observer } from "mobx-react";
-import { Box, Grid, makeStyles, Paper, TextField, Typography } from "@material-ui/core";
+import { Box, Button, Container, FormControl, Grid, InputLabel, makeStyles, MenuItem, Paper, Select, TextField, Typography } from "@material-ui/core";
+import clsx from "clsx";
+import { useStores } from '../stores/Context'
 
-const useGetApiKeyStyles = makeStyles({
+const useGetApiKeyStyles = makeStyles((theme) => ({
+    boldText: {
+        fontWeight: '600'
+    },
     root: {
         width: '100%',
         height: '100%',
@@ -9,7 +15,6 @@ const useGetApiKeyStyles = makeStyles({
     title: {
         textAlign: 'center',
         paddingTop: '2%',
-        fontWeight: 600,
     },
     content: {
         paddingTop: '5%'
@@ -21,7 +26,6 @@ const useGetApiKeyStyles = makeStyles({
         width: '40%'
     },
     usageTitle: {
-        fontWeight: '600',
         paddingLeft: '2%'
     },
     usageContent: {
@@ -45,7 +49,6 @@ const useGetApiKeyStyles = makeStyles({
     },
     apiExampleText: {
         fontSize: '1.2rem',
-        fontWeight: '600',
         paddingLeft: '4%'
     },
     apiHead: {
@@ -56,16 +59,42 @@ const useGetApiKeyStyles = makeStyles({
     },
     apiProtocol: {
         color: '#FFFFFF'
+    },
+    registrationTitle: {
+        paddingBottom: '1%'
+    },
+    registrationBox: {
+        paddingBottom: '10%'
+    },
+    formControl: {
+        marginTop: theme.spacing(2)
+    },
+    registrationBtn: {
+        height: '60px'
     }
-});
+}));
 
 export default observer(function TranslateApiView(props) {
     const classes = useGetApiKeyStyles();
+    const { TranslationApiStore } = useStores();
+    const [purpose, setPurpose] = useState('');
+    const applicant = useRef('');
+
+    const handleChange = (event) => {
+        setPurpose(event.target.value);
+    }
+
+    const getApiKey = (event) => {
+        event.preventDefault();
+
+        console.log(purpose);
+        console.log(applicant.current.value)
+    }
 
     return (
         <div className={classes.root}>
             <div className={classes.title}>
-                <Typography className={classes.title} variant='h3'>
+                <Typography className={clsx(classes.title, classes.boldText)} variant='h3'>
                     北파고 API 키 발급
                 </Typography>
             </div>
@@ -74,7 +103,7 @@ export default observer(function TranslateApiView(props) {
                     <Box className={classes.leftBox}>
                         <Grid container direction='column' justify='center' alignItems='flex-start'>
                             <Box>
-                                <Typography variant='h4' className={classes.usageTitle}>
+                                <Typography variant='h4' className={clsx(classes.usageTitle, classes.boldText)}>
                                     사용방법
                                 </Typography>
                                 <div className={classes.usageContent}>
@@ -106,13 +135,50 @@ export default observer(function TranslateApiView(props) {
                         </Grid>
                     </Box>
                     <Box className={classes.rightBox}>
-                        <Grid container direction='column' justify='flex-start' alignItems='center'>
+                        <Container maxWidth="sm">
                             <form noValidate>
-                                <TextField
-
-                                />
+                                <div className={classes.registrationBox}>
+                                    <Typography variant='h4' className={clsx(classes.registrationTitle, classes.boldText)}>API 요청자 이름</Typography>
+                                    <TextField
+                                        variant="outlined"
+                                        margin='normal'
+                                        fullWidth
+                                        required
+                                        label="이름"
+                                        inputRef={applicant}
+                                        className={classes.textField}
+                                    />
+                                </div>
+                                <div className={classes.registrationBox}>
+                                    <Typography variant='h4' className={clsx(classes.registrationTitle, classes.boldText)}>활용 목적</Typography>
+                                    <FormControl required variant="outlined" fullWidth className={classes.formControl}>
+                                        <InputLabel id="purpose">활용목적</InputLabel>
+                                        <Select
+                                            id='purpose'
+                                            value={purpose}
+                                            variant='outlined'
+                                            label="활용목적"
+                                            onChange={handleChange}
+                                        >
+                                            <MenuItem value={'hobby'}>취미</MenuItem>
+                                            <MenuItem value={'research'}>연구</MenuItem>
+                                            <MenuItem value={'homework'}>과제</MenuItem>
+                                            <MenuItem value={'etc'}>기타</MenuItem>
+                                        </Select>
+                                    </FormControl>
+                                </div>
+                                <Button
+                                    type="button"
+                                    fullWidth
+                                    variant="contained"
+                                    color="primary"
+                                    className={classes.registrationBtn}
+                                    onClick={getApiKey}
+                                >
+                                    신청하기
+                            </Button>
                             </form>
-                        </Grid>
+                        </Container>
                     </Box>
                 </Grid>
             </div>

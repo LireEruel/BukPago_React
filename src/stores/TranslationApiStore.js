@@ -7,4 +7,8 @@ export class TranslationApiStore {
 
         })
     }
+
+    requestApiKey() {
+
+    }
 }
