@@ -91,10 +91,10 @@ export default function TranslationView(props) {
     const [id, setId] = useState("jsh001505");
     const [key, setKey] = useState(23142341234);
     useEffect(() => {
-        /*
+        
         if(hasCookie == false)
             history.push('/buk-pago');
-        
+        /*
         memberStore.getUserInfo().then((res) => {
             setId(res.data.id);
             setName(res.data.nickname);

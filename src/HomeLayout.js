@@ -147,7 +147,7 @@ function HomeLayout(props) {
                             ) : (
                                 <div>
 
-                                    <IconButton className={classes.iconBtn}>
+                                    <IconButton onClick={logout} className={classes.iconBtn}>
                                         <ExitToAppIcon fontSize="large" />
                                     </IconButton>
                                      <Link
@@ -158,7 +158,6 @@ function HomeLayout(props) {
                                     >
                                     <IconButton
                                         className={clsx(classes.accountIcon, classes.iconBtn)}
-                                        onClick={removeCookie}
                                     >
                                         <AccountCircle fontSize="large" />
                                     </IconButton>

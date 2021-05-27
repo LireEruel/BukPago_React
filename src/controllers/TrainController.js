@@ -4,8 +4,8 @@ import Train from '../models/Train';
 export default async function requestTranslike(_isLike, _NK, _SK) {
     return await axios
         .post(
-            '/api/evaluation/',
-            { params: { isLike: _isLike, NK: _NK, SK: _SK } },
+            '/api/evaluation/translate/eval',
+            { params: {NK: _NK, SK: _SK , isGood: _isLike, } },
             { withCredentials: true },
         )
         .catch((error) => {
@@ -36,9 +36,9 @@ export async function requestGetTestCase() {
         });
 }
 
-export async function requestTransOffer(_NK, _SK) {
+export async function requestTransOffer(_NK, _SK,) {
     return await axios
-        .post('api/evaluation/make', { params: { NK: _NK, SK: _SK } }, { withCredentials: true })
+        .post('api/evaluation/translate/suggestion', { params: { NK: _NK, SK: _SK } }, { withCredentials: true })
         .catch((error) => {
             return error;
         })

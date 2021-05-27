@@ -30,7 +30,7 @@ export async function requestSignUp(id, pw, name, email) {
 
 export async function requestGetRanker() {
     return await axios
-        .get('/api/member/rank')
+        .get('/api/evaluation/rank')
         .catch((error) => {
             return error;
         })
