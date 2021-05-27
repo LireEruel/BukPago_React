@@ -56,6 +56,11 @@ function HomeLayout(props) {
     const removeCookie = props.removeCookie;
     const hasCookie = props.hasCookie;
 
+    const logout = () => {
+        setHasCookie(false)
+        removeCookie()
+        window.location.reload();
+    }
     return (
         <div className={classes.root}>
             <AppBar className={classes.appBar}>
@@ -141,15 +146,23 @@ function HomeLayout(props) {
                                 </div>
                             ) : (
                                 <div>
+
                                     <IconButton className={classes.iconBtn}>
                                         <ExitToAppIcon fontSize="large" />
                                     </IconButton>
+                                     <Link
+                                        to={{
+                                            pathname: '/buk-pago/myPage',
+                                        }}
+                                        style={{ textDecoration: 'none' }}
+                                    >
                                     <IconButton
                                         className={clsx(classes.accountIcon, classes.iconBtn)}
                                         onClick={removeCookie}
                                     >
                                         <AccountCircle fontSize="large" />
                                     </IconButton>
+                                    </Link>
                                 </div>
                             )}
                         </div>

@@ -1,7 +1,6 @@
 import { observable, action } from 'mobx';
 import { createContext } from 'react';
-import requestGetDictionary from '../controllers/DictionaryController';
-import requestSearchDictionary from '../controllers/DictionaryController';
+import requestGetDictionary, { requestSearchDictionary } from '../controllers/DictionaryController';
 
 class DictionaryStore {
     @observable dictionarys = [];
@@ -19,12 +18,12 @@ class DictionaryStore {
     getDictionary() {
         return requestGetDictionary().then((result) => {
             this.dictionarys = [...result];
+            
         });
     }
 
     @action
     searchDic(code, query) {
-        console.log(code, query);
         return requestSearchDictionary(code, query).then((result) => {
             this.dictionarys = [...result];
         });

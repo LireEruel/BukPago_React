@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef, useState, useContext } from 'react';
 import { Typography } from '@material-ui/core';
 import { makeStyles } from '@material-ui/styles';
 import Grid from '@material-ui/core/Grid';
@@ -9,6 +9,9 @@ import DictionaryStore from '../stores/DictionaryStore';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 import MenuItem from '@material-ui/core/MenuItem';
+import { isConstructorDeclaration } from 'typescript';
+import { observer } from 'mobx-react';
+import { render } from '@testing-library/react';
 
 var elem = document.compatMode === 'CSS1Compat' ? document.documentElement : document.body;
 
@@ -47,10 +50,16 @@ const columns = [
     { field: 'mean', headerName: '뜻', width: getWidth(0.75, 5 / 10) },
 ];
 
-export default function DictionaryView(props) {
+const DictionaryView = observer((props) => {
+    
     const classes = useStyles();
+    const dictionaryStore = useContext(DictionaryStore.context);
     const [inputText, setInputText] = useState('');
     const [code, setCode] = useState(1);
+
+    const render = () => {
+        setInputText('');
+    }
     const onChange = (e) => {
         const str = e.target.value;
         setInputText(str);
@@ -61,14 +70,11 @@ export default function DictionaryView(props) {
     };
 
     const search = () => {
-        console.log('코드 : ' + code, '내용 : ' + inputText);
-        dictionaryStore.searchDic(code, inputText).then((res) => {
-            if (res.status == 200) {
-                //
-            } else {
-                //
-            }
-        });
+        dictionaryStore.searchDic(code, inputText).then((res)=>{
+            console.log(dictionaryStore.dictionarys);
+            render();
+        })
+       
     };
     const handleKeyDown = (event) => {
         if (event.key === 'Enter') {
@@ -76,9 +82,9 @@ export default function DictionaryView(props) {
         }
     };
 
-    const dictionaryStore = React.useContext(DictionaryStore.context);
     useEffect(() => {
         dictionaryStore.getDictionary();
+        render();
     }, []);
 
     return (
@@ -126,4 +132,6 @@ export default function DictionaryView(props) {
             </div>
         </div>
     );
-}
+});
+
+export default DictionaryView;
