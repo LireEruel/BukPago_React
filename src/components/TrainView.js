@@ -100,11 +100,19 @@ export default function TranslationView(props) {
     };
 
     useEffect(() => {
-        /* 
-        getTestCase();
+        //getTestCase();
+        /*
         memberStore.getRanker().then(result=>{
-            setRanking(result)
-        });*/
+            if(result.status == 200)
+            {
+                setRanking(result)
+            }
+            else{
+                setRanking('주오짱짱123')
+            }
+         
+        });
+        */
     }, []);
 
     const transLike = () => {

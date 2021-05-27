@@ -51,8 +51,8 @@ class MemberStore {
     }
 
     @action
-    updateUser(){
-        return requestUpdateUser().then((result) => {
+    updateUser(id,name,email){
+        return requestUpdateUser(id,name,email).then((result) => {
             return result;
         })
     }

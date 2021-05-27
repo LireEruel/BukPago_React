@@ -59,9 +59,13 @@ const SignInView = observer((props) => {
                 setHasCookie(true);
                 history.push('/buk-pago');
                 snackbar.showMessage(
-                    res.message,
+                    res.data.message,
                 )
             } else {
+                snackbar.showMessage(
+                '아이디 또는 비밀 번호를 입력해 주세요.',
+                '확인'
+            )
 
             }
         });
@@ -111,14 +115,9 @@ const SignInView = observer((props) => {
                         className={classes.submit}
                         onClick={login}
                     >
-                        Sign In
+                        로그인
                     </Button>
                     <Grid container>
-                        <Grid item xs>
-                            <Link href="#" variant="body2">
-                                비밀번호 찾기
-                            </Link>
-                        </Grid>
                         <Grid item>
                             <Link href="/buk-pago/signUp" variant="body2">
                                 {'회원가입 하기'}

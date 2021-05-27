@@ -30,7 +30,7 @@ export async function requestSignUp(id, pw, name, email) {
 
 export async function requestGetRanker() {
     return await axios
-        .get('/api/member/rank')
+        .get('/api/evaluation/rank')
         .catch((error) => {
             return error;
         })
@@ -61,9 +61,11 @@ export async function requestGetMyRank() {
         })
 }
 
-export async function requestUpdateUser() {
+export async function requestUpdateUser(id,name,email) {
+    const member = new Member(id,"",name,email);
+
     return await axios
-        .put('api/member/user')
+        .put('/api/member/user',{member : member})
         .catch((error) => {
             return error;
         })

@@ -9,6 +9,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import MemberStore from '../stores/MemberStore';
 import Member from '../models/Member';
+import { useHistory } from 'react-router-dom';
 import { useSnackbar } from 'material-ui-snackbar-provider';
 const useStyles = makeStyles((theme) => ({
     paper: {
@@ -38,7 +39,9 @@ export default function SignUpView(props) {
     const name = useRef('');
     const email = useRef('');
     const snackbar = useSnackbar();
-
+    let history = useHistory();
+    
+    
     function register(e) {
         e.preventDefault();
         if (name.current.value === '') {
@@ -76,12 +79,15 @@ export default function SignUpView(props) {
         console.log(member);
         memberStore.register(member).then((res) => {
             if (res.status == 200) {
-                //SnackbarStore.pushMessage(res.data['message'], true);
+                
                 snackbar.showMessage(
-                    res.message,
+                    res.data.message,
                 )
+                history.push('/buk-pago');
             } else {
-                //SnackbarStore.pushMessage(res.data['message'], false);
+                snackbar.showMessage(
+                    res.data.message,
+                )
             }
         });
     }

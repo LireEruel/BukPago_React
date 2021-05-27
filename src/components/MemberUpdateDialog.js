@@ -12,7 +12,7 @@ import Select from '@material-ui/core/Select';
 import MenuItem from '@material-ui/core/MenuItem';
 import { makeStyles } from '@material-ui/core'
 import InputLabel from '@material-ui/core/InputLabel';
-
+import { useSnackbar } from 'material-ui-snackbar-provider'
 
 const useStyles = makeStyles( (theme) => ({
     
@@ -30,9 +30,6 @@ const useStyles = makeStyles( (theme) => ({
 export default function MemberUpdateDialog(props) {
     const classes = useStyles()
     const [open, setOpen] = React.useState(false);
-    const [barOpen, setBarOpen]= React.useState(false);
-    const [message, setMessage] = React.useState("");
-    const [code, setCode] = React.useState(1);
     const defult_id = props.id
     const defult_name = props.name
     const defult_email = props.email
@@ -41,39 +38,24 @@ export default function MemberUpdateDialog(props) {
     const name = useRef()
     const email = useRef()
     const memberStore = React.useContext(MemberStore.context)
-    
+     const snackbar = useSnackbar();
+
     const handleClickOpen = () => {
         setOpen(true);
     }
     const handleClose = () => {
         memberStore.updateUser(id.current.value,name.current.value,email.current.value).then(result => {
-            if(result['status'] == 200)
+            console.log(result)
+            if(result.status == 200)
             {
-                setCode(1)
                 window.location.reload();
             }      
-            else
-                setCode(2)
             setOpen(false)
-            setBarOpen(true)
-            setMessage(result['data']['message'])
+            snackbar.showMessage(
+                result.data.message,
+            )
         })
     };
-
-    const updateKey = () => {
-        memberStore.updateKey().then(result => {
-            if(result['status'] == 200)
-            {
-                setCode(1)
-                window.location.reload();
-            }      
-            else
-                setCode(2)
-            setOpen(false)
-            setBarOpen(true)
-            setMessage(result['data']['message'])
-        })
-    }
 
     return (
         <div>
@@ -119,7 +101,6 @@ export default function MemberUpdateDialog(props) {
                 <TextField
                     margin="dense"
                     id="email"
-                    inputRef={email}
                     defaultValue={defult_key}
                     label="api 키"
                     type="text"
@@ -131,9 +112,6 @@ export default function MemberUpdateDialog(props) {
                 />
             </DialogContent>
             <DialogActions>
-                <Button onClick={updateKey} color="primary">
-                    api 키 재발급
-                </Button> 
                 <Button onClick={handleClose} color="primary">
                     수정
                 </Button> 
@@ -143,18 +121,6 @@ export default function MemberUpdateDialog(props) {
                 
             </DialogActions>
             </Dialog>
-            <Snackbar open={barOpen} autoHideDuration={6000} onClose={() => {setBarOpen(false)}}>
-            {
-            code == 1 ?(
-            <Alert onClose={() => {setBarOpen(false)}} severity="success">
-                {message}
-            </Alert>):(
-                <Alert onClose={() => {setBarOpen(false)}} severity="error">
-                {message}
-            </Alert>
-            )
-            }
-        </Snackbar>
     </div>
     );
 }
