@@ -58,7 +58,7 @@ function HomeLayout(props) {
 
     const logout = () => {
         setHasCookie(false)
-        removeCookie('loginAuth')
+        removeCookie('loginAuth', { path: '/' })
         
     }
     return (
