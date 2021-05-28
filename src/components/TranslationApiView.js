@@ -101,13 +101,12 @@ export default observer(function TranslateApiView(props) {
             TranslationApiStore.requestApiKey(applicant.current.value, purpose).then((res) => {
                 if (res.status === 200) {
                     snackbar.showMessage(
-                        'API 키가 발급되었습니다.',
+                        res.data.message,
                         '확인', () => history.push('/buk-pago/myPage')
                     )
-                    history.push('/buk-pago/myPage');
                 } else {
                     snackbar.showMessage(
-                        'API 키 발급이 반려되었습니다.', '확인'
+                        res.data.message, '확인'
                     )
                 }
             })

@@ -68,7 +68,11 @@ export default observer(function FileTranslationView(props) {
                 '번역할 파일이 존재 하지 않습니다'
             )
         } else {
-            FileTranslationStore.requestFileTranslate();
+            FileTranslationStore.requestFileTranslate().then((res) => {
+                snackbar.showMessage(
+                    res.data.message, '확인'
+                )
+            })
         }
     }
 

@@ -125,7 +125,13 @@ export class FileTranslationStore {
     }
 
     requestFileTranslate() {
-        this.translatedFiles = requestFileTranslate(this.originalFiles);
+        requestFileTranslate(this.originalFiles).then((res) => {
+            const arrData = JSON.parse(res.data);
+            if (Array.isArray(arrData)) {
+                this.translatedFiles = arrData;
+            }
+            return res;
+        })
     }
 
     downloadFiles() {
