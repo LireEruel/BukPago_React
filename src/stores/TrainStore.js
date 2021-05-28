@@ -1,8 +1,6 @@
 import { observable, action } from 'mobx';
 import { createContext } from 'react';
-import requestGetTestCase from '../controllers/TrainController';
-import requestTransLike from '../controllers/TrainController';
-import requestTransOffer from '../controllers/TrainController';
+import requestGetTestCase , {requestTransLike,requestTransOffer }from '../controllers/TrainController';
 
 
 class TrainStore {

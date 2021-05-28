@@ -1,7 +1,7 @@
 import axios from 'axios'
 
 export default async function requestApiKey(_NAME, _PURPOSE) {
-    return await axios.get('api/bukpagoAPI',
+    return await axios.post('/api/bukpagoAPI/',
         {
             params: { name: _NAME, purpose: _PURPOSE },
             withCredentials: true

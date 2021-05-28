@@ -82,20 +82,21 @@ export default function TranslationView(props) {
     let history = useHistory();
 
     const memberStore = useContext(MemberStore.context);
-    const [name, setName] = useState("주오");
-    const [isAdmin, setIsAdmin] = useState("일반 회원");
-    const [email, setEmail] = useState("qssz1326@naver.com");
-    const [percent, setPercent] = useState(17);
-    const [ranking, setRanking] = useState(1232243123);
+    const [name, setName] = useState("");
+    const [isAdmin, setIsAdmin] = useState("");
+    const [email, setEmail] = useState("");
+    const [percent, setPercent] = useState(0);
+    const [ranking, setRanking] = useState(0);
     const [evaluated, setEvaluated] = useState([]);
-    const [id, setId] = useState("jsh001505");
-    const [key, setKey] = useState(23142341234);
+    const [id, setId] = useState("");
+    const [key, setKey] = useState(0);
     
     useEffect(() => {
         
         if(hasCookie == false)
             history.push('/buk-pago');
-        /*
+
+/*
         memberStore.getUserInfo().then((res) => {
             setId(res.data.id);
             setName(res.data.nickname);
@@ -103,16 +104,17 @@ export default function TranslationView(props) {
             setEmail(res.data.Email);
             setEvaluated(res.data.evalInfo);
         });
+        
         memberStore.getMyRank().then((res) => {
             setPercent(res.data.percent);
             setRanking(res.data.ranking);
         });
-        
+   */     
       
        memberStore.getApiKey().then((res) => {
            setKey(res.data.key);
        })
-         */
+         
     })
 
 

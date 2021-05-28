@@ -58,8 +58,8 @@ function HomeLayout(props) {
 
     const logout = () => {
         setHasCookie(false)
-        removeCookie()
-        window.location.reload();
+        removeCookie('loginAuth')
+        
     }
     return (
         <div className={classes.root}>

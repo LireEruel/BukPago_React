@@ -148,6 +148,7 @@ export default function TranslationView(props) {
         trainStore
             .transLike(true, inputText, outputText)
             .then((result) => {
+                console.log(result);
                 setContent('피드백 감사합니다! :)');
                 setSeverity('success');
                 setOpen(true);

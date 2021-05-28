@@ -52,7 +52,7 @@ export async function requestGetUserInfo() {
 
 export async function requestGetMyRank() {
     return await axios
-        .get('api/member/user/rank')
+        .get('/api/member/user/rank')
         .catch((error) => {
             return error;
         })
@@ -74,9 +74,9 @@ export async function requestUpdateUser(id,name,email) {
         })
 }
 
-export async function requsetUpdateKey() {
-    return await axios
-        .put('api/bukpagoAPI')
+export async function requsetGetKey() {
+
+    return await axios.get('/api/bukpagoAPI/',)
         .catch((error) => {
             return error;
         })
@@ -84,3 +84,15 @@ export async function requsetUpdateKey() {
             return res;
         })
 }
+
+export async function requsetUpdateKey() {
+    return await axios
+        .put('/api/bukpagoAPI')
+        .catch((error) => {
+            return error;
+        })
+        .then((res) => {
+            return res;
+        })
+}
+
