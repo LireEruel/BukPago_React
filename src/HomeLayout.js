@@ -40,7 +40,7 @@ const useStyle = makeStyles((theme) => ({
         textDecoration: 'none',
     },
     iconBtn: {
-        backgroundColor: 'white',
+        color: 'white',
     },
     accountIcon: {
         float: 'right',
@@ -147,20 +147,20 @@ function HomeLayout(props) {
                             ) : (
                                 <div>
 
-                                    <IconButton onClick={logout} className={classes.iconBtn}>
-                                        <ExitToAppIcon fontSize="large" />
+                                    <IconButton onClick={logout} >
+                                        <ExitToAppIcon fontSize="large" className={classes.iconBtn} />
                                     </IconButton>
-                                     <Link
+                                    <Link
                                         to={{
                                             pathname: '/buk-pago/myPage',
                                         }}
                                         style={{ textDecoration: 'none' }}
                                     >
-                                    <IconButton
-                                        className={clsx(classes.accountIcon, classes.iconBtn)}
-                                    >
-                                        <AccountCircle fontSize="large" />
-                                    </IconButton>
+                                        <IconButton
+                                            className={classes.accountIcon}
+                                        >
+                                            <AccountCircle fontSize="large" className={classes.iconBtn} />
+                                        </IconButton>
                                     </Link>
                                 </div>
                             )}
