@@ -65,7 +65,6 @@
       "last 1 safari version"
     ]
   },
-  
   "proxy": "http://127.0.0.1:12050/",
   "homepage": "https://lireeruel.github.io/BukPago_React/",
   "devDependencies": {

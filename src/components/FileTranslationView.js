@@ -6,8 +6,8 @@ import CustomUploadTable from './CustomUploadTable';
 import CustomDownloadTable from './CustomDownloadTable';
 import { useSnackbar } from 'material-ui-snackbar-provider'
 import { observer } from 'mobx-react';
-
 import { useStores } from '../stores/Context'
+import { useHistory } from 'react-router';
 
 const useBodyStyles = makeStyles({
     root: {
@@ -52,10 +52,18 @@ const useBodyStyles = makeStyles({
 export default observer(function FileTranslationView(props) {
     const classes = useBodyStyles();
     const snackbar = useSnackbar();
+    let history = useHistory();
+    const hasCookie = props.hasCookie;
     const { FileTranslationStore } = useStores();
 
     const handleTranslate = () => {
-        if (FileTranslationStore.fileCount === 0) {
+        console.log(hasCookie);
+        if (!hasCookie) {
+            snackbar.showMessage(
+                '파일번역 기능은 로그인이 필요합니다.',
+                '확인', () => history.push('/buk-pago/signIn')
+            )
+        } else if (FileTranslationStore.fileCount === 0) {
             snackbar.showMessage(
                 '번역할 파일이 존재 하지 않습니다'
             )
