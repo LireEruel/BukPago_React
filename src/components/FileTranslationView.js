@@ -50,9 +50,9 @@ const useBodyStyles = makeStyles({
 });
 
 export default observer(function FileTranslationView(props) {
-    const { FileTranslationStore } = useStores();
     const classes = useBodyStyles();
     const snackbar = useSnackbar();
+    const { FileTranslationStore } = useStores();
 
     const handleTranslate = () => {
         if (FileTranslationStore.fileCount === 0) {

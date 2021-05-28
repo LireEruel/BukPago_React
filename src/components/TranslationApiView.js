@@ -1,6 +1,8 @@
 import React, { useRef, useState } from "react";
+import { useHistory } from "react-router-dom";
 import { observer } from "mobx-react";
 import { Box, Button, Container, FormControl, Grid, InputLabel, makeStyles, MenuItem, Paper, Select, TextField, Typography } from "@material-ui/core";
+import { useSnackbar } from 'material-ui-snackbar-provider'
 import clsx from "clsx";
 import { useStores } from '../stores/Context'
 
@@ -76,9 +78,11 @@ const useGetApiKeyStyles = makeStyles((theme) => ({
 
 export default observer(function TranslateApiView(props) {
     const classes = useGetApiKeyStyles();
-    const { TranslationApiStore } = useStores();
     const [purpose, setPurpose] = useState('');
     const applicant = useRef('');
+    const snackbar = useSnackbar();
+    const history = useHistory();
+    const { TranslationApiStore } = useStores();
 
     const handleChange = (event) => {
         setPurpose(event.target.value);
@@ -87,8 +91,19 @@ export default observer(function TranslateApiView(props) {
     const getApiKey = (event) => {
         event.preventDefault();
 
-        console.log(purpose);
-        console.log(applicant.current.value)
+        TranslationApiStore.requestApiKey(applicant.current.value, purpose).then((res) => {
+            if (res.status === 200) {
+                snackbar.showMessage(
+                    'API 키가 발급되었습니다.',
+                    '확인', () => history.push('/buk-pago/myPage')
+                )
+                history.push('/buk-pago/myPage');
+            } else {
+                snackbar.showMessage(
+                    'API 키 발급이 반려되었습니다.', '확인'
+                )
+            }
+        })
     }
 
     return (
@@ -168,7 +183,7 @@ export default observer(function TranslateApiView(props) {
                                     </FormControl>
                                 </div>
                                 <Button
-                                    type="button"
+                                    type="submit"
                                     fullWidth
                                     variant="contained"
                                     color="primary"
@@ -176,7 +191,7 @@ export default observer(function TranslateApiView(props) {
                                     onClick={getApiKey}
                                 >
                                     신청하기
-                            </Button>
+                                </Button>
                             </form>
                         </Container>
                     </Box>
