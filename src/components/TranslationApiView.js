@@ -100,14 +100,27 @@ export default observer(function TranslateApiView(props) {
         } else {
             TranslationApiStore.requestApiKey(applicant.current.value, purpose).then((res) => {
                 if (res.status === 200) {
-                    snackbar.showMessage(
-                        res.data.message,
-                        '확인', () => history.push('/buk-pago/myPage')
-                    )
+                    try {
+                        snackbar.showMessage(
+                            res.data.message,
+                            '확인', () => history.push('/buk-pago/myPage')
+                        )
+                    } catch {
+                        snackbar.showMessage(
+                            '번역 API 키 발급 완료. 발급된 키는 마이페이지에서 확인',
+                            '확인', () => history.push('/buk-pago/myPage')
+                        )
+                    }
                 } else {
-                    snackbar.showMessage(
-                        res.data.message, '확인'
-                    )
+                    try {
+                        snackbar.showMessage(
+                            res.data.message, '확인'
+                        )
+                    } catch {
+                        snackbar.showMessage(
+                            '번역 API 키 발급 반려됨.', '확인'
+                        )
+                    }
                 }
             })
         }

@@ -69,6 +69,27 @@ export default observer(function FileTranslationView(props) {
             )
         } else {
             FileTranslationStore.requestFileTranslate().then((res) => {
+                if (res.status === 200) {
+                    try {
+                        snackbar.showMessage(
+                            res.data.message, '확인'
+                        )
+                    } catch {
+                        snackbar.showMessage(
+                            '파일 번역 완료', '확인'
+                        )
+                    }
+                } else {
+                    try {
+                        snackbar.showMessage(
+                            res.data.message, '확인'
+                        )
+                    } catch {
+                        snackbar.showMessage(
+                            '파일 번역 실패, 재시도 바랍니다.', '확인'
+                        )
+                    }
+                }
                 snackbar.showMessage(
                     res.data.message, '확인'
                 )
