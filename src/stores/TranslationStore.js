@@ -16,8 +16,8 @@ class TranslationStore {
     }
 
     @action
-    translate(northText) {
-        return requestTranslate(northText)
+    translate(northText, code) {
+        return requestTranslate(northText, code)
     }
 
 }

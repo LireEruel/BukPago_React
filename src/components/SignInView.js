@@ -63,7 +63,7 @@ const SignInView = observer((props) => {
                 )
             } else {
                 snackbar.showMessage(
-                '아이디 또는 비밀 번호를 입력해 주세요.',
+                '아이디 또는 비밀 번호를 확인해 주세요.',
                 '확인'
             )
 
