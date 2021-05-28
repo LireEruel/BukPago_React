@@ -126,9 +126,20 @@ export class FileTranslationStore {
 
     requestFileTranslate() {
         requestFileTranslate(this.originalFiles).then((res) => {
-            const arrData = JSON.parse(res.data);
-            if (Array.isArray(arrData)) {
-                this.translatedFiles = arrData;
+            const translatedFileArr = JSON.parse(res.data.result);
+            if (Array.isArray(translatedFileArr)) {
+                const tmpArr = [];
+
+                for (const translatedFileInfo of translatedFileArr) {
+                    let file = new File([translatedFileInfo.content], translatedFileInfo.name, { type: 'text/plain' })
+                    let fileInfo = {
+                        name: translatedFileInfo.name,
+                        size: file.size,
+                        content: translatedFileInfo.content,
+                    };
+                    tmpArr.push(fileInfo);
+                }
+                this.translatedFiles = tmpArr;
             }
             return res;
         })
