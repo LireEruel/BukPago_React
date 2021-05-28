@@ -1,5 +1,5 @@
 import { makeAutoObservable, observable, computed, action, flow } from "mobx"
-import { requestTranslate } from '../controllers/TranslationApiController'
+import requestApiKey from '../controllers/TranslationApiController'
 
 export class TranslationApiStore {
 
@@ -10,7 +10,7 @@ export class TranslationApiStore {
     }
 
     requestApiKey(name, purpose) {
-        requestTranslate(name, purpose).then((res) => {
+        requestApiKey(name, purpose).then((res) => {
             return res;
         })
     }
