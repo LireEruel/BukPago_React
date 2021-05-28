@@ -84,7 +84,6 @@ export default observer(function TranslateApiView(props) {
     const history = useHistory();
     const { TranslationApiStore } = useStores();
 
-
     const handleChange = (event) => {
         setPurpose(event.target.value);
     }
@@ -96,9 +95,9 @@ export default observer(function TranslateApiView(props) {
             if (res.status === 200) {
                 snackbar.showMessage(
                     'API 키가 발급되었습니다.',
-                    '확인', () => history.push(/* 이동하고자 하는 url 매핑 */)
+                    '확인', () => history.push('/buk-pago/myPage')
                 )
-                history.push(/* 이동하고자 하는 url 매핑 */);
+                history.push('/buk-pago/myPage');
             } else {
                 snackbar.showMessage(
                     'API 키 발급이 반려되었습니다.', '확인'
