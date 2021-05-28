@@ -7,9 +7,6 @@ export default async function requestFileTranslate(_FILES) {
             withCredentials: true
         }
     ).catch(error => { return error }).then(res => {
-        const arrData = JSON.parse(res.data);
-        if (Array.isArray(arrData)) {
-            return arrData;
-        }
+        return res;
     })
 }
