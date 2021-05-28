@@ -73,6 +73,7 @@ export default function ProfileCard(props){
     const name = props.name;
     const isAdmin = props.isAdmin;
     const email = props.email;
+    const [adminText,setAdminText] = useState('일반회원')
     
     const [open, setOpen] = React.useState(false);
 
@@ -82,8 +83,12 @@ export default function ProfileCard(props){
 
     const handleClose = (value) => {
         setOpen(false);
-
     };
+
+    useEffect(() => {
+        if (isAdmin == true)
+            setAdminText('관리자')
+    });
     return(
         <div className = {classes.root}>
             <Card className={classes.card}>
@@ -150,7 +155,7 @@ export default function ProfileCard(props){
                                         <Tab></Tab>
                                         <div className={classes.isAdmin}>
                                             <Typography  className={classes.title} variant="h6">
-                                                {isAdmin}
+                                                {adminText}
                                             </Typography>
                                         </div>
                                     </Grid>

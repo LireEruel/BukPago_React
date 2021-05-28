@@ -57,7 +57,7 @@ const App = observer((props) => {
 
     console.log(hasCookie);
     console.log(cookies['loginAuth']);
-
+    console.log(cookies);
 
     React.useEffect(() => {
         if (cookies['loginAuth'] != undefined) setHasCookie(true);

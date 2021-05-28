@@ -3,7 +3,7 @@ import Dictionary from '../models/Dictionary';
 
 export default async function requestGetDictionary() {
     return await axios
-        .get('/api/dictionary/search', { withCredentials: true })
+        .get('/api/dictionary/dictionary', { withCredentials: true })
         .catch((error) => {
             console.warn(error);
             return [];

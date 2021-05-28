@@ -1,7 +1,7 @@
 import axios from 'axios';
 import Train from '../models/Train';
 
-export default async function requestTranslike(_isLike, _NK, _SK) {
+export  async function requestTransLike(_isLike, _NK, _SK) {
     return await axios
         .post(
             '/api/evaluation/translate/eval',
@@ -16,24 +16,13 @@ export default async function requestTranslike(_isLike, _NK, _SK) {
         });
 }
 
-export async function requestGetTestCase() {
+export default async function requestGetTestCase() {
     return await axios
-        .get('api/evaluation/', { withCredentials: true })
+        .get('/api/evaluation/', { withCredentials: true })
         .catch((error) => {
             return error;
         })
-        .then((result) => {
-            var data = [];
-            if (result.data != null) {
-                // 5-2
-                var tmp = result.data;
-                Object.keys(tmp).map((key, index) =>
-                    data.push(new Train(tmp[key]['NK'], tmp[key]['SK'])),
-                );
-                return data;
-            }
-            return [];
-        });
+        .then((result)=> {return result});
 }
 
 export async function requestTransOffer(_NK, _SK,) {

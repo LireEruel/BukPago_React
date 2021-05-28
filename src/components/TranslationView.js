@@ -16,6 +16,8 @@ import ThumbUpAltIcon from '@material-ui/icons/ThumbUpAlt';
 import ThumbDownAltIcon from '@material-ui/icons/ThumbDownAlt';
 import ButtonGroup from '@material-ui/core/ButtonGroup';
 import TrainStore from '../stores/TrainStore';
+import Switch from '@material-ui/core/Switch';
+
 
 const useStyles = makeStyles({
     root: {
@@ -86,6 +88,20 @@ export default function TranslationView(props) {
     const maxTextLength = 3000;
     const translationStore = React.useContext(TranslationStore.context);
     const trainStore = React.useContext(TrainStore.context);
+    const [code, setCode] = useState(false);
+    const [transCode, setTransCode] = useState('맞춤법 검사')
+
+    const handleChange = (e) => {
+        if(e.target.checked == true)
+        {
+            setTransCode('기계 번역')
+            setCode(true)
+        }
+        else{
+            setTransCode('맞춤법 검사')
+            setCode(false)
+        }
+    }
     const onInputChange = (e) => {
         const str = e.target.value;
         setTranslateState(false);
@@ -132,6 +148,7 @@ export default function TranslationView(props) {
         trainStore
             .transLike(true, inputText, outputText)
             .then((result) => {
+                console.log(result);
                 setContent('피드백 감사합니다! :)');
                 setSeverity('success');
                 setOpen(true);
@@ -165,7 +182,7 @@ export default function TranslationView(props) {
         else
         {
             translationStore
-            .translate(inputText)
+            .translate(inputText, code)
             .then((result) => {
                 setOutputText(result);
                 setTranslateState(true);
@@ -195,9 +212,32 @@ export default function TranslationView(props) {
                 <Typography className={classes.title} variant="h3">
                     북한어 번역
                 </Typography>
+                
             </div>
             <br />
             <div className={classes.content}>
+            <Grid
+                container
+                direction="column"
+                justify="center"
+                alignItems="center"
+            >
+
+                <Switch
+                    checked={code}
+                    onChange={handleChange}
+                    name="checkedA"
+                    inputProps={{ 'aria-label': 'secondary checkbox' }}
+                /> 
+                <div>
+                <Typography  variant="h6">
+                    {transCode}
+                </Typography>
+                </div>
+                
+            </Grid>
+                
+                
                 <Grid
                     className={classes.grid}
                     container
@@ -213,6 +253,7 @@ export default function TranslationView(props) {
                     </Paper>
                 </Grid>
                 <Grid container direction="row" justify="center" alignItems="center">
+                    
                     <Paper className={classes.paper}>
                         <TextField
                             className={classes.textField}

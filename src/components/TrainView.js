@@ -75,44 +75,33 @@ export default function TranslationView(props) {
     const [inputText, setInputText] = useState('병렬코퍼스 로딩중 ...');
     const [outputText, setOutputText] = useState('...');
     const [ranking, setRanking] = useState([
-        '점주오',
-        '면주오',
-        '선주오',
-        '앉은주오',
-        '누운주오',
-        '나는주오',
-        '선주사',
-        '선주육',
-        '선주칠',
-        '선주일',
-        '선주이',
-        '선수오',
+        '랭킹 로딩중'
     ]);
     const [open, setOpen] = useState(false);
     const [content, setContent] = useState('');
     const [severity, setSeverity] = useState('success');
 
     const getTestCase = () => {
-        /*trainStore.getTestCase().then(result =>{
-            setInputText(result[0])
-            setOutputText(result[1])
-        });*/
+        trainStore.getTestCase().then(result =>{
+            setInputText(result.data.NK)
+            setOutputText(result.data.SK)
+        });
     };
 
     useEffect(() => {
-        //getTestCase();
-        /*
+        getTestCase();
+        
         memberStore.getRanker().then(result=>{
-            if(result.status == 200)
+            if(result.data.data.length >0 )
             {
                 setRanking(result)
             }
             else{
-                setRanking('주오짱짱123')
+                setRanking(['주오짱짱123'])
             }
-         
+            console.log(ranking)
         });
-        */
+        
     }, []);
 
     const transLike = () => {
