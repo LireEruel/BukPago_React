@@ -4,7 +4,7 @@ import Train from '../models/Train';
 export  async function requestTransLike(_isLike, _NK, _SK) {
     return await axios
         .post(
-            '/api/evaluation/translate/eval',
+            '/api/evaluation/',
             { params: {NK: _NK, SK: _SK , isGood: _isLike, } },
             { withCredentials: true },
         )

@@ -104,10 +104,12 @@ export default function TranslationView(props) {
 
     useEffect(() => {
         getTestCase();
-
-        memberStore.getRanker().then(result => {
-            if (result.data.data.length > 0) {
-                setRanking(result)
+        
+        memberStore.getRanker().then(result=>{
+         
+            if(result.data.data.length >0 )
+            {
+                setRanking(result.data.data)
             }
             else {
                 setRanking(['주오짱짱123'])
@@ -131,6 +133,7 @@ export default function TranslationView(props) {
                     setContent('피드백 감사합니다! :)');
                     setSeverity('success');
                     setOpen(true);
+                    getTestCase();
                 })
                 .catch((err) => {
                     console.log(err);
@@ -152,6 +155,7 @@ export default function TranslationView(props) {
                     setContent('피드백 감사합니다! :)');
                     setSeverity('success');
                     setOpen(true);
+                    getTestCase();
                 })
                 .catch((err) => {
                     console.log(err);

@@ -52,7 +52,7 @@ export async function requestGetUserInfo() {
 
 export async function requestGetMyRank() {
     return await axios
-        .get('/api/member/user/rank')
+        .get('/api/member/rank')
         .catch((error) => {
             return error;
         })

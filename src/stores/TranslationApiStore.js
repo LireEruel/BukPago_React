@@ -10,7 +10,9 @@ export class TranslationApiStore {
     }
 
     requestApiKey(name, purpose) {
+    console.log("스토어")
         requestApiKey(name, purpose).then((res) => {
+            console.log("스토어")
             return res;
         })
     }

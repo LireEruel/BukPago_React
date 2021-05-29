@@ -90,32 +90,30 @@ export default function TranslationView(props) {
     const [evaluated, setEvaluated] = useState([]);
     const [id, setId] = useState("");
     const [key, setKey] = useState(0);
+    const [evalCount , setCount] = useState(0);
     
     useEffect(() => {
-        
-        if(hasCookie == false)
-            history.push('/buk-pago');
-
-/*
         memberStore.getUserInfo().then((res) => {
-            setId(res.data.id);
-            setName(res.data.nickname);
-            setIsAdmin(res.data.isAdmin);
-            setEmail(res.data.Email);
-            setEvaluated(res.data.evalInfo);
+            setId(res.data.data.id);
+            setName(res.data.data.nickname);
+            setIsAdmin(res.data.data.isAdmin);
+            setEmail(res.data.data.email);
+            setEvaluated(res.data.data.evalInfo);
+            setCount(res.data.data.evaluationCount);
         });
+        
         
         memberStore.getMyRank().then((res) => {
-            setPercent(res.data.percent);
-            setRanking(res.data.ranking);
+            setPercent(res.data.rank_rate);
+            setRanking(res.data.rank);
         });
-   */     
-      
-       memberStore.getApiKey().then((res) => {
-           setKey(res.data.key);
-       })
+        
+        /*
+        memberStore.getApiKey().then((res) => {
+            setKey(res.data.key);
+        })*/
          
-    })
+    }, [])
 
 
     return(
@@ -134,7 +132,7 @@ export default function TranslationView(props) {
                                     </Typography>
                                 </CardContent>
                                     {
-                                        evaluated.length == 0 ? 
+                                        evalCount < 1 ? 
                                         (
                                             <Grid item align="center">
                                                 <br/>

@@ -1,7 +1,7 @@
 import axios from 'axios'
 
 export default async function requestFileTranslate(_FILES) {
-    return await axios.post('/api/file-translator',
+    return await axios.post('/api/translator/file',
         {
             paramsSerializer: () => { return JSON.stringify(_FILES); },
             withCredentials: true
