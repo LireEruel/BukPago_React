@@ -58,7 +58,7 @@ export default observer(function FileTranslationView(props) {
 
     const handleTranslate = () => {
         console.log(hasCookie);
-        if (!hasCookie) {
+        if (hasCookie) {
             snackbar.showMessage(
                 '파일번역 기능은 로그인이 필요합니다.',
                 '확인', () => history.push('/buk-pago/signIn')
