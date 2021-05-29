@@ -13,6 +13,8 @@ import MemberStore from '../stores/MemberStore';
 import Snackbar from '@material-ui/core/Snackbar';
 import Alert from '@material-ui/lab/Alert';
 import TrainStore from '../stores/TrainStore';
+import { useHistory } from 'react-router';
+import { useSnackbar } from 'material-ui-snackbar-provider';
 
 const useStyles = makeStyles({
     root: {
@@ -80,9 +82,12 @@ export default function TranslationView(props) {
     const [open, setOpen] = useState(false);
     const [content, setContent] = useState('');
     const [severity, setSeverity] = useState('success');
+    let history = useHistory();
+    const snackbar = useSnackbar();
+    const hasCookie = props.hasCookie;
 
     const getTestCase = () => {
-        trainStore.getTestCase().then(result =>{
+        trainStore.getTestCase().then(result => {
             setInputText(result.data.NK)
             setOutputText(result.data.SK)
         });
@@ -90,44 +95,59 @@ export default function TranslationView(props) {
 
     useEffect(() => {
         getTestCase();
-        
-        memberStore.getRanker().then(result=>{
-            if(result.data.data.length >0 )
-            {
+
+        memberStore.getRanker().then(result => {
+            if (result.data.data.length > 0) {
                 setRanking(result)
             }
-            else{
+            else {
                 setRanking(['주오짱짱123'])
             }
             console.log(ranking)
         });
-        
+
     }, []);
 
     const transLike = () => {
-        trainStore
-            .transLike(true, inputText, outputText)
-            .then((result) => {
-                setContent('피드백 감사합니다! :)');
-                setSeverity('success');
-                setOpen(true);
-            })
-            .catch((err) => {
-                console.log(err);
-            });
+        if (!hasCookie) {
+            snackbar.showMessage(
+                '북파고 트레인은 로그인이 필요한 서비스 입니다.',
+                '확인', () => history.push('/buk-pago/signIn')
+            )
+            setTimeout(() => history.push('/buk-pago/signIn'), 2000);
+        } else {
+            trainStore
+                .transLike(true, inputText, outputText)
+                .then((result) => {
+                    setContent('피드백 감사합니다! :)');
+                    setSeverity('success');
+                    setOpen(true);
+                })
+                .catch((err) => {
+                    console.log(err);
+                });
+        }
     };
 
     const transDislike = () => {
-        trainStore
-            .transLike(false, inputText, outputText)
-            .then((result) => {
-                setContent('피드백 감사합니다! :)');
-                setSeverity('success');
-                setOpen(true);
-            })
-            .catch((err) => {
-                console.log(err);
-            });
+        if (!hasCookie) {
+            snackbar.showMessage(
+                '북파고 트레인은 로그인이 필요한 서비스 입니다.',
+                '확인', () => history.push('/buk-pago/signIn')
+            )
+            setTimeout(() => history.push('/buk-pago/signIn'), 2000);
+        } else {
+            trainStore
+                .transLike(false, inputText, outputText)
+                .then((result) => {
+                    setContent('피드백 감사합니다! :)');
+                    setSeverity('success');
+                    setOpen(true);
+                })
+                .catch((err) => {
+                    console.log(err);
+                });
+        }
     };
 
     const handleClose = () => {
