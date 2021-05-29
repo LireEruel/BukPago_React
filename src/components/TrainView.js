@@ -49,6 +49,8 @@ const useStyles = makeStyles({
     pass: {
         float: 'right',
         marginRight: '2%',
+        backgroundColor: '#228b22',
+        fontWeight: '600'
     },
     cardGrid: {
         marginTop: '5%',
@@ -87,10 +89,17 @@ export default function TranslationView(props) {
     const hasCookie = props.hasCookie;
 
     const getTestCase = () => {
-        trainStore.getTestCase().then(result => {
-            setInputText(result.data.NK)
-            setOutputText(result.data.SK)
-        });
+        if (!hasCookie) {
+            snackbar.showMessage(
+                '북파고 트레인은 로그인이 필요한 서비스 입니다.',
+                '확인', () => history.push('/buk-pago/signIn')
+            )
+        } else {
+            trainStore.getTestCase().then(result => {
+                setInputText(result.data.NK)
+                setOutputText(result.data.SK)
+            });
+        }
     };
 
     useEffect(() => {
