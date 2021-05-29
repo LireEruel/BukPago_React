@@ -33,12 +33,12 @@ export default function MemberUpdateDialog(props) {
     const defult_id = props.id
     const defult_name = props.name
     const defult_email = props.email
-    const defult_key = props.key
+    const defult_key = props.apiKey
     const id = useRef()
     const name = useRef()
     const email = useRef()
     const memberStore = React.useContext(MemberStore.context)
-     const snackbar = useSnackbar();
+    const snackbar = useSnackbar();
 
     const handleClickOpen = () => {
         setOpen(true);

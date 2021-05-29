@@ -66,7 +66,6 @@ export default function EvaluatedView(props){
     const nk = element.NKsentence;
     const sk = element.SKsentence;
     const isLike = element.evalResult;
-    console.log(element);
     return(
         <div className = {classes.root}>
             <Card className={classes.card}>
