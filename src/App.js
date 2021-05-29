@@ -74,7 +74,6 @@ const App = observer((props) => {
                             hasCookie={hasCookie}
                             setHasCookie={setHasCookie}
                             removeCookie={removeCookie}
-                            hasCookie={hasCookie}
                             setCookie={setCookie}
                         >
                             <Switch>

@@ -73,6 +73,8 @@ export default function ProfileCard(props){
     const name = props.name;
     const isAdmin = props.isAdmin;
     const email = props.email;
+    const apiKey = props.apiKey;
+
     const [adminText,setAdminText] = useState('일반회원')
     
     const [open, setOpen] = React.useState(false);
@@ -116,6 +118,7 @@ export default function ProfileCard(props){
                                                 {name}
                                             </Typography>
                                         </div>
+        
                                     </Grid>
                                 
                                 </div>
@@ -164,7 +167,7 @@ export default function ProfileCard(props){
                             </Grid>
                         </CardContent>
                         <CardActions>
-                            <MemberUpdateDialog className={classes.editButton} open={open} onClose = {handleClose} id = {id} name={name} email = {email} />          
+                            <MemberUpdateDialog className={classes.editButton} open={open} onClose = {handleClose} id = {id} name={name} email = {email} apiKey={apiKey}/>          
                         </CardActions>
                     </Card>     
                        

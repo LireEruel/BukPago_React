@@ -70,7 +70,7 @@ const useStyles = makeStyles({
         height : '70%'
     },
     evalCard : {
-        paddingBottom : '5%'
+        paddingBottom : '5%',
     }
 })
 
@@ -89,7 +89,7 @@ export default function TranslationView(props) {
     const [ranking, setRanking] = useState(0);
     const [evaluated, setEvaluated] = useState([]);
     const [id, setId] = useState("");
-    const [key, setKey] = useState(0);
+    const [apiKey, setKey] = useState("");
     const [evalCount , setCount] = useState(0);
     
     useEffect(() => {
@@ -108,10 +108,10 @@ export default function TranslationView(props) {
             setRanking(res.data.rank);
         });
         
-        /*
+        
         memberStore.getApiKey().then((res) => {
-            setKey(res.data.key);
-        })*/
+            setKey(res.data.apiKey);
+        });
          
     }, [])
 
@@ -121,7 +121,7 @@ export default function TranslationView(props) {
             <div className={classes.content}>
                 <Grid className={classes.grid} container direction="row" justify="space-around">
                     <div className={classes.left}>
-                        <Profile name={name} isAdmin={isAdmin} email={email} id={id} key={key} />
+                        <Profile name={name} isAdmin={isAdmin} email={email} id={id} apiKey={apiKey} />
                         <RankingCard percent={percent} ranking= {ranking} />
                     </div>  
                     <div className={classes.right}>
