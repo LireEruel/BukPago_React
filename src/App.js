@@ -84,7 +84,9 @@ const App = observer((props) => {
                                 </Route>
                                 <Route exact path="/buk-pago" component={TranslationView} />
                                 <Route exact path="/buk-pago/dictionary" component={DictionaryView} />
-                                <Route exact path="/buk-pago/train" component={TrainView} />
+                                <Route exact path="/buk-pago/train">
+                                    <TrainView hasCookie={hasCookie} />
+                                </Route>
                                 <Route exact path="/buk-pago/file-translate">
                                     <FileTranslationView hasCookie={hasCookie} />
                                 </Route>
