@@ -129,7 +129,7 @@ export class FileTranslationStore {
         if (res === null) {
             return null;
         } else {
-            const translatedFileArr = JSON.parse(res.data.result);
+            const translatedFileArr = res.data.result;
             if (Array.isArray(translatedFileArr)) {
                 const tmpArr = [];
 
