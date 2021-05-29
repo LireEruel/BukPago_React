@@ -195,6 +195,7 @@ export default function TranslationView(props) {
     };
 
     const transOffer = () => {
+        console.log(outputText)
         trainStore
             .transOffer(inputText, outputText)
             .then((result) => {

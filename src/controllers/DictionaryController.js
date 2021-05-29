@@ -11,7 +11,7 @@ export default async function requestGetDictionary() {
         .then((result) => {
             var data = [];
             if (result.data != null) {
-                var tmp = result.data.result;
+                var tmp = result.data.data;
                 Object.keys(tmp).map((key, index) =>
                     data.push(
                         new Dictionary(tmp[key]['NK'], tmp[key]['SK'], tmp[key]['mean']).get_dic(),

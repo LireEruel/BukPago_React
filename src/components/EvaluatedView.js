@@ -63,9 +63,9 @@ const useStyles = makeStyles ( {
 export default function EvaluatedView(props){
     const classes = useStyles();
     const element = props.element;
-    const nk = element.nk;
-    const sk = element.sk;
-    const isLike = element.isLike;
+    const nk = element.NKsentence;
+    const sk = element.SKsentence;
+    const isLike = element.evalResult;
     console.log(element);
     return(
         <div className = {classes.root}>

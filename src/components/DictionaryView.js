@@ -12,6 +12,8 @@ import MenuItem from '@material-ui/core/MenuItem';
 import { isConstructorDeclaration } from 'typescript';
 import { observer } from 'mobx-react';
 import { render } from '@testing-library/react';
+import { useHistory } from 'react-router-dom';
+
 
 var elem = document.compatMode === 'CSS1Compat' ? document.documentElement : document.body;
 
@@ -56,9 +58,11 @@ const DictionaryView = observer((props) => {
     const dictionaryStore = useContext(DictionaryStore.context);
     const [inputText, setInputText] = useState('');
     const [code, setCode] = useState(1);
-
+    let history = useHistory();
     const render = () => {
+        console.log("랜더링")
         setInputText('');
+        setCode(1)
     }
     const onChange = (e) => {
         const str = e.target.value;
@@ -83,9 +87,11 @@ const DictionaryView = observer((props) => {
     };
 
     useEffect(() => {
-        dictionaryStore.getDictionary();
-        render();
-    }, []);
+        dictionaryStore.getDictionary().then((res)=>{
+            history.push('/buk-pago/dictionary');
+        })
+        
+    },[]);
 
     return (
         <div className={classes.root}>

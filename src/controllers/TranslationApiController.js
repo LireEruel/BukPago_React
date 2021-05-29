@@ -7,6 +7,7 @@ export default async function requestApiKey(_NAME, _PURPOSE) {
             withCredentials: true
         }
     ).catch(err => { return err }).then(res => {
+        console.log(res);
         return res;
     })
 }
