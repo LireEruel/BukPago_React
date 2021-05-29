@@ -10,3 +10,12 @@ export default async function requestTranslate(_NK, _code) {
     })
 }
 
+export async function requestGetApiKey(name, perpose)
+{
+    return await axios.post(
+        '/api/bukpagoAPI/',{name : name, perpose : perpose} 
+    ).catch(error => {return error}).then(res => {
+        console.log(res);
+        return res
+    })
+}

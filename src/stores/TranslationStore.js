@@ -1,6 +1,6 @@
 import { observable, action } from 'mobx';
 import { createContext } from 'react';
-import requestTranslate from '../controllers/TranslationController';
+import requestTranslate,{requestGetApiKey} from '../controllers/TranslationController';
 
 
 class TranslationStore {
@@ -19,6 +19,15 @@ class TranslationStore {
     translate(northText, code) {
         return requestTranslate(northText, code)
     }
+
+
+    @action
+    getApiKey(name, purpose) {
+        return requestGetApiKey(name, purpose).then((res) => {
+            return res;
+        })
+    }
+
 
 }
 export default TranslationStore = TranslationStore.getInstance();

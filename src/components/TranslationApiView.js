@@ -5,6 +5,7 @@ import { Box, Button, Container, FormControl, Grid, InputLabel, makeStyles, Menu
 import { useSnackbar } from 'material-ui-snackbar-provider'
 import clsx from "clsx";
 import { useStores } from '../stores/Context'
+import TranslationStore from "../stores/TranslationStore";
 
 const useGetApiKeyStyles = makeStyles((theme) => ({
     boldText: {
@@ -83,8 +84,8 @@ export default observer(function TranslateApiView(props) {
     const snackbar = useSnackbar();
     let history = useHistory();
     const hasCookie = props.hasCookie;
-    const { TranslationApiStore } = useStores();
-
+    const translationStore = React.useContext(TranslationStore.context);
+    
     const handleChange = (event) => {
         setPurpose(event.target.value);
     }
@@ -98,31 +99,20 @@ export default observer(function TranslateApiView(props) {
                 '이동', () => history.push('/buk-pago/signIn')
             )
         } else {
-            TranslationApiStore.requestApiKey(applicant.current.value, purpose).then((res) => {
+            translationStore.getApiKey(applicant.current.value, purpose).then((res) => {
                 if (res.status === 200) {
-                    try {
-                        snackbar.showMessage(
-                            res.data.message,
-                            '확인', () => history.push('/buk-pago/myPage')
-                        )
-                    } catch {
                         snackbar.showMessage(
                             '번역 API 키 발급 완료. 발급된 키는 마이페이지에서 확인',
                             '확인', () => history.push('/buk-pago/myPage')
                         )
-                    }
-                } else {
-                    try {
-                        snackbar.showMessage(
-                            res.data.message, '확인'
-                        )
-                    } catch {
+                }
+                else {
                         snackbar.showMessage(
                             '번역 API 키 발급 반려됨.', '확인'
                         )
                     }
                 }
-            })
+            )
         }
     }
 
