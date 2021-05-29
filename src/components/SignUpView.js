@@ -40,8 +40,8 @@ export default function SignUpView(props) {
     const email = useRef('');
     const snackbar = useSnackbar();
     let history = useHistory();
-    
-    
+
+
     function register(e) {
         e.preventDefault();
         if (name.current.value === '') {
@@ -78,16 +78,27 @@ export default function SignUpView(props) {
 
         console.log(member);
         memberStore.register(member).then((res) => {
-            if (res.status == 200) {
-                
-                snackbar.showMessage(
-                    res.data.message,
-                )
-                history.push('/buk-pago');
+            if (res.status === 200) {
+                try {
+                    snackbar.showMessage(
+                        res.data.message,
+                    )
+                } catch {
+                    snackbar.showMessage(
+                        '회원가입 성공!',
+                    )
+                }
+                setTimeout(() => history.push('/buk-pago/signIn'), 2000);
             } else {
-                snackbar.showMessage(
-                    res.data.message,
-                )
+                try {
+                    snackbar.showMessage(
+                        res.data.message,
+                    )
+                } catch {
+                    snackbar.showMessage(
+                        '회원가입 실패',
+                    )
+                }
             }
         });
     }
