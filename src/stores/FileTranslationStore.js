@@ -124,14 +124,17 @@ export class FileTranslationStore {
         }
     }
 
-    requestFileTranslate() {
-        requestFileTranslate(this.originalFiles).then((res) => {
+    async requestFileTranslate() {
+        const res = await requestFileTranslate(this.originalFiles);
+        if (res === null) {
+            return null;
+        } else {
             const translatedFileArr = JSON.parse(res.data.result);
             if (Array.isArray(translatedFileArr)) {
                 const tmpArr = [];
 
                 for (const translatedFileInfo of translatedFileArr) {
-                    let file = new File([translatedFileInfo.content], translatedFileInfo.name, { type: 'text/plain' })
+                    let file = new File([translatedFileInfo.content], translatedFileInfo.name, { type: 'text/plain' });
                     let fileInfo = {
                         name: translatedFileInfo.name,
                         size: file.size,
@@ -142,7 +145,7 @@ export class FileTranslationStore {
                 this.translatedFiles = tmpArr;
             }
             return res;
-        })
+        }
     }
 
     downloadFiles() {

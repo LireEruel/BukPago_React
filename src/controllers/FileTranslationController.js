@@ -6,7 +6,15 @@ export default async function requestFileTranslate(_FILES) {
             params: { files: _FILES },
             withCredentials: true
         }
-    ).catch(error => { return error }).then(res => {
-        return res;
-    })
+    ).then((res) => {
+        if (res.status === 200) {
+            if (Object.keys(res.data).length !== 0) {
+                return res;
+            } else {
+                return null;
+            }
+        } else {
+            return null;
+        }
+    }).catch(error => { return error })
 }
