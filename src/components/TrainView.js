@@ -200,7 +200,7 @@ export default function TranslationView(props) {
                                                 variant="contained"
                                                 disableRipple
                                                 size="large"
-                                                onClick={transLike}
+                                                onClick={transDislike}
                                             >
                                                 <ThumbDownAltIcon></ThumbDownAltIcon>
                                             </Button>
@@ -211,7 +211,7 @@ export default function TranslationView(props) {
                                                 variant="contained"
                                                 disableRipple
                                                 size="large"
-                                                onClick={transDislike}
+                                                onClick={ transLike}
                                             >
                                                 <ThumbUpAltIcon></ThumbUpAltIcon>
                                             </Button>

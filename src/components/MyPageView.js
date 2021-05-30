@@ -89,7 +89,7 @@ export default function TranslationView(props) {
     const [ranking, setRanking] = useState(0);
     const [evaluated, setEvaluated] = useState([]);
     const [id, setId] = useState("");
-    const [apiKey, setKey] = useState("");
+    const [apiKey, setKey] = useState("api키 미신청");
     const [evalCount , setCount] = useState(0);
     
     useEffect(() => {
@@ -110,7 +110,8 @@ export default function TranslationView(props) {
         
         
         memberStore.getApiKey().then((res) => {
-            setKey(res.data.apiKey);
+            if(res.status == 200)
+                setKey(res.data.apiKey);
         });
          
     }, [])

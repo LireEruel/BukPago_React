@@ -65,7 +65,7 @@
       "last 1 safari version"
     ]
   },
-  "proxy": "http://127.0.0.1:12050/",
+  "proxy": "http://bukpago.duckdns.org:12050/",
   "homepage": "https://lireeruel.github.io/BukPago_React/",
   "devDependencies": {
     "@babel/plugin-proposal-decorators": "^7.13.5",
