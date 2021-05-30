@@ -89,26 +89,18 @@ export default function TranslationView(props) {
     const hasCookie = props.hasCookie;
 
     const getTestCase = () => {
-        if (!hasCookie) {
-            snackbar.showMessage(
-                '북파고 트레인은 로그인이 필요한 서비스 입니다.',
-                '확인', () => history.push('/buk-pago/signIn')
-            )
-        } else {
-            trainStore.getTestCase().then(result => {
-                setInputText(result.data.NK)
-                setOutputText(result.data.SK)
-            });
-        }
+        trainStore.getTestCase().then(result => {
+            setInputText(result.data.NK)
+            setOutputText(result.data.SK)
+        });
     };
 
     useEffect(() => {
         getTestCase();
-        
-        memberStore.getRanker().then(result=>{
-         
-            if(result.data.data.length >0 )
-            {
+
+        memberStore.getRanker().then(result => {
+
+            if (result.data.data.length > 0) {
                 setRanking(result.data.data)
             }
             else {
@@ -211,7 +203,7 @@ export default function TranslationView(props) {
                                                 variant="contained"
                                                 disableRipple
                                                 size="large"
-                                                onClick={ transLike}
+                                                onClick={transLike}
                                             >
                                                 <ThumbUpAltIcon></ThumbUpAltIcon>
                                             </Button>
