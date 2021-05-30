@@ -70,6 +70,12 @@ const useStyles = makeStyles({
     rankingNum: {
         marginTop: '10%',
     },
+    likeBtn: {
+        backgroundColor: '#0090fb'
+    },
+    dislikeBtn: {
+        backgroundColor: '#f50057'
+    }
 });
 
 export default function TranslationView(props) {
@@ -192,10 +198,12 @@ export default function TranslationView(props) {
                                                 variant="contained"
                                                 disableRipple
                                                 size="large"
-                                                onClick={transDislike}
+                                                onClick={transLike}
+                                                className={classes.likeBtn}
                                             >
-                                                <ThumbDownAltIcon></ThumbDownAltIcon>
+                                                <ThumbUpAltIcon />
                                             </Button>
+
                                         </Grid>
 
                                         <Grid item>
@@ -203,9 +211,10 @@ export default function TranslationView(props) {
                                                 variant="contained"
                                                 disableRipple
                                                 size="large"
-                                                onClick={transLike}
+                                                onClick={transDislike}
+                                                className={classes.dislikeBtn}
                                             >
-                                                <ThumbUpAltIcon></ThumbUpAltIcon>
+                                                <ThumbDownAltIcon />
                                             </Button>
                                         </Grid>
                                     </Grid>
