@@ -1,6 +1,6 @@
 import './App.css';
 import React, { useContext, useState } from 'react';
-import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Switch, Route, Redirect } from 'react-router-dom';
 import { observer } from 'mobx-react';
 import HomeLayout from './HomeLayout';
 import { makeStyles } from '@material-ui/styles';
@@ -86,6 +86,9 @@ const App = observer((props) => {
                             setCookie={setCookie}
                         >
                             <Switch>
+                                <Route exact path='/'>
+                                    <Redirect to='/buk-pago' />
+                                </Route>
                                 <Route path="/buk-pago/signUp" component={SignUpView} />
                                 <Route path="/buk-pago/signIn">
                                     <SignInView setHasCookie={setHasCookie} setIsAdmin={setIsAdmin}> </SignInView>
