@@ -19,6 +19,7 @@ import MyPageView from './components/MyPageView';
 import FileTranslationView from './components/FileTranslationView';
 import TranslationApiView from './components/TranslationApiView'
 import { isConstructorDeclaration } from 'typescript';
+import AdminPageView from './components/AdminPageView';
 
 
 const useStyle = makeStyles((theme) => ({
@@ -54,13 +55,19 @@ const App = observer((props) => {
     const classes = useStyle();
     const [cookies, setCookie, removeCookie] = useCookies(['loginAuth']);
     const [hasCookie, setHasCookie] = useState(false);
+    const [isAdmin, setIsAdmin] = useState(false);
 
     console.log(hasCookie);
     console.log(cookies['loginAuth']);
     console.log(cookies);
 
     React.useEffect(() => {
-        if (cookies['loginAuth'] != undefined) setHasCookie(true);
+        if (cookies['loginAuth'] != undefined) {
+            setHasCookie(true);
+            if (cookies['isAdmin'] === "True") {
+                setIsAdmin(true);
+            }
+        }
     });
 
 
@@ -74,12 +81,14 @@ const App = observer((props) => {
                             hasCookie={hasCookie}
                             setHasCookie={setHasCookie}
                             removeCookie={removeCookie}
+                            setIsAdmin={setIsAdmin}
+                            isAdmin={isAdmin}
                             setCookie={setCookie}
                         >
                             <Switch>
                                 <Route path="/buk-pago/signUp" component={SignUpView} />
                                 <Route path="/buk-pago/signIn">
-                                    <SignInView setHasCookie={setHasCookie}> </SignInView>
+                                    <SignInView setHasCookie={setHasCookie} setIsAdmin={setIsAdmin}> </SignInView>
                                 </Route>
                                 <Route exact path="/buk-pago" component={TranslationView} />
                                 <Route exact path="/buk-pago/dictionary" component={DictionaryView} />
@@ -94,6 +103,9 @@ const App = observer((props) => {
                                 </Route>
                                 <Route exact path="/buk-pago/myPage">
                                     <MyPageView hasCookie={hasCookie}></MyPageView>
+                                </Route>
+                                <Route exact path="/buk-pago/adminPage">
+                                    <AdminPageView />
                                 </Route>
                             </Switch>
                         </HomeLayout>
