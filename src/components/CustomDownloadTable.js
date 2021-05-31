@@ -1,5 +1,5 @@
 import { observer } from 'mobx-react'
-import { Button, Checkbox, lighten, makeStyles, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Toolbar, Typography } from '@material-ui/core';
+import { Button, Checkbox, lighten, LinearProgress, makeStyles, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Toolbar, Typography } from '@material-ui/core';
 import GetAppIcon from '@material-ui/icons/GetApp';
 
 import { useStores } from '../stores/Context';
@@ -25,13 +25,6 @@ const useCustomTableStyles = makeStyles({
     downloadButton: {
         backgroundColor: '#F07069',
     },
-    input: {
-        display: "none",
-    },
-    highlight: {
-        color: '#58a0d1',
-        backgroundColor: lighten('#79b3da', 0.85),
-    },
     headerRoot: {
         width: '100%'
     },
@@ -48,6 +41,7 @@ const useCustomTableStyles = makeStyles({
 
 export default observer(function CustomDownloadTable(props) {
     const classes = useCustomTableStyles();
+    const { isLoading } = props;
     const { FileTranslationStore } = useStores();
 
     const returnFileSize = (size) => {
@@ -55,7 +49,7 @@ export default observer(function CustomDownloadTable(props) {
             return 'n/a'
         }
 
-        var sizes = ['bytes', 'kB', 'MB', 'GB', 'TB', 'PB'];
+        var sizes = ['바이트', '킬로바이트', '메가바이트', '기가바이트', '테라바이트', '페타바이트'];
         var e = Math.floor(Math.log(size) / Math.log(1024));
         return (size / Math.pow(1024, e)).toFixed(2) + " " + sizes[e];
     }
@@ -97,6 +91,9 @@ export default observer(function CustomDownloadTable(props) {
                     </Button>
                 }
             </Toolbar>
+            {isLoading === true &&
+                <LinearProgress color="secondary" />
+            }
             <TableContainer className={classes.container}>
                 <Table stickyHeader className={classes.table}>
                     <TableHead className={classes.headerRoot}>

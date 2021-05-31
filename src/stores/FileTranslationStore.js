@@ -125,6 +125,7 @@ export class FileTranslationStore {
     }
 
     async requestFileTranslate() {
+        this.translatedFiles = [];
         const res = await requestFileTranslate(this.originalFiles);
         if (res === null) {
             return null;

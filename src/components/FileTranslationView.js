@@ -8,6 +8,7 @@ import { useSnackbar } from 'material-ui-snackbar-provider'
 import { observer } from 'mobx-react';
 import { useStores } from '../stores/Context'
 import { useHistory } from 'react-router';
+import { useState } from 'react';
 
 const useBodyStyles = makeStyles({
     root: {
@@ -55,34 +56,34 @@ export default observer(function FileTranslationView(props) {
     let history = useHistory();
     const hasCookie = props.hasCookie;
     const { FileTranslationStore } = useStores();
+    const [isLoading, setIsLoading] = useState(false);
 
     const handleTranslate = () => {
-        console.log(hasCookie);
         if (!hasCookie) {
             snackbar.showMessage(
                 '파일번역 기능은 로그인이 필요합니다.',
                 '확인', () => history.push('/buk-pago/signIn')
             )
-        } else if (FileTranslationStore.fileCount === 0) {
+        }
+        if (FileTranslationStore.fileCount === 0) {
             snackbar.showMessage(
                 '번역할 파일이 존재 하지 않습니다'
             )
         } else {
+            setIsLoading(true);
+            snackbar.showMessage(
+                '파일 번역 중입니다.'
+            )
             FileTranslationStore.requestFileTranslate().then((res) => {
                 if (res === null) {
                     snackbar.showMessage(
                         '파일 번역 실패, 재시도 바랍니다.', '확인'
                     )
                 } else {
-                    try {
-                        snackbar.showMessage(
-                            res.data.message, '확인'
-                        )
-                    } catch {
-                        snackbar.showMessage(
-                            '파일 번역 완료', '확인'
-                        )
-                    }
+                    snackbar.showMessage(
+                        '파일 번역 완료', '확인'
+                    )
+                    setIsLoading(false);
                 }
             })
         }
@@ -116,7 +117,7 @@ export default observer(function FileTranslationView(props) {
                         </Button>
                     </Box>
                     <Box component={Paper} className={clsx(classes.columFlexBox, classes.rightBox)} >
-                        <CustomDownloadTable />
+                        <CustomDownloadTable isLoading={isLoading} />
                     </Box>
                 </Grid>
             </div>
