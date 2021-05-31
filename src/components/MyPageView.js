@@ -60,18 +60,20 @@ const useStyles = makeStyles({
         width : '50%'
     },
     right : {
-        width: '50%'
+        width: '50%',
+        maxHeight : '10%'
     },
     rankingCard : {
         width : '50%',
         height : '100%'
     },
     list : {
-        height : '70%'
-    },
-    evalCard : {
         paddingBottom : '5%',
-    }
+        width : '100%',
+        maxHeight : '30%',
+        overflow: 'auto',
+    },
+
 })
 
 
@@ -126,35 +128,45 @@ export default function TranslationView(props) {
                         <RankingCard percent={percent} ranking= {ranking} />
                     </div>  
                     <div className={classes.right}>
-                            <Card className={classes.evalCard}>
-                                <CardContent>
-                                    <Typography className={classes.title} variant="h4">
-                                        평가기록
-                                    </Typography>
-                                </CardContent>
-                                    {
-                                        evalCount < 1 ? 
-                                        (
-                                            <Grid item align="center">
-                                                <br/>
-                                                <Typography  className={classes.title} variant="h5"> 최근 번역 평가 기록이 없습니다.</Typography>
-                                            </Grid> 
-                                        )                                     
-                                        :
-                                        (
-                                            evaluated.map((element) => {
-                                                return(
-                                                    <Grid item align="center">
-                                                        <EvaluatedView element={element}/>
-                                                    </Grid>                            
-                                                )
+
+                        <div>
+                                <Typography className={classes.title} variant="h4">
+                                    평가기록
+                                </Typography>
+
+                                {
+                                    evalCount < 1 ? 
+                                    (
+                                        <Grid item align="center">
+                                            <br/>
+                                            <Typography  className={classes.title} variant="h5"> 최근 번역 평가 기록이 없습니다.</Typography>
+                                        </Grid> 
+                                    )                                     
+                                    :
+                                    (
+                                        <List className={classes.list} >
+                                            {
+                                                evaluated.map((element) => {
+                                                    return(
+                                                        <Grid item align="center">
+                                                            <EvaluatedView element={element}/>  
+                                                        </Grid>
+                                                                              
+                                                    )
+                                                })
                                             }
-                                        )
-                                        )
+                                        </List>
+                                        
+                                
+                                    )
+                                
+                                }
+                            
+                        </div>
+                            
                                     
-                                    }
                                     
-                            </Card>
+
 
                     </div>                  
                 </Grid>

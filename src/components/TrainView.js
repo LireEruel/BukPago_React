@@ -95,11 +95,11 @@ export default function TranslationView(props) {
     const hasCookie = props.hasCookie;
 
     const getTestCase = () => {
-        trainStore.getTestCase().then(result => {
-            setInputText(result.data.NK)
-            setOutputText(result.data.SK)
-        });
-    };
+            trainStore.getTestCase().then(result => {
+                setInputText(result.data.NK)
+                setOutputText(result.data.SK)
+            });
+        }
 
     useEffect(() => {
         getTestCase();
