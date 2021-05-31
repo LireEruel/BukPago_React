@@ -20,7 +20,7 @@ const useStyle = makeStyles((theme) => ({
     },
     contentGrid: {
         paddingLeft: '3%',
-        width: '40%',
+        width: '60%',
     },
     accountGrid: {
         width: '60%',
