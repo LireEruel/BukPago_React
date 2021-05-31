@@ -34,7 +34,7 @@ const useStyles = makeStyles({
         paddingTop: '2%',
         textAlign: 'center',
         fontWeight: 600,
-        paddingBottom: '1%',
+        paddingBottom: '2%',
     },
     table: {
         paddingTop: '1%',
@@ -115,7 +115,6 @@ const DictionaryView = observer((props) => {
                         onKeyPress={handleKeyDown}
                         onChange={onChange}
                     />
-                    <SearchIcon onClick={search} />
                 </div>
             </div>
             <br />
