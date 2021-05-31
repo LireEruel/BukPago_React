@@ -49,7 +49,7 @@ const useStyles = makeStyles({
     pass: {
         float: 'right',
         marginRight: '2%',
-        backgroundColor: '#228b22',
+        backgroundColor: '#74B374',
         fontWeight: '600'
     },
     cardGrid: {
@@ -71,10 +71,13 @@ const useStyles = makeStyles({
         marginTop: '10%',
     },
     likeBtn: {
-        backgroundColor: '#0090fb'
+        backgroundColor: '#7A9ECC'
     },
     dislikeBtn: {
-        backgroundColor: '#f50057'
+        backgroundColor: '#CC7083'
+    },
+    thumbsIcon: {
+        color: '#f6f6f6'
     }
 });
 
@@ -201,7 +204,7 @@ export default function TranslationView(props) {
                                                 onClick={transLike}
                                                 className={classes.likeBtn}
                                             >
-                                                <ThumbUpAltIcon />
+                                                <ThumbUpAltIcon className={classes.thumbsIcon} />
                                             </Button>
 
                                         </Grid>
@@ -214,7 +217,7 @@ export default function TranslationView(props) {
                                                 onClick={transDislike}
                                                 className={classes.dislikeBtn}
                                             >
-                                                <ThumbDownAltIcon />
+                                                <ThumbDownAltIcon className={classes.thumbsIcon} />
                                             </Button>
                                         </Grid>
                                     </Grid>

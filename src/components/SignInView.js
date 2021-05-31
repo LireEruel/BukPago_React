@@ -43,6 +43,7 @@ const SignInView = observer((props) => {
     const id = useRef('');
     const pw = useRef('');
     const setHasCookie = props.setHasCookie;
+    const setIsAdmin = props.setIsAdmin;
     let history = useHistory();
     const snackbar = useSnackbar();
 
@@ -55,7 +56,10 @@ const SignInView = observer((props) => {
             )
         }
         memberStore.login(id.current.value, pw.current.value).then((res) => {
-            if (res.status == 200) {
+            if (res.status === 200) {
+                if (res.data.isAdmin) {
+                    setIsAdmin(true);
+                }
                 setHasCookie(true);
                 history.push('/buk-pago');
                 snackbar.showMessage(
@@ -63,9 +67,9 @@ const SignInView = observer((props) => {
                 )
             } else {
                 snackbar.showMessage(
-                '아이디 또는 비밀 번호를 확인해 주세요.',
-                '확인'
-            )
+                    '아이디 또는 비밀 번호를 확인해 주세요.',
+                    '확인'
+                )
 
             }
         });

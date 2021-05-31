@@ -7,6 +7,7 @@ import { Link } from 'react-router-dom';
 import IconButton from '@material-ui/core/IconButton';
 import AccountCircle from '@material-ui/icons/AccountCircle';
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
+import SupervisedUserCircleIcon from '@material-ui/icons/SupervisedUserCircle';
 import clsx from 'clsx';
 
 const useStyle = makeStyles((theme) => ({
@@ -55,12 +56,17 @@ function HomeLayout(props) {
     const setHasCookie = props.setHasCookie;
     const removeCookie = props.removeCookie;
     const hasCookie = props.hasCookie;
+    const setIsAdmin = props.setIsAdmin;
+    const isAdmin = props.isAdmin;
 
-    const logout = () => {
+    const logout = (event) => {
+        event.preventDefault();
         setHasCookie(false)
+        setIsAdmin(false)
         removeCookie('loginAuth', { path: '/' })
-        
+        removeCookie('isAdmin', { path: '/' })
     }
+
     return (
         <div className={classes.root}>
             <AppBar className={classes.appBar}>
@@ -131,7 +137,7 @@ function HomeLayout(props) {
                         alignItems="center"
                     >
                         <div className={classes.accountIcon}>
-                            {hasCookie == false ? (
+                            {hasCookie === false ? (
                                 <div>
                                     <Link
                                         to={{
@@ -146,22 +152,36 @@ function HomeLayout(props) {
                                 </div>
                             ) : (
                                 <div>
-
                                     <IconButton onClick={logout} >
                                         <ExitToAppIcon fontSize="large" className={classes.iconBtn} />
                                     </IconButton>
-                                    <Link
-                                        to={{
-                                            pathname: '/buk-pago/myPage',
-                                        }}
-                                        style={{ textDecoration: 'none' }}
-                                    >
-                                        <IconButton
-                                            className={classes.accountIcon}
+                                    {isAdmin ? (
+                                        <Link
+                                            to={{
+                                                pathname: '/buk-pago/adminPage',
+                                            }}
+                                            style={{ textDecoration: 'none' }}
                                         >
-                                            <AccountCircle fontSize="large" className={classes.iconBtn} />
-                                        </IconButton>
-                                    </Link>
+                                            <IconButton
+                                                className={classes.accountIcon}
+                                            >
+                                                <SupervisedUserCircleIcon fontSize="large" className={classes.iconBtn} />
+                                            </IconButton>
+                                        </Link>
+                                    ) : (
+                                        <Link
+                                            to={{
+                                                pathname: '/buk-pago/myPage',
+                                            }}
+                                            style={{ textDecoration: 'none' }}
+                                        >
+                                            <IconButton
+                                                className={classes.accountIcon}
+                                            >
+                                                <AccountCircle fontSize="large" className={classes.iconBtn} />
+                                            </IconButton>
+                                        </Link>
+                                    )}
                                 </div>
                             )}
                         </div>
