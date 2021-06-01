@@ -23,7 +23,7 @@ const useStyles = makeStyles ( {
     card : {
         marginLeft:'15%',
         marginTop: '5%',
-        width : '70%',
+        width : '80%',
     },
     contentGrid:{
         marginLeft: '10%',
@@ -79,6 +79,7 @@ export default function EvaluatedView(props){
                             }
                             
                                 <Typography  className={classes.title}>{nk}</Typography>
+                                <br></br>
                                 <Typography>{sk}</Typography>  
                                     
                             </Grid>
