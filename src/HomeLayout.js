@@ -3,12 +3,13 @@ import { AppBar, Toolbar } from '@material-ui/core';
 import { makeStyles } from '@material-ui/styles';
 import Grid from '@material-ui/core/Grid';
 import Button from '@material-ui/core/Button';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import IconButton from '@material-ui/core/IconButton';
 import AccountCircle from '@material-ui/icons/AccountCircle';
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 import SupervisedUserCircleIcon from '@material-ui/icons/SupervisedUserCircle';
 import clsx from 'clsx';
+import { useSnackbar } from 'material-ui-snackbar-provider';
 
 const useStyle = makeStyles((theme) => ({
     root: {
@@ -58,6 +59,8 @@ function HomeLayout(props) {
     const hasCookie = props.hasCookie;
     const setIsAdmin = props.setIsAdmin;
     const isAdmin = props.isAdmin;
+    let history = useHistory();
+    const snackbar = useSnackbar();
 
     const logout = (event) => {
         event.preventDefault();
@@ -65,6 +68,8 @@ function HomeLayout(props) {
         setIsAdmin(false)
         removeCookie('loginAuth', { path: '/' })
         removeCookie('isAdmin', { path: '/' })
+        history.push('/buk-pago/signIn');
+        snackbar.showMessage('로그아웃 되었습니다.')
     }
 
     return (

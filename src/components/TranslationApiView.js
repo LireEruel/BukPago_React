@@ -85,7 +85,7 @@ export default observer(function TranslateApiView(props) {
     let history = useHistory();
     const hasCookie = props.hasCookie;
     const translationStore = React.useContext(TranslationStore.context);
-    
+
     const handleChange = (event) => {
         setPurpose(event.target.value);
     }
@@ -93,26 +93,31 @@ export default observer(function TranslateApiView(props) {
     const getApiKey = (event) => {
         event.preventDefault();
 
+
         if (!hasCookie) {
             snackbar.showMessage(
                 '번역 API 키 발급은 로그인이 필요합니다.',
                 '이동', () => history.push('/buk-pago/signIn')
             )
         } else {
-            translationStore.getApiKey(applicant.current.value, purpose).then((res) => {
-                if (res.status === 200) {
+            if (applicant === '' || purpose === '') {
+                snackbar.showMessage('신청 양식을 작성해주세요')
+            } else {
+                translationStore.getApiKey(applicant.current.value, purpose).then((res) => {
+                    if (res.status === 200) {
                         snackbar.showMessage(
                             '번역 API 키 발급 완료. 발급된 키는 마이페이지에서 확인',
                             '확인', () => history.push('/buk-pago/myPage')
                         )
-                }
-                else {
+                    }
+                    else {
                         snackbar.showMessage(
                             '번역 API 키 발급 반려됨.', '확인'
                         )
                     }
                 }
-            )
+                )
+            }
         }
     }
 
