@@ -23,6 +23,15 @@ const useEvaluationLogItemStyles = makeStyles({
         justifyContent: 'center',
         paddingLeft: '1%'
     },
+    textBox: {
+        display: 'flex',
+        flexDirection: 'row',
+        justifyContent: 'flex-start',
+        alignItems: 'center',
+    },
+    text: {
+        fontWeight: '600'
+    },
     nickname: {
         color: 'grey'
     }
@@ -51,12 +60,18 @@ export default observer(function EvaluationLogItem(props) {
             </div>
             <div className={classes.content}>
                 <div className={classes.textBox}>
-                    <Typography variant='h6' className={classes.nkText}>
+                    <Typography variant='body1' className={classes.text}>
+                        북한문장 &#187;
+                    </Typography>
+                    <Typography variant='body1' >
                         {nkText}
                     </Typography>
                 </div>
                 <div className={classes.textBox}>
-                    <Typography variant='h6' className={classes.skText}>
+                    <Typography variant='body1' className={classes.text}>
+                        남한문장 &#187;
+                    </Typography>
+                    <Typography variant='body1' >
                         {skText}
                     </Typography>
                 </div>

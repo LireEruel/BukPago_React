@@ -64,27 +64,29 @@ export default observer(function FileTranslationView(props) {
                 '파일번역 기능은 로그인이 필요합니다.',
                 '확인', () => history.push('/buk-pago/signIn')
             )
-        } else if (FileTranslationStore.fileCount === 0) {
-            snackbar.showMessage(
-                '번역할 파일이 존재 하지 않습니다'
-            )
         } else {
-            setIsLoading(true);
-            snackbar.showMessage(
-                '파일 번역 중입니다.'
-            )
-            FileTranslationStore.requestFileTranslate().then((res) => {
-                if (res === null) {
-                    snackbar.showMessage(
-                        '파일 번역 실패, 재시도 바랍니다.', '확인'
-                    )
-                } else {
-                    snackbar.showMessage(
-                        '파일 번역 완료', '확인'
-                    )
-                    setIsLoading(false);
-                }
-            })
+            if (FileTranslationStore.fileCount === 0) {
+                snackbar.showMessage(
+                    '번역할 파일이 존재 하지 않습니다'
+                )
+            } else {
+                setIsLoading(true);
+                snackbar.showMessage(
+                    '파일 번역 중입니다.'
+                )
+                FileTranslationStore.requestFileTranslate().then((res) => {
+                    if (res === null) {
+                        snackbar.showMessage(
+                            '파일 번역 실패, 재시도 바랍니다.', '확인'
+                        )
+                    } else {
+                        snackbar.showMessage(
+                            '파일 번역 완료', '확인'
+                        )
+                        setIsLoading(false);
+                    }
+                })
+            }
         }
     }
 
