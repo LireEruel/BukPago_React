@@ -53,7 +53,7 @@ const columns = [
 ];
 
 const DictionaryView = observer((props) => {
-    
+
     const classes = useStyles();
     const dictionaryStore = useContext(DictionaryStore.context);
     const [inputText, setInputText] = useState('');
@@ -62,7 +62,7 @@ const DictionaryView = observer((props) => {
     const render = () => {
         console.log("랜더링")
         setInputText('');
-        setCode(1)
+        setCode(code)
     }
     const onChange = (e) => {
         const str = e.target.value;
@@ -74,11 +74,11 @@ const DictionaryView = observer((props) => {
     };
 
     const search = () => {
-        dictionaryStore.searchDic(code, inputText).then((res)=>{
+        dictionaryStore.searchDic(code, inputText).then((res) => {
             console.log(dictionaryStore.dictionarys);
             render();
         })
-       
+
     };
     const handleKeyDown = (event) => {
         if (event.key === 'Enter') {
@@ -87,11 +87,11 @@ const DictionaryView = observer((props) => {
     };
 
     useEffect(() => {
-        dictionaryStore.getDictionary().then((res)=>{
+        dictionaryStore.getDictionary().then((res) => {
             history.push('/buk-pago/dictionary');
         })
-        
-    },[]);
+
+    }, []);
 
     return (
         <div className={classes.root}>
