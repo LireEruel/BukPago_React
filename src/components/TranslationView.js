@@ -282,15 +282,6 @@ export default function TranslationView(props) {
                             >
                                 번역하기
                             </Button>
-                            {inputTextLength == 0 ? null : (
-                                <IconButton
-                                    className={classes.clearButton}
-                                    variant="contained"
-                                    onClick={textClear}
-                                >
-                                    <ClearIcon></ClearIcon>
-                                </IconButton>
-                            )}
                         </Box>
                     </Paper>
 
