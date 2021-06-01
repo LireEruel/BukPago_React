@@ -73,6 +73,9 @@ const useStyles = makeStyles({
     upDownBtn: {
         float: 'left',
     },
+    grid : {
+        marginTop : '3%'
+    }
 });
 
 export default function TranslationView(props) {

@@ -73,6 +73,11 @@ const useStyles = makeStyles({
         maxHeight : '30%',
         overflow: 'auto',
     },
+    ki : {
+        fontWeight: 600,
+        marginTop : '5%',
+        marginLeft : '45%'
+    }
 
 })
 
@@ -130,7 +135,7 @@ export default function TranslationView(props) {
                     <div className={classes.right}>
 
                         <div>
-                                <Typography className={classes.title} variant="h4">
+                                <Typography className={classes.ki} variant="h4">
                                     평가기록
                                 </Typography>
 

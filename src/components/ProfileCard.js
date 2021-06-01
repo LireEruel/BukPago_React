@@ -30,7 +30,7 @@ const useStyles = makeStyles ( {
     card : {
         marginLeft:'15%',
         marginTop: '5%',
-        width : '70%',
+        width : '90%',
     },
     contentGrid:{
         marginLeft: '10%',
