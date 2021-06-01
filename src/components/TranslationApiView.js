@@ -40,7 +40,7 @@ const useGetApiKeyStyles = makeStyles((theme) => ({
     },
     apiExampleBox: {
         paddingTop: '3%',
-        width: '600px',
+        width: '440px',
         height: '100%',
     },
     apiExampleContent: {
