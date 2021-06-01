@@ -64,8 +64,7 @@ export default observer(function FileTranslationView(props) {
                 '파일번역 기능은 로그인이 필요합니다.',
                 '확인', () => history.push('/buk-pago/signIn')
             )
-        }
-        if (FileTranslationStore.fileCount === 0) {
+        } else if (FileTranslationStore.fileCount === 0) {
             snackbar.showMessage(
                 '번역할 파일이 존재 하지 않습니다'
             )
