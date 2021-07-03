@@ -18,5 +18,12 @@ Ctrl + J 를 눌러 터미널을 열어주세요.
 
 # 실행
 
-여기까지 왔다면 front가 보이지만 많이 어색해보입니다. 서버가 없기 때문이에요!
+여기까지 왔다면 front가 보이지만 많이 어색해보입니다. 
+서버가 없기 때문이에요!
 서버도 함께 구동해주세요. 
+
+# 서버
+https://github.com/Blackstarez/bukpago_server
+서버는 로컬호스트 12050 으로 열어주세요.
+python manage.py runserver 12050 입니다.
+자세한 것은 서버 깃헙을 봐주세요!
