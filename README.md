@@ -3,6 +3,13 @@
 북파고는 남북한을 이어주기 위한 프로젝트입니다!
 핵심기능인 번역기능은 맞춤법 검사와 기계번역을 지원합니다.
 
+# 실행 이미지
+
+![bukPagoMain](https://user-images.githubusercontent.com/47496422/124358652-36d59100-dc5c-11eb-98b4-2b3193f68de4.png)
+<img width="794" alt="bukPagoTrain" src="https://user-images.githubusercontent.com/47496422/124358662-3fc66280-dc5c-11eb-9a52-9b979828f28f.png">
+![bukPagoFile](https://user-images.githubusercontent.com/47496422/124358663-41902600-dc5c-11eb-9a9b-8b65648de2af.png)
+
+
 # 사전 준비
 
 React를 설치해야합니다. 
