@@ -78,7 +78,7 @@ const DictionaryView = observer((props) => {
 
     const search = () => {
         dictionaryStore.searchDic(code, inputText).then((res) => {
-            console.log(dictionaryStore.dictionarys); f
+            console.log(dictionaryStore.dictionarys);
             render();
         })
 
