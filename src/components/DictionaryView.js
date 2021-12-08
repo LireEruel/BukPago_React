@@ -58,12 +58,15 @@ const DictionaryView = observer((props) => {
     const dictionaryStore = useContext(DictionaryStore.context);
     const [inputText, setInputText] = useState('');
     const [code, setCode] = useState(1);
+    const [onLoad, setOnLoad] = useState(1);
     let history = useHistory();
+
     const render = () => {
         console.log("랜더링")
         setInputText('');
         setCode(code)
     }
+
     const onChange = (e) => {
         const str = e.target.value;
         setInputText(str);
@@ -75,9 +78,10 @@ const DictionaryView = observer((props) => {
 
     const search = () => {
         dictionaryStore.searchDic(code, inputText).then((res) => {
-            console.log(dictionaryStore.dictionarys);
+            console.log(dictionaryStore.dictionarys); f
             render();
         })
+
 
     };
     const handleKeyDown = (event) => {
@@ -87,11 +91,11 @@ const DictionaryView = observer((props) => {
     };
 
     useEffect(() => {
-        dictionaryStore.getDictionary().then((res) => {
-            history.push('/buk-pago/dictionary');
+        dictionaryStore.getDictionary().then(() => {
+            setOnLoad(0);
         })
-
     }, []);
+
 
     return (
         <div className={classes.root}>
